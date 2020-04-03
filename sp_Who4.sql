@@ -69,7 +69,7 @@ FROM (
 		SELECT -2, 'The blocking resource is owned by an orphaned distributed transaction.' UNION ALL
 		SELECT -3, 'The blocking resource is owned by a deferred recovery transaction.' UNION ALL
 		SELECT -4, 'Session ID of the blocking latch owner could not be determined due to internal latch state transitions.'
-	) AS blk_se(spid, [desc]) -- Abnormal session_id. See https://docs.microsoft.com/en-us/sql/relational-databases/system-compatibility-views/sys-sysprocesses-transact-sql?view=sql-server-2017
+	) AS blk_se(spid, [desc]) -- Abnormal session_id. See https://docs.microsoft.com/en-us/sql/relational-databases/system-compatibility-views/sys-sysprocesses-transact-sql?view=sql-server-200019
 	WHERE	EXISTS(SELECT * FROM sys.sysprocesses blk_sei WHERE	blk_sei.blocked = blk_se.spid)
 	AND		NOT EXISTS(SELECT * FROM sys.sysprocesses blk_sei WHERE	blk_sei.spid = blk_se.spid)
 	UNION ALL
