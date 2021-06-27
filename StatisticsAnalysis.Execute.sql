@@ -370,4 +370,4 @@ EXEC StatisticsAnalysis @sttcs, @plan
 
 SELECT	* 
 FROM	##sttcslgc
-ORDER BY Num
+ORDER BY Num   
