@@ -166,6 +166,7 @@ BEGIN
 	
 	SELECT @SqlStatement = SUBSTRING(@SqlStatement, 6, 8000000)
 
+	--Search name of obcts 
 	IF NULLIF(@SqlStatement, '') IS NOT NULL
 	BEGIN
 		SELECT	@SqlStatement = '
