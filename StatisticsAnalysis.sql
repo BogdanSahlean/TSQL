@@ -123,7 +123,7 @@ BEGIN
 		INTO	#plan
 		FROM	@plan.nodes('*:ShowPlanXML/*:BatchSequence/*:Batch/*:Statements/*:StmtSimple') sql([SqlStatementSl])
 
-		SELECT	Num = sttcs.rn, QueryTxt = ISNULL(pl.QueryTxt, sttcs.que), Txt = sttcs.txt, lgc.*
+		SELECT	Num = sttcs.rn, QueryTxt = ISNULL(pl.QueryTxt, sttcs.que), Txt = sttcs.txt, lgc.*, sttcs.QueryStatementId
 		INTO	##sttcslgc 
 		FROM	#sttcs sttcs
 		LEFT JOIN #plan pl ON sttcs.QueryStatementId = pl.QueryStatementId
