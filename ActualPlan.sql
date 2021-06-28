@@ -4,7 +4,7 @@ SET NUMERIC_ROUNDABORT OFF
 
 GO
 
-
+   
 CREATE PROCEDURE ActualPlan
 @plan XML
 AS
