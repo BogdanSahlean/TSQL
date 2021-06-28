@@ -3,7 +3,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 IF OBJECT_ID('sp_who4') IS NOT NULL   
 BEGIN
-	DROP PROC sp_who4 
+	DROP PROC sp_who4   
 END
 GO
 CREATE PROC sp_who4
@@ -19,7 +19,7 @@ BEGIN
 		DROP TABLE #res;   
 	END;
 
-	WITH XMLNAMESPACES(DEFAULT 'http://schemas.microsoft.com/sqlserver/2004/07/showplan'),
+	WITH XMLNAMESPACES(DEFAULT 'http://schemas.microsoft.com/sqlserver/2004/07/showplan'),   
 	BlkSessions
 	AS (
 		SELECT	blk_sei.spid AS session_id, NULLIF(blk_sei.blocked, 0) AS blocked_by, NULL AS group_num
