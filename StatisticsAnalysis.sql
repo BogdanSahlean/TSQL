@@ -3,7 +3,7 @@ SET ANSI_NULLS ON
 GO
 CREATE OR ALTER PROCEDURE StatisticsAnalysis
 @statistics NVARCHAR(MAX), 
-@plan XML
+@plan XML  
 AS
 BEGIN
 	DECLARE @TIME BIT = 0
