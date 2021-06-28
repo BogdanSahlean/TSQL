@@ -12,7 +12,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
         <StmtSimple StatementCompId="4" StatementEstRows="1" StatementId="1" StatementOptmLevel="FULL" CardinalityEstimationModelVersion="150" StatementSubTreeCost="31.7731" StatementText="SELECT	COUNT(*) Count1&#xD;&#xA;FROM	FactOnlineSalesPartitioning fcto&#xD;&#xA;WHERE	fcto.DateKey &gt;= @parm1 &#xD;&#xA;AND		fcto.DateKey &lt;= @parm2" StatementType="SELECT" QueryHash="0x219AEFEE9C81A99E" QueryPlanHash="0x6088CE1DC76D5BE4" RetrievedFromCache="true" SecurityPolicyApplied="false" BatchModeOnRowStoreUsed="true">
           <StatementSetOptions ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" NUMERIC_ROUNDABORT="false" QUOTED_IDENTIFIER="true" />
           <QueryPlan DegreeOfParallelism="8" MemoryGrant="24776" CachedPlanSize="152" CompileTime="207" CompileCPU="163" CompileMemory="3600">
-            <ThreadStat Branches="1" UsedThreads="8">
+            <ThreadStat Branches="1" UsedThreads="8">   
               <ThreadReservation NodeId="0" ReservedThreads="9" />
             </ThreadStat>
             <MemoryGrantInfo SerialRequiredMemory="3072" SerialDesiredMemory="3104" RequiredMemory="24712" DesiredMemory="24776" RequestedMemory="24776" GrantWaitTime="0" GrantedMemory="24776" MaxUsedMemory="3000" MaxQueryMemory="1066040" LastRequestedMemory="0" IsMemoryGrantFeedbackAdjusted="No: First Execution" />
