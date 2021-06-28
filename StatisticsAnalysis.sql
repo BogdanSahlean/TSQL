@@ -30,7 +30,7 @@ BEGIN
 				WHEN txt LIKE 'Table ''%''. Scan count %' THEN 4
 				WHEN NULLIF(txt, '') IS NULL THEN 5
 			END
-		FROM (
+		FROM (   
 			SELECT	rn = ROW_NUMBER() OVER(ORDER BY i.Nod), que = i.Nod.query('.'), txt = LTRIM(RTRIM(i.Nod.value('.', 'NVARCHAR(MAX)')))
 			FROM	@xms.nodes('i') i(Nod)
 		) s
