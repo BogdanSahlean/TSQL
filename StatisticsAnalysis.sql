@@ -46,7 +46,7 @@ BEGIN
 
 	IF OBJECT_ID('tempdb..#rd') IS NOT NULL
 	BEGIN
-		DROP TABLE #rd
+		DROP TABLE #rd   
 	END
 
 	SELECT	s.rn, s.txt, ta.*
