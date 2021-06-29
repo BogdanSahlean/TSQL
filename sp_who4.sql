@@ -23,14 +23,14 @@ BEGIN
 	BlkSessions   
 	AS (
 		SELECT	blk_sei.spid AS session_id, NULLIF(blk_sei.blocked, 0) AS blocked_by, NULL AS group_num
-		FROM	sys.sysprocesses blk_sei
+		FROM	sys.sysprocesses blk_sei  
 		WHERE	blk_sei.blocked <> 0    
 		UNION ALL   
 		SELECT	blk_blk.session_id, NULL AS blocked_by, ROW_NUMBER() OVER(ORDER BY blk_blk.session_id)  AS group_num
-		FROM (   
+		FROM (      
 			SELECT	blk_sei.spid AS session_id
 			FROM	sys.sysprocesses blk_sei
-			WHERE	EXISTS(SELECT * FROM sys.dm_os_waiting_tasks dmowt WHERE dmowt.blocking_session_id = blk_sei.spid) -- blk_sei.blocked = 0                                       
+			WHERE	EXISTS(SELECT * FROM sys.dm_os_waiting_tasks dmowt WHERE dmowt.blocking_session_id = blk_sei.spid) -- blk_sei.blocked = 0                                          
 			AND		NOT EXISTS(SELECT * FROM sys.dm_os_waiting_tasks dmowt WHERE dmowt.session_id = blk_sei.spid) -- blk_sei.blocked = 0
 			UNION ALL
 			SELECT	blk_se.spid AS session_id
