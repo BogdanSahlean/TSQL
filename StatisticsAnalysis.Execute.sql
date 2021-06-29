@@ -310,7 +310,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                       </RunTimeInformation>
                       <Parallelism>
                         <RelOp AvgRowSize="15" EstimateCPU="1.89414" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="4" LogicalOp="Aggregate" NodeId="4" Parallel="true" PhysicalOp="Stream Aggregate" EstimatedTotalSubtreeCost="26.2047">
-                          <OutputList>
+                          <OutputList>   
                             <ColumnReference Column="partialagg1003" />
                           </OutputList>
                           <RunTimeInformation>
