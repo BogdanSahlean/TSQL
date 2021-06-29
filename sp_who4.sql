@@ -154,7 +154,7 @@ BEGIN
 		END,
 		associatedObjectId = CASE 
 			WHEN blk.wait_description LIKE '%[ ]associatedObjectId=[0-9]%'
-			THEN SUBSTRING(blk.wait_description, PATINDEX('%[ ]associatedObjectId=[0-9]%', blk.wait_description)+19+1, 4000) 
+			THEN SUBSTRING(blk.wait_description, PATINDEX('%[ ]associatedObjectId=[0-9]%', blk.wait_description)+19+1, 4000)    
 		END
 	FROM #res blk
 	WHERE blk.wait_description IS NOT NULL
