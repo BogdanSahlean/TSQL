@@ -129,7 +129,7 @@ BEGIN
 		LEFT JOIN #plan pl ON sttcs.QueryStatementId = pl.QueryStatementId
 		LEFT JOIN ##LogicalRd lgc ON sttcs.rn = lgc.rn
 		WHERE	sttcs.rt <> 5
-		ORDER BY sttcs.rn
+		ORDER BY sttcs.rn   
 	END
 	ELSE
 	BEGIN
