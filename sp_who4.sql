@@ -227,10 +227,10 @@ BEGIN
 				(SELECT	', ' + cols.Nod.value('(@Name)[1]', 'NVARCHAR(MAX)')
 				FROM	mix.Nod.nodes('*:ColumnGroup[@*:Usage = ("INCLUDE")]/*:Column') cols(Nod)
 				ORDER BY cols.Nod.value('(@ColumnId)[1]', 'INT')
-				FOR XML PATH(N''), TYPE).value('.', 'NVARCHAR(MAX)'), 1, 2, '')
+				FOR XML PATH(N''), TYPE).value('.', 'NVARCHAR(MAX)'), 1, 2, '')   
 			) idx_cols_include(Cols)
 			FOR XML RAW('indexes'), TYPE, ELEMENTS)
-		) cols([indexes])
+		) cols([indexes])   
 	END
 
 	SELECT	s.group_num, s.blocking_connections, s.connection_db, s.obct, s.sql_statement, s.[status], s.transaction_count, s.wait_type, s.wait_obct, s.wait_duration, s.cpu, s.reads, s.writes, s.[indexes], s.query_plan, s.program_name, s.hst_name, s.[name], s.hid
