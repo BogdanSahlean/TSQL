@@ -10,7 +10,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
     <Batch>
       <Statements>
         <StmtSimple StatementCompId="4" StatementEstRows="1" StatementId="1" StatementOptmLevel="FULL" CardinalityEstimationModelVersion="150" StatementSubTreeCost="31.7731" StatementText="SELECT	COUNT(*) Count1&#xD;&#xA;FROM	FactOnlineSalesPartitioning fcto&#xD;&#xA;WHERE	fcto.DateKey &gt;= @parm1 &#xD;&#xA;AND		fcto.DateKey &lt;= @parm2" StatementType="SELECT" QueryHash="0x219AEFEE9C81A99E" QueryPlanHash="0x6088CE1DC76D5BE4" RetrievedFromCache="true" SecurityPolicyApplied="false" BatchModeOnRowStoreUsed="true">
-          <StatementSetOptions ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" NUMERIC_ROUNDABORT="false" QUOTED_IDENTIFIER="true" />   
+          <StatementSetOptions ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" NUMERIC_ROUNDABORT="false" QUOTED_IDENTIFIER="true" />      
           <QueryPlan DegreeOfParallelism="8" MemoryGrant="24776" CachedPlanSize="152" CompileTime="207" CompileCPU="163" CompileMemory="3600">
             <ThreadStat Branches="1" UsedThreads="8">   
               <ThreadReservation NodeId="0" ReservedThreads="9" />   
@@ -30,7 +30,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
               <Wait WaitType="RESERVED_MEMORY_ALLOCATION_EXT" WaitTimeMs="2" WaitCount="182" />   
             </WaitStats>
             <QueryTimeStats CpuTime="11398" ElapsedTime="29138" />
-            <RelOp AvgRowSize="11" EstimateCPU="0.0285019" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Gather Streams" NodeId="0" Parallel="true" PhysicalOp="Parallelism" EstimatedTotalSubtreeCost="31.4377">
+            <RelOp AvgRowSize="11" EstimateCPU="0.0285019" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Gather Streams" NodeId="0" Parallel="true" PhysicalOp="Parallelism" EstimatedTotalSubtreeCost="31.4377">   
               <OutputList>
                 <ColumnReference Column="Expr1002" />
               </OutputList>
