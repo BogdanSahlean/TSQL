@@ -340,7 +340,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                                 <RunTimeCountersPerThread Thread="7" ActualRows="1406762" ActualRowsRead="1406762" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="6309" ActualCPUms="375" ActualScans="1" ActualLogicalReads="3171" ActualPhysicalReads="0" ActualReadAheads="3142" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />
                                 <RunTimeCountersPerThread Thread="6" ActualRows="1402703" ActualRowsRead="1402703" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="6235" ActualCPUms="371" ActualScans="1" ActualLogicalReads="3162" ActualPhysicalReads="0" ActualReadAheads="3140" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />
                                 <RunTimeCountersPerThread Thread="5" ActualRows="1741582" ActualRowsRead="1741582" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="6309" ActualCPUms="475" ActualScans="1" ActualLogicalReads="3924" ActualPhysicalReads="0" ActualReadAheads="3875" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />
-                                <RunTimeCountersPerThread Thread="4" ActualRows="1939655" ActualRowsRead="1939655" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="6315" ActualCPUms="545" ActualScans="1" ActualLogicalReads="4368" ActualPhysicalReads="0" ActualReadAheads="4326" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />
+                                <RunTimeCountersPerThread Thread="4" ActualRows="1939655" ActualRowsRead="1939655" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="6315" ActualCPUms="545" ActualScans="1" ActualLogicalReads="4368" ActualPhysicalReads="0" ActualReadAheads="4326" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />   
                                 <RunTimeCountersPerThread Thread="3" ActualRows="1228123" ActualRowsRead="1228123" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="6260" ActualCPUms="325" ActualScans="1" ActualLogicalReads="2768" ActualPhysicalReads="0" ActualReadAheads="2734" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />
                                 <RunTimeCountersPerThread Thread="2" ActualRows="1901515" ActualRowsRead="1901515" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="6203" ActualCPUms="543" ActualScans="1" ActualLogicalReads="4282" ActualPhysicalReads="0" ActualReadAheads="4232" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />
                                 <RunTimeCountersPerThread Thread="1" ActualRows="1382920" ActualRowsRead="1382920" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="6261" ActualCPUms="386" ActualScans="1" ActualLogicalReads="3116" ActualPhysicalReads="0" ActualReadAheads="3072" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />
@@ -357,13 +357,13 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                     </RelOp>
                   </StreamAggregate>
                 </RelOp>
-              </ComputeScalar>
-            </RelOp>
+              </ComputeScalar>   
+            </RelOp>   
           </QueryPlan>
         </StmtSimple>
       </Statements>
     </Batch>
-  </BatchSequence>
+  </BatchSequence>   
 </ShowPlanXML>'
 
 EXEC StatisticsAnalysis @sttcs, @plan 
