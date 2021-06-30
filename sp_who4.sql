@@ -90,7 +90,7 @@ BEGIN
 		OUTER APPLY sys.dm_exec_sql_text(blk_sei.sql_handle) AS blk_txt
 		JOIN	sys.dm_exec_sessions blk_co ON blk_co.session_id = blk_sei.spid
 		LEFT JOIN sys.dm_os_waiting_tasks blk_wt ON blk_wt.session_id = blk_co.session_id AND /*CXCONSUMER,CXPACKET*/blk_co.session_id <> blk_wt.blocking_session_id 
-		WHERE	blk_sei.spid <> @@SPID -- By default, current session will be excluded
+		WHERE	blk_sei.spid <> @@SPID -- By default, current session will be excluded   
 		AND		blk_sei.ecid = 0
 		AND		EXISTS(
 			SELECT	*
