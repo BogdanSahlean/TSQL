@@ -1885,7 +1885,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                                       </EndRange>
                                     </SeekKeys>
                                   </SeekPredicateNew>
-                                </SeekPredicates>
+                                </SeekPredicates>   
                               </IndexScan>
                             </RelOp>
                           </NestedLoops>
