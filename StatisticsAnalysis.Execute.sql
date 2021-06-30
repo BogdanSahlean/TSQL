@@ -108,7 +108,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                           </RunTimeInformation>
                           <StreamAggregate>
                             <DefinedValues>
-                              <DefinedValue>
+                              <DefinedValue>   
                                 <ColumnReference Column="partialagg1004" />
                                 <ScalarOperator ScalarString="COUNT([Contoso].[dbo].[DimDate].[NorthAmericaSeason] as [ddd].[NorthAmericaSeason])">
                                   <Aggregate AggType="COUNT_BIG" Distinct="false">
