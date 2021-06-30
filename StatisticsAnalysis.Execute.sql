@@ -10,7 +10,7 @@ Table ''FactOnlineSales''. Scan count 2555, logical reads 36240, physical reads 
 Table ''DimDate''. Scan count 9, logical reads 334, physical reads 0, page server reads 0, read-ahead reads 0, page server read-ahead reads 0, lob logical reads 0, lob physical reads 0, lob page server reads 0, lob read-ahead reads 0, lob page server read-ahead reads 0.
 Table ''Worktable''. Scan count 0, logical reads 0, physical reads 0, page server reads 0, read-ahead reads 0, page server read-ahead reads 0, lob logical reads 0, lob physical reads 0, lob page server reads 0, lob read-ahead reads 0, lob page server read-ahead reads 0.
    
- SQL Server Execution Times:   
+ SQL Server Execution Times:      
    CPU time = 10557 mcs,  elapsed time = 1733 ms.
 
 (1 row affected)
@@ -20,7 +20,7 @@ Table ''FactOnlineSales''. Scan count 9, logical reads 28523, physical reads 0, 
    CPU time = 4634 ms,  elapsed time = 691 s.'      
                            
 DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
-<ShowPlanXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.539" Build="15.0.2000.5" xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan">
+<ShowPlanXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.539" Build="15.0.2000.5" xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan">   
   <BatchSequence>      
     <Batch>   
       <Statements>      
