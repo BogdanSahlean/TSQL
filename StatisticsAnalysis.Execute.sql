@@ -227,10 +227,10 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                                   </IndexScan>
                                 </RelOp>
                               </NestedLoops>
-                            </RelOp>
+                            </RelOp>   
                           </StreamAggregate>
                         </RelOp>
-                      </Parallelism>
+                      </Parallelism>   
                     </RelOp>
                   </StreamAggregate>
                 </RelOp>
