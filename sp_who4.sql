@@ -30,7 +30,7 @@ BEGIN
 		FROM (                           
 			SELECT	blk_sei.spid AS    session_id
 			FROM	sys.sysprocesses blk_sei
-			WHERE	EXISTS(SELECT * FROM sys.dm_os_waiting_tasks dmowt WHERE dmowt.blocking_session_id = blk_sei.spid) -- blk_sei.blocked = 0                                                                              
+			WHERE	EXISTS(SELECT * FROM sys.dm_os_waiting_tasks dmowt WHERE dmowt.blocking_session_id = blk_sei.spid) -- blk_sei.blocked = 0                                                                                 
 			AND		NOT EXISTS(SELECT * FROM sys.dm_os_waiting_tasks dmowt WHERE dmowt.session_id = blk_sei.spid) -- blk_sei.blocked = 0
 			UNION ALL
 			SELECT	blk_se.spid AS session_id
