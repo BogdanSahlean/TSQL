@@ -47,12 +47,12 @@ BEGIN
 	AS (
 		SELECT	blk_ses.group_num, CONVERT(HIERARCHYID, '/' + LTRIM(blk_ses.session_id) + '/') AS hid, blk_ses.session_id, blk_ses.blocked_by
 		FROM	BlkSessions blk_ses   
-		WHERE	blk_ses.blocked_by IS NULL               
+		WHERE	blk_ses.blocked_by IS NULL                  
 		UNION ALL
 		SELECT	blk_hd.group_num, CONVERT(HIERARCHYID, blk_hd.hid.ToString() + LTRIM(blk_ses.session_id) + '/') AS hid, blk_ses.session_id, blk_ses.blocked_by
 		FROM	BlkSessionsRecursion blk_hd 
 		JOIN	BlkSessions blk_ses ON blk_ses.blocked_by = blk_hd.session_id
-	), BlkHierarchy
+	), BlkHierarchy   
 	AS (
 		SELECT	blk_hid.group_num, blk_hid.hid, blk_hid.hid.ToString() AS blocking_connections, blk_hid.session_id
 		FROM	BlkSessionsRecursion blk_hid
