@@ -215,7 +215,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                                                 </Intrinsic>
                                               </ScalarOperator>
                                               <ScalarOperator ScalarString="[Contoso].[dbo].[DimDate].[Datekey] as [ddd].[Datekey]">
-                                                <Identifier>
+                                                <Identifier>    
                                                   <ColumnReference Database="[Contoso]" Schema="[dbo]" Table="[DimDate]" Alias="[ddd]" Column="Datekey" />
                                                 </Identifier>
                                               </ScalarOperator>
