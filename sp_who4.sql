@@ -232,7 +232,7 @@ BEGIN
 			FOR XML RAW('indexes'), TYPE, ELEMENTS)
 		) cols([indexes])   
 	END
-
+   
 	SELECT	s.group_num, s.blocking_connections, s.connection_db, s.obct, s.sql_statement, s.[status], s.transaction_count, s.wait_type, s.wait_obct, s.wait_duration, s.cpu, s.reads, s.writes, s.[indexes], s.query_plan, s.program_name, s.hst_name, s.[name], s.hid
 	FROM	#res s
 	ORDER BY is_blocked DESC, group_num, hid
