@@ -37,7 +37,7 @@ BEGIN
 			FROM	(
 				-- I'm not sure if bellow session_id s are returned by sys.sysprocesses.spid or not. If not then this query will return these values to allow the generation of hierarchyid values   
 				SELECT -2 UNION ALL   
-				SELECT -3 UNION ALL
+				SELECT -3 UNION ALL  
 				SELECT -4
 			) AS blk_se(spid) -- Abnormal session_id. See https://docs.microsoft.com/en-us/sql/relational-databases/system-compatibility-views/sys-sysprocesses-transact-sql
 			WHERE	EXISTS(SELECT * FROM sys.sysprocesses blk_sei WHERE	blk_sei.blocked = blk_se.spid)               
