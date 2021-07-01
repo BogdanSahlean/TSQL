@@ -15,7 +15,7 @@ BEGIN
 	SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED       
    
 	IF OBJECT_ID('tempdb..#res') IS NOT NULL 
-	BEGIN    
+	BEGIN       
 		DROP TABLE #res;         
 	END;      
                                                                                                                                                                                                               
