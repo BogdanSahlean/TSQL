@@ -132,7 +132,7 @@ BEGIN
 	CREATE TABLE #obct_locks (
 		id INT IDENTITY PRIMARY KEY,
 		hid HIERARCHYID NOT NULL,
-		wait_description NVARCHAR(550) NOT NULL,
+		wait_description NVARCHAR(550) NOT NULL,   
 		dbid INT NOT NULL,
 		associatedObjectId BIGINT NOT NULL,
 		wait_obct NVARCHAR(550) NULL
