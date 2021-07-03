@@ -160,7 +160,7 @@ BEGIN
 	WHERE blk.wait_description IS NOT NULL
 	OPTION(KEEPFIXED PLAN, MAXDOP 1)
 
-	DECLARE @SqlStatement NVARCHAR(MAX) = ''
+	DECLARE @SqlStatement NVARCHAR(MAX) = ''   
 	SELECT	@SqlStatement = @SqlStatement  + 'UNION SELECT hid = ' + CONVERT(VARCHAR(200), CONVERT(VARBINARY(8000), CONVERT(HIERARCHYID, cto.hid)), 1) + ', obct_name = (SELECT QUOTENAME(DB_NAME(' + LTRIM(cto.dbid) + ')) + ''.'' + QUOTENAME(OBJECT_SCHEMA_NAME(pos.object_id)) + ''.'' + QUOTENAME(OBJECT_NAME(pos.object_id)) FROM ' + QUOTENAME(DB_NAME(cto.dbid)) + '.sys.partitions pos WHERE pos.partition_id = ' + LTRIM(cto.associatedObjectId) + ')'
 	FROM	#obct_locks cto
 	
