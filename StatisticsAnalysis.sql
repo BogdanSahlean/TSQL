@@ -18,7 +18,7 @@ BEGIN
 		DROP TABLE #sttcs   
 	END
 
-	SELECT	*, QueryStatementId = SUM(CASE WHEN rt=3 THEN 1 ELSE 0 END) OVER(ORDER BY s.rn) 
+	SELECT	*, QueryStatementId = SUM(CASE WHEN rt=3 THEN 1 ELSE 0 END) OVER(ORDER BY s.rn)    
 	INTO #sttcs
 	FROM (
 		SELECT	*, 
