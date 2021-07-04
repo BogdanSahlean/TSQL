@@ -18,7 +18,7 @@ Table ''FactOnlineSales''. Scan count 9, logical reads 28523, physical reads 0, 
       
  SQL Server Execution Times:   
    CPU time = 4634 ms,  elapsed time = 691 s.'         
-             
+                
 DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>   
 <ShowPlanXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.539" Build="15.0.2000.5" xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan">   
   <BatchSequence>            
@@ -47,7 +47,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                 <ColumnReference Column="Expr1002" />
               </OutputList>
               <ComputeScalar>   
-                <DefinedValues>                    
+                <DefinedValues>                       
                   <DefinedValue>      
                     <ColumnReference Column="Expr1002" />
                     <ScalarOperator ScalarString="CONVERT_IMPLICIT(int,[globalagg1005],0)">
