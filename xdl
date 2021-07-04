@@ -82,7 +82,7 @@ SELECT @Cols = STUFF((
 ).value('.', 'NVARCHAR(MAX)'), 1, 2, '')
 
 SELECT @SqlStatement = N'
-SELECT	*
+SELECT	*   
 FROM	(
 	SELECT	spid, [name], [value]
 	FROM	#cox cox
