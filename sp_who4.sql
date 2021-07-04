@@ -1,6 +1,7 @@
-   SET ANSI_NULLS ON
+SET ANSI_NULLS ON
 SET QUOTED_IDENTIFIER ON
-GO      
+GO 
+
 IF OBJECT_ID('sp_who4') IS NOT NULL   
 BEGIN
 	DROP PROC sp_who4      
@@ -17,7 +18,7 @@ BEGIN
 	IF OBJECT_ID('tempdb..#res') IS NOT NULL 
 	BEGIN       
 		DROP TABLE #res;         
-	END;         
+	END;            
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
 	WITH XMLNAMESPACES(DEFAULT 'http://schemas.microsoft.com/sqlserver/2004/07/showplan'),         
 	BlkSessions   
@@ -46,7 +47,7 @@ BEGIN
 	), BlkSessionsRecursion                                                                                                                                                                                              
 	AS (
 		SELECT	blk_ses.group_num, CONVERT(HIERARCHYID, '/' + LTRIM(blk_ses.session_id) + '/') AS hid, blk_ses.session_id, blk_ses.blocked_by
-		FROM	BlkSessions blk_ses   
+		FROM	BlkSessions blk_ses      
 		WHERE	blk_ses.blocked_by IS NULL                                                                                                                                                                                                                                                                                   
 		UNION ALL
 		SELECT	blk_hd.group_num, CONVERT(HIERARCHYID, blk_hd.hid.ToString() + LTRIM(blk_ses.session_id) + '/') AS hid, blk_ses.session_id, blk_ses.blocked_by
