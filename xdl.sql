@@ -22,7 +22,7 @@ unknown     </frame>
     <inputbuf>
 (@param0 int,@param1 int)select FIW_RecoveredFromFIW.RecoveryDate, FIW_RecoveredFromFIW.Amount, FIW_RecoveredFromFIW.Comments, FIW_RecoveredFromFIW.AmountId, FIW_RecoveredFromFIW.SiteId, FIW_RecoveredFromFIW.ContractId from FIW_RecoveredFromFIW where FIW_RecoveredFromFIW.SiteId = @param0 AND FIW_RecoveredFromFIW.ContractId = @param1    </inputbuf>
    </process>
-  </process-list>
+  </process-list>   
   <resource-list>   
    <keylock hobtid="72057941411692544" dbid="9" objectname="CharismaERP.dbo.ScheduleTypeDetail" indexname="PK_ScheduleTypeDetail" id="lock31e6f8d00" mode="X" associatedObjectId="72057941411692544">
     <owner-list>
