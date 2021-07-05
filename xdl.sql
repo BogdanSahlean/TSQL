@@ -40,8 +40,7 @@ unknown     </frame>
      <waiter id="process6a89facf8" mode="S" requestType="wait"/>
     </waiter-list>
    </pagelock>
-  </resource-list>
- </deadlock>
+  </resource-list>   
 </deadlock-list>'
                          
 SELECT	'ipbuffer' name, spid.Nod.value('(@spid)[1]', 'int') spid, excst.Nod.value('.', 'NVARCHAR(MAX)') excstframe   
