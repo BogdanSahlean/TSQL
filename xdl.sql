@@ -18,7 +18,7 @@ unknown     </frame>
 select FIW_RecoveredFromFIW.RecoveryDate, FIW_RecoveredFromFIW.Amount, FIW_RecoveredFromFIW.Comments, FIW_RecoveredFromFIW.AmountId, FIW_RecoveredFromFIW.SiteId, FIW_RecoveredFromFIW.ContractId from FIW_RecoveredFromFIW where FIW_RecoveredFromFIW.SiteId = @param0 AND FIW_RecoveredFromFIW.ContractId = @param1     </frame>
      <frame procname="unknown" line="1" sqlhandle="0x0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000">
 unknown     </frame>
-    </executionStack>                                                                             
+    </executionStack>                                                                                
     <inputbuf>
 (@param0 int,@param1 int)select FIW_RecoveredFromFIW.RecoveryDate, FIW_RecoveredFromFIW.Amount, FIW_RecoveredFromFIW.Comments, FIW_RecoveredFromFIW.AmountId, FIW_RecoveredFromFIW.SiteId, FIW_RecoveredFromFIW.ContractId from FIW_RecoveredFromFIW where FIW_RecoveredFromFIW.SiteId = @param0 AND FIW_RecoveredFromFIW.ContractId = @param1    </inputbuf>
    </process>
@@ -43,7 +43,7 @@ unknown     </frame>
   </resource-list>
  </deadlock>
 </deadlock-list>'
-             
+                
 SELECT	'ipbuffer' name, spid.Nod.value('(@spid)[1]', 'int') spid, excst.Nod.value('.', 'NVARCHAR(MAX)') excstframe   
 FROM	@dl.nodes('deadlock-list/deadlock/process-list/process') spid(Nod)
 CROSS APPLY spid.Nod.nodes('executionStack/frame') excst(Nod)
