@@ -18,7 +18,7 @@ BEGIN
 	IF OBJECT_ID('tempdb..#res') IS NOT NULL 
 	BEGIN       
 		DROP TABLE #res;         
-	END;                                                                                                                                    
+	END;                                                                                                                                       
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
 	WITH XMLNAMESPACES(DEFAULT 'http://schemas.microsoft.com/sqlserver/2004/07/showplan'),         
 	BlkSessions   
