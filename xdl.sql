@@ -23,7 +23,7 @@ unknown     </frame>
 (@param0 int,@param1 int)select FIW_RecoveredFromFIW.RecoveryDate, FIW_RecoveredFromFIW.Amount, FIW_RecoveredFromFIW.Comments, FIW_RecoveredFromFIW.AmountId, FIW_RecoveredFromFIW.SiteId, FIW_RecoveredFromFIW.ContractId from FIW_RecoveredFromFIW where FIW_RecoveredFromFIW.SiteId = @param0 AND FIW_RecoveredFromFIW.ContractId = @param1    </inputbuf>
    </process>
   </process-list>
-  <resource-list>
+  <resource-list>   
    <keylock hobtid="72057941411692544" dbid="9" objectname="CharismaERP.dbo.ScheduleTypeDetail" indexname="PK_ScheduleTypeDetail" id="lock31e6f8d00" mode="X" associatedObjectId="72057941411692544">
     <owner-list>
      <owner id="process6a89facf8" mode="X"/>
@@ -47,7 +47,7 @@ unknown     </frame>
 SELECT	'ipbuffer' name, spid.Nod.value('(@spid)[1]', 'int') spid, excst.Nod.value('.', 'NVARCHAR(MAX)') excstframe   
 FROM	@dl.nodes('deadlock-list/deadlock/process-list/process') spid(Nod)
 CROSS APPLY spid.Nod.nodes('executionStack/frame') excst(Nod)
-                                             
+                                              
 RETURN   
 
 SELECT	*
