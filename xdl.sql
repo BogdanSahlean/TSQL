@@ -29,7 +29,7 @@ unknown     </frame>
      <owner id="process6a89facf8" mode="X"/>
     </owner-list>                     
     <waiter-list>   
-     <waiter id="process7c708a188" mode="U" requestType="wait"/>      
+     <waiter id="process7c708a188" mo   de="U" requestType="wait"/>      
     </waiter-list>                       
    </keylock>
    <pagelock fileid="1" pageid="26762791" dbid="9" subresource="FULL" objectname="CharismaERP.dbo.FIW_RecoveredFromFIW" id="lock637cdc080" mode="IX" associatedObjectId="72057941268430848">
