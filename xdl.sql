@@ -18,7 +18,7 @@ unknown     </frame>
 select FIW_RecoveredFromFIW.RecoveryDate, FIW_RecoveredFromFIW.Amount, FIW_RecoveredFromFIW.Comments, FIW_RecoveredFromFIW.AmountId, FIW_RecoveredFromFIW.SiteId, FIW_RecoveredFromFIW.ContractId from FIW_RecoveredFromFIW where FIW_RecoveredFromFIW.SiteId = @param0 AND FIW_RecoveredFromFIW.ContractId = @param1     </frame>
      <frame procname="unknown" line="1" sqlhandle="0x0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000">
 unknown     </frame>
-    </executionStack>                                                                                               
+    </executionStack>                                                                                                  
     <inputbuf>
 (@param0 int,@param1 int)select FIW_RecoveredFromFIW.RecoveryDate, FIW_RecoveredFromFIW.Amount, FIW_RecoveredFromFIW.Comments, FIW_RecoveredFromFIW.AmountId, FIW_RecoveredFromFIW.SiteId, FIW_RecoveredFromFIW.ContractId from FIW_RecoveredFromFIW where FIW_RecoveredFromFIW.SiteId = @param0 AND FIW_RecoveredFromFIW.ContractId = @param1    </inputbuf>
    </process>
@@ -27,10 +27,10 @@ unknown     </frame>
    <keylock hobtid="72057941411692544" dbid="9" objectname="CharismaERP.dbo.ScheduleTypeDetail" indexname="PK_ScheduleTypeDetail" id="lock31e6f8d00" mode="X" associatedObjectId="72057941411692544">
     <owner-list>
      <owner id="process6a89facf8" mode="X"/>
-    </owner-list>                  
+    </owner-list>                     
     <waiter-list>   
      <waiter id="process7c708a188" mode="U" requestType="wait"/>      
-    </waiter-list>               
+    </waiter-list>                  
    </keylock>
    <pagelock fileid="1" pageid="26762791" dbid="9" subresource="FULL" objectname="CharismaERP.dbo.FIW_RecoveredFromFIW" id="lock637cdc080" mode="IX" associatedObjectId="72057941268430848">
     <owner-list>
