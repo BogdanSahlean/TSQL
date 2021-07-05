@@ -143,7 +143,7 @@ BEGIN
 	    hid,
 	    wait_description,
 	    dbid,
-	    associatedObjectId
+	    associatedObjectId   
 	)
 	SELECT	blk.hid, blk.wait_description,
 		dbid = CASE 
