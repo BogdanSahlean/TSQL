@@ -114,7 +114,7 @@ BEGIN
 		) blk_sqlffs2
 		OUTER APPLY sys.dm_exec_sql_text(blk.sql_handle) blk_sqltxt
 	) blk_sql
-	OUTER APPLY (
+	OUTER APPLY (   
 		SELECT	TOP(1) 
 				pl.query_plan, 
 				CASE WHEN @get_indexes = 1 THEN pl.query_plan.query('//MissingIndexes') END [indexes]
