@@ -96,5 +96,5 @@ FROM	(
 	FROM	@dl.nodes(''deadlock-list/deadlock/process-list/process'') spid(Nod)
 	CROSS APPLY spid.Nod.nodes(''inputbuf'') ipbuff(Nod)
 ) cox   
-PIVOT( MAX(ipbuffer) FOR spid IN (' + @Cols + ') ) pvot'
+PIVOT( MAX(ipbuffer) FOR spid IN (' + @Cols + ') ) pvot'   
 EXEC sp_executesql @SqlStatement, N'@dl XML', @dl
