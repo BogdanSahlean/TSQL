@@ -47,7 +47,7 @@ BEGIN
 	), BlkSessionsRecursion                                                                                                                                                                                              
 	AS (
 		SELECT	blk_ses.group_num, CONVERT(   HIERARCHYID, '/' + LTRIM(blk_ses.session_id) + '/') AS hid, blk_ses.session_id, blk_ses.blocked_by
-		FROM	BlkSessions blk_ses                                                                                                                                 
+		FROM	BlkSessions blk_ses                                                                                                                                    
 		WHERE	blk_ses.blocked_by IS NULL                                                                                                                                                                                                                                                                                   
 		UNION ALL
 		SELECT	blk_hd.group_num, CONVERT(HIERARCHYID, blk_hd.hid.ToString() + LTRIM(blk_ses.session_id) + '/') AS hid, blk_ses.session_id, blk_ses.blocked_by
@@ -116,7 +116,7 @@ BEGIN
 	) blk_sql
 	OUTER APPLY (   
 		SELECT	TOP(1) 
-				pl.query_plan, 
+				pl.query_plan,    
 				CASE WHEN @get_indexes = 1 THEN pl.query_plan.query('//MissingIndexes') END [indexes]
 		FROM	sys.dm_exec_requests rq OUTER APPLY sys.dm_exec_query_plan(rq.plan_handle) pl
 		WHERE	blk.session_id = rq.session_id
