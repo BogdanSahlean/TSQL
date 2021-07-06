@@ -18,7 +18,7 @@ BEGIN
 	IF OBJECT_ID('tempdb..#res') IS NOT NULL 
 	BEGIN       
 		DROP TABLE #res;         
-	END;                                                                                                                                                                                                
+	END;                                                                                                                                                                                                   
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
 	WITH XMLNAMESPACES(DEFAULT 'http://schemas.microsoft.com/sqlserver/2004/07/showplan'),         
 	BlkSessions   
@@ -43,7 +43,7 @@ BEGIN
 			) AS blk_se(spid) -- Abnormal session_id. See https://docs.microsoft.com/en-us/sql/relational-databases/system-compatibility-views/sys-sysprocesses-transact-sql      
 			WHERE	EXISTS(SELECT * FROM sys.sysprocesses blk_sei WHERE	blk_sei.blocked = blk_se.spid)                        
 			AND		NOT EXISTS(SELECT * FROM sys.sysprocesses blk_sei WHERE	blk_sei.spid = blk_se.spid)
-		) blk_blk                                 
+		) blk_blk                                    
 	), BlkSessionsRecursion                                                                                                                                                                                              
 	AS (
 		SELECT	blk_ses.group_num, CONVERT(   HIERARCHYID, '/' + LTRIM(blk_ses.session_id) + '/') AS hid, blk_ses.session_id, blk_ses.blocked_by
