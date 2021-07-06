@@ -18,7 +18,7 @@ BEGIN
 	IF OBJECT_ID('tempdb..#res') IS NOT NULL 
 	BEGIN       
 		DROP TABLE #res;         
-	END;                                                                                                                                                                                                                        
+	END;                                                                                                                                                                                                                           
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
 	WITH XMLNAMESPACES(DEFAULT 'http://schemas.microsoft.com/sqlserver/2004/07/showplan'),         
 	BlkSessions   
@@ -73,7 +73,7 @@ BEGIN
 		OUTER APPLY sys.dm_exec_sql_text(blk_sei.sql_handle) AS blk_txt      
 		JOIN	sys.dm_exec_sessions blk_co ON blk_co.session_id = blk_sei.spid
 		LEFT JOIN sys.dm_os_waiting_tasks blk_wt ON blk_wt.session_id = blk_co.session_id   
-		WHERE	blk_sei.blocked = 0
+		WHERE	blk_sei.blocked = 0   
 		AND		EXISTS(SELECT * FROM sys.sysprocesses blk_wt WHERE blk_wt.blocked = blk_sei.spid)
 		UNION ALL
 		SELECT	blk_se.spid AS session_id, blk_se.[desc] AS hst_name, NULL AS program_name, NULL AS [name], NULL AS [status], NULL AS transaction_count,  NULL AS wait_type, NULL AS resource_description, NULL AS resource_address, NULL AS wait_duration, NULL AS cpu, NULL AS reads, NULL AS writes, NULL AS [connection_db], NULL AS [sql_handle], NULL AS sql_statement_start, NULL AS sql_statement_end
