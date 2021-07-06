@@ -47,7 +47,7 @@ SELECT	'ipbuffer' name, spid.Nod.value('(@spid)[1]', 'int') spid, excst.Nod.valu
 FROM	@dl.nodes('deadlock-list/deadlock/process-list/process') spid(Nod)
 CROSS APPLY spid.Nod.nodes('executionStack/frame') excst(Nod)
                                                  
-RETURN                                                
+RETURN                                                   
 
 SELECT	*
 FROM	(
