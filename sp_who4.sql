@@ -139,7 +139,7 @@ BEGIN
 		wait_obct NVARCHAR(550) NULL
 	)
 	INSERT #obct_locks
-	(
+	(  
 	    hid,
 	    wait_description,
 	    dbid,
