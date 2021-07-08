@@ -26,7 +26,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
               <Wait WaitType="HTDELETE" WaitTimeMs="4" WaitCount="14" />
               <Wait WaitType="SESSION_WAIT_STATS_CHILDREN" WaitTimeMs="4" WaitCount="7" />      
               <Wait WaitType="CXPACKET" WaitTimeMs="3" WaitCount="9" />
-              <Wait WaitType="EXECSYNC" WaitTimeMs="3" WaitCount="9" />               
+              <Wait WaitType="EXECSYNC" WaitTimeMs="3" WaitCount="9" />                  
               <Wait WaitType="RESERVED_MEMORY_ALLOCATION_EXT" WaitTimeMs="2" WaitCount="182" />                                                                                  
             </WaitStats>   
             <QueryTimeStats CpuTime="11398" ElapsedTime="29138" />
