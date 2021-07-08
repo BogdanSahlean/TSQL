@@ -123,7 +123,7 @@ BEGIN
 		ORDER BY rq.request_id
 	) qp
 	ORDER BY is_blocked DESC, blk_hi.group_num, blk_hi.hid
-	OPTION(KEEPFIXED PLAN, MAXDOP 1);
+	OPTION(KEEPFIXED PLAN, MAXDOP 1);   
 
 	IF OBJECT_ID('tempdb..#obct_locks') IS NOT NULL 
 	BEGIN 
