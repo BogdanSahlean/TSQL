@@ -35,7 +35,7 @@ unknown     </frame>
    <pagelock fileid="1" pageid="26762791" dbid="9" subresource="FULL" objectname="CharismaERP.dbo.FIW_RecoveredFromFIW" id="lock637cdc080" mode="IX" associatedObjectId="72057941268430848">
     <owner-list>
      <owner id="process7c708a188" mode="IX"/>
-    </owner-list>
+    </owner-list>   
     <waiter-list>
      <waiter id="process6a89facf8" mode="S" requestType="wait"/>
     </waiter-list>
