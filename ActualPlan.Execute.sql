@@ -114,7 +114,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                               <SeekPredicateNew>
                                 <SeekKeys>
                                   <StartRange ScanType="GE">
-                                    <RangeColumns>
+                                    <RangeColumns>      
                                       <ColumnReference Column="PtnId1000" />
                                     </RangeColumns>
                                     <RangeExpressions>
