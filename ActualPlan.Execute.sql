@@ -86,7 +86,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                       </RunTimeInformation>
                       <Hash>
                         <DefinedValues>
-                          <DefinedValue>
+                          <DefinedValue>   
                             <ColumnReference Column="Expr1005" />
                             <ScalarOperator ScalarString="COUNT(*)">
                               <Aggregate AggType="COUNT*" Distinct="false" />
