@@ -55,7 +55,7 @@ FROM	(
 	FROM	@dl.nodes('deadlock-list/deadlock/process-list/process') spid(Nod)      
 	CROSS APPLY spid.Nod.nodes('executionStack/frame') excst(Nod)
 ) cox
-PIVOT( MAX(ipbuffer) FOR spid IN ([182], [175]) ) pvot
+PIVOT( MAX(ipbuffer) FOR spid IN ([182], [175]) ) pvot   
 
 IF OBJECT_ID('tempdb..#cox') IS NOT NULL
 BEGIN
