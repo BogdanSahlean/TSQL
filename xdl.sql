@@ -61,7 +61,7 @@ IF OBJECT_ID('tempdb..#cox') IS NOT NULL
 BEGIN
 	DROP TABLE #cox
 END
-
+   
 SELECT	s.*, name = i.Nod.value('(@name)', 'sysname'), value = i.Nod.value('(text())[1]', 'varchar(8000)')
 INTO #cox
 FROM (
