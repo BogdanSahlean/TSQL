@@ -89,7 +89,7 @@ FROM	(
 PIVOT( MAX([value]) FOR spid IN (' + @Cols + ') ) pvot'
 EXEC sp_executesql @SqlStatement
    
-SELECT @SqlStatement = N'
+SELECT @SqlStatement = N'         
 SELECT	*
 FROM	(
 	SELECT	''ipbuffer'' name, spid.Nod.value(''(@spid)[1]'', ''int'') spid, ipbuff.Nod.value(''.'', ''NVARCHAR(MAX)'') ipbuffer
