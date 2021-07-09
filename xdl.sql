@@ -28,7 +28,7 @@ unknown     </frame>
     <owner-list>
      <owner id="process6a89facf8" mode="X"/>   
     </owner-list>                           
-    <waiter-list>            
+    <waiter-list>               
      <waiter id="process7c708a188" mo   de="U" requestType="wait"/>      
     </waiter-list>                                  
    </keylock>
