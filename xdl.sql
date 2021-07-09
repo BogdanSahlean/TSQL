@@ -27,7 +27,7 @@ unknown     </frame>
    <keylock hobtid="72057941411692544" dbid="9" objectname="CharismaERP.dbo.ScheduleTypeDetail" indexname="PK_ScheduleTypeDetail" id="lock31e6f8d00" mode="X" associatedObjectId="72057941411692544">
     <owner-list>
      <owner id="process6a89facf8" mode="X"/>   
-    </owner-list>                        
+    </owner-list>                           
     <waiter-list>            
      <waiter id="process7c708a188" mo   de="U" requestType="wait"/>      
     </waiter-list>                                  
