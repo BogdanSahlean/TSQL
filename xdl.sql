@@ -59,7 +59,7 @@ PIVOT( MAX(ipbuffer) FOR spid IN ([182], [175]) ) pvot
 
 IF OBJECT_ID('tempdb..#cox') IS NOT NULL
 BEGIN
-	DROP TABLE #cox
+	DROP TABLE #cox   
 END
    
 SELECT	s.*, name = i.Nod.value('(@name)', 'sysname'), value = i.Nod.value('(text())[1]', 'varchar(8000)')
