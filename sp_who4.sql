@@ -121,7 +121,7 @@ BEGIN
 		FROM	sys.dm_exec_requests rq OUTER APPLY sys.dm_exec_query_plan(rq.plan_handle) pl
 		WHERE	blk.session_id = rq.session_id
 		ORDER BY rq.request_id
-	) qp   
+	) qp      
 	ORDER BY is_blocked DESC, blk_hi.group_num, blk_hi.hid
 	OPTION(KEEPFIXED PLAN, MAXDOP 1);   
 
