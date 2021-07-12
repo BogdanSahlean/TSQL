@@ -7,7 +7,7 @@ DECLARE @dl XML = N'
      <frame procname="adhoc" line="1" stmtstart="182" sqlhandle="0x02000000cb6b6235aee4b251e4c7d855d3e5fb04bb82ea5d0000000000000000000000000000000000000000">
 UPDATE dbo.ScheduleTypeDetail SET  ComputeOrder = @ReferenceComputeOrder + (ComputeOrder - @CurrentTotalAmountWithVATComputeOrder)  WHERE (ScheduleTypeId = @ScheduleTypeId) AND (ComputeOrder &gt;= @CurrentTotalAmountWithVATComputeOrder)     </frame>
      <frame procname="unknown" line="1" sqlhandle="0x0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000">
-unknown     </frame>
+unknown        </frame>
     </executionStack>
     <inputbuf>
 (@ScheduleTypeId int,@ReferenceComputeOrder int,@CurrentTotalAmountWithVATComputeOrder int)UPDATE dbo.ScheduleTypeDetail SET  ComputeOrder = @ReferenceComputeOrder + (ComputeOrder - @CurrentTotalAmountWithVATComputeOrder)  WHERE (ScheduleTypeId = @ScheduleTypeId) AND (ComputeOrder &gt;= @CurrentTotalAmountWithVATComputeOrder)     </inputbuf>
