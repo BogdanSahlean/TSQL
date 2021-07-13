@@ -73,7 +73,7 @@ DECLARE @SqlStatement NVARCHAR(MAX) = ''
 DECLARE @Cols NVARCHAR(MAX) = ''
 SELECT @Cols = STUFF((
 	SELECT	', ' + QUOTENAME(cox.spid)
-	FROM	#cox cox
+	FROM	#cox cox   
 	WHERE	NULLIF(cox.name, '') IS NOT NULL
 	GROUP BY cox.spid
 	ORDER BY 1
