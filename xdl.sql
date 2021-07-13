@@ -8,7 +8,7 @@ DECLARE @dl XML = N'
 UPDATE dbo.ScheduleTypeDetail SET  ComputeOrder = @ReferenceComputeOrder + (ComputeOrder - @CurrentTotalAmountWithVATComputeOrder)  WHERE (ScheduleTypeId = @ScheduleTypeId) AND (ComputeOrder &gt;= @CurrentTotalAmountWithVATComputeOrder)     </frame>
      <frame procname="unknown" line="1" sqlhandle="0x0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000">
 unknown        </frame>
-    </executionStack>
+    </executionStack>   
     <inputbuf>
 (@ScheduleTypeId int,@ReferenceComputeOrder int,@CurrentTotalAmountWithVATComputeOrder int)UPDATE dbo.ScheduleTypeDetail SET  ComputeOrder = @ReferenceComputeOrder + (ComputeOrder - @CurrentTotalAmountWithVATComputeOrder)  WHERE (ScheduleTypeId = @ScheduleTypeId) AND (ComputeOrder &gt;= @CurrentTotalAmountWithVATComputeOrder)     </inputbuf>
    </process>
