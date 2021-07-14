@@ -113,7 +113,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                             <SeekPredicates>
                               <SeekPredicateNew>
                                 <SeekKeys>
-                                  <StartRange ScanType="GE">
+                                  <StartRange ScanType="GE">   
                                     <RangeColumns>      
                                       <ColumnReference Column="PtnId1000" />
                                     </RangeColumns>
