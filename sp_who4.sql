@@ -108,7 +108,7 @@ BEGIN
 		SELECT
 			obct = QUOTENAME(DB_NAME(blk_sqltxt.dbid)) + '.' + QUOTENAME(OBJECT_SCHEMA_NAME(blk_sqltxt.objectid, blk_sqltxt.dbid)) + '.' + QUOTENAME(OBJECT_NAME(blk_sqltxt.objectid, blk_sqltxt.dbid)), 
 			sql_statement = (SELECT SUBSTRING(blk_sqltxt.[text], /*1*/ blk_sqlffs2.sql_start, /*2000*/ blk_sqlffs2.sql_len) AS '*' FOR XML PATH(''), TYPE) -- Instead of sql_start and sql_len used to return current sql statement we are returning text of sql batch
-		FROM (
+		FROM (   
 			SELECT	blk_sqlffs.sql_start, sql_len = ISNULL(NULLIF(NULLIF(blk.sql_statement_end, 0), -1), 4000) / 2 - blk_sqlffs.sql_start
 			FROM	(SELECT sql_start= ISNULL(NULLIF(NULLIF(blk.sql_statement_start, 0), -1), 0) / 2 + 1) blk_sqlffs
 		) blk_sqlffs2
