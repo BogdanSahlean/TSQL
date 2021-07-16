@@ -1640,7 +1640,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                                   </ScalarOperator>
                                 </Compare>
                               </ScalarOperator>
-                              <ScalarOperator>
+                              <ScalarOperator>   
                                 <Compare CompareOp="LT">
                                   <ScalarOperator>
                                     <Identifier>
