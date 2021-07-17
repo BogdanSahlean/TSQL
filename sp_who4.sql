@@ -60,7 +60,7 @@ BEGIN
 	AS (
 		SELECT	blk_hid.group_num, blk_hid.hid, blk_hid.hid.ToString() AS blocking_connections, blk_hid.session_id      
 		FROM	BlkSessionsRecursion blk_hid
-	)
+	)   
 	SELECT	blk_hi.group_num, blk_hi.blocking_connections, QUOTENAME(blk.connection_db) AS connection_db, blk_sql.obct, blk_sql.sql_statement, blk.[status], blk.transaction_count, blk.wait_type, blk_lok.resource_type, blk.cpu, blk.wait_duration, blk.reads, blk.writes, qp.query_plan, qp.[indexes], blk.[sql_handle], CASE WHEN blk_hi.blocking_connections IS NULL THEN 0 ELSE 1 END AS is_blocked, blk.resource_description wait_description, blk.hst_name, blk.program_name, blk.[name], blk_hi.hid, CONVERT(INT, NULL) dbid, CONVERT(BIGINT, NULL) associatedObjectId, CONVERT(NVARCHAR(550), NULL) wait_obct  
 	INTO #res
 	FROM (      
