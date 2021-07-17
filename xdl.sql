@@ -84,7 +84,7 @@ SELECT @SqlStatement = N'
 SELECT	*   
 FROM	(
 	SELECT	spid, [name], [value]
-	FROM	#cox cox   
+	FROM	#cox cox      
 ) cox
 PIVOT( MAX([value]) FOR spid IN (' + @Cols + ') ) pvot'
 EXEC sp_executesql @SqlStatement
