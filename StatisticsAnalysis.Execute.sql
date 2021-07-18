@@ -27,10 +27,10 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
         <StmtSimple StatementCompId="2" StatementEstRows="1" StatementId="1" StatementOptmLevel="FULL" CardinalityEstimationModelVersion="70" StatementSubTreeCost="54.6914" StatementText="SELECT COUNT(ddd.NorthAmericaSeason) &#xD;&#xA;FROM FactOnlineSales fcto &#xD;&#xA;JOIN DimDate ddd ON fcto.DateKey = ddd.Datekey" StatementType="SELECT" QueryHash="0x6486F95BB431C6E4" QueryPlanHash="0x13BEA4EF1B909C8D" RetrievedFromCache="true" SecurityPolicyApplied="false">
           <StatementSetOptions ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" NUMERIC_ROUNDABORT="false" QUOTED_IDENTIFIER="true" />
           <QueryPlan DegreeOfParallelism="8" MemoryGrant="136" CachedPlanSize="144" CompileTime="1157" CompileCPU="85" CompileMemory="2128">
-            <ThreadStat Branches="1" UsedThreads="8">                                                                                       
+            <ThreadStat Branches="1" UsedThreads="8">                                                                                          
               <ThreadReservation NodeId="0" ReservedThreads="8" />         
             </ThreadStat>
-            <MemoryG/rantInfo SerialRequiredMemory="0" SerialDesiredMemory="0" RequiredMemory="136" DesiredMemory="136" RequestedMemory="136" GrantWaitTime="0" GrantedMemory="136" MaxUsedMemory="136" MaxQueryMemory="723240" />                                                                                                                                    
+            <MemoryG/rantInfo SerialRequiredMemory="0" SerialDesiredMemory="0" RequiredMemory="136" DesiredMemory="136" RequestedMemory="136" GrantWaitTime="0" GrantedMemory="136" MaxUsedMemory="136" MaxQueryMemory="723240" />                                                                                                                                       
             <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="155812" EstimatedPagesCached="77906" EstimatedAvailableDegreeOfParallelism="4" MaxCompileMemory="3248368" />
             <WaitStats>
               <Wait WaitType="PAGEIOLATCH_SH" WaitTimeMs="135917" WaitCount="1942" />
@@ -43,7 +43,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
             </WaitStats>                                 
             <QueryTimeStats CpuTime="9598" ElapsedTime="20443" />
             <RelOp AvgRowSize="11" EstimateCPU="1E-07" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Compute Scalar" NodeId="1" Parallel="false" PhysicalOp="Compute Scalar" EstimatedTotalSubtreeCost="54.6914">
-              <OutputList>                                                                                                                                       
+              <OutputList>                                                                                                                                          
                 <ColumnReference Column="Expr1002" />
               </OutputList>
               <ComputeScalar>         
