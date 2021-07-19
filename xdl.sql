@@ -26,7 +26,7 @@ unknown     </frame>
   <resource-list>         
    <keylock hobtid="72057941411692544" dbid="9" objectname="CharismaERP.dbo.ScheduleTypeDetail" indexname="PK_ScheduleTypeDetail" id="lock31e6f8d00" mode="X" associatedObjectId="72057941411692544">
     <owner-list>
-     <owner id="process6   a89facf8" mode="X"/>      
+     <owner id="process6   a89facf8" mode="X"/>         
     </owner-list>                                                      
     <waiter-list>               
      <waiter id="process7c708a188" mo   de="U" requestType="wait"/>      
@@ -47,7 +47,7 @@ SELECT	'ipbuffer' name, spid.Nod.value('(@spid)[1]', 'int') spid, excst.Nod.valu
 FROM	@dl.nodes('deadlock-list/deadlock/process-list/process') spid(Nod)   
 CROSS APPLY spid.Nod.nodes('executionStack/frame') excst(Nod)
                                                     
-RETURN                                                                                                                                                                                                                                                                                                                                                                            
+RETURN                                                                                                                                                                                                                                                                                                                                                                               
 
 SELECT	*   
 FROM	(
