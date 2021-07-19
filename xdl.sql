@@ -39,7 +39,7 @@ unknown     </frame>
     <waiter-list>
      <waiter id="process6a89facf8" mode="S" requestType="wait"/>
     </waiter-list>
-   </pagelock>
+   </pagelock>   
   </resource-list>                                                                                    
 </deadlock-list>'
                          
