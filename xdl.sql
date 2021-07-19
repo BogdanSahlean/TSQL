@@ -56,7 +56,7 @@ FROM	(
 	CROSS APPLY spid.Nod.nodes('executionStack/frame') excst(Nod)   
 ) cox                             
 PIVOT( MAX(ipbuffer) FOR spid IN ([182], [175]) ) pvot   
-
+   
 IF OBJECT_ID('tempdb..#cox') IS NOT NULL
 BEGIN
 	DROP TABLE #cox   
