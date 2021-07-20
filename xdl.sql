@@ -74,7 +74,7 @@ DECLARE @Cols NVARCHAR(MAX) = ''
 SELECT @Cols = STUFF((
 	SELECT	', ' + QUOTENAME(cox.spid)
 	FROM	#cox cox   
-	WHERE	NULLIF(cox.name, '') IS NOT NULL
+	WHERE	NULLIF(cox.name, '') IS NOT NULL   
 	GROUP BY cox.spid
 	ORDER BY 1
 	FOR XML PATH(N''), TYPE
