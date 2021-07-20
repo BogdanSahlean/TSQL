@@ -58,7 +58,7 @@ FROM	(
 PIVOT( MAX(ipbuffer) FOR spid IN ([182], [175]) ) pvot   
    
 IF OBJECT_ID('tempdb..#cox') IS NOT NULL
-BEGIN
+BEGIN   
 	DROP TABLE #cox   
 END
    
