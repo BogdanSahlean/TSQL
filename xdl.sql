@@ -53,7 +53,7 @@ SELECT	*
 FROM	(
 	SELECT	'ipbuffer' name, spid.Nod.value('(@spid)[1]', 'int') spid, excst.Nod.value('.', 'NVARCHAR(MAX)') ipbuffer
 	FROM	@dl.nodes('deadlock-list/deadlock/process-list/process') spid(Nod)                                                                                                                  
-	CROSS APPLY spid.Nod.nodes('executionStack/frame') excst(Nod)   
+	CROSS APPLY spid.Nod.nodes('executionStack/frame') excst(Nod)      
 ) cox                                
 PIVOT( MAX(ipbuffer) FOR spid IN ([182], [175]) ) pvot   
    
