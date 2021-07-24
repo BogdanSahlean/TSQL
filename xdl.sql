@@ -1,100 +1,131 @@
-DECLARE @dl XML = N'
-<deadlock-list>
- <deadlock victim="process7c708a188">
-  <process-list>
-   <process id="process7c708a188" taskpriority="0" logused="1132" waitresource="KEY: 9:72057941411692544 (0769baf66c62)" waittime="23328" ownerId="170564485" transactionname="user_transaction" lasttranstarted="2021-06-14T10:09:40.297" XDES="0x673bb7838" lockMode="U" schedulerid="4" kpid="4532" status="suspended" spid="175" sbid="0" ecid="0" priority="0" trancount="2" lastbatchstarted="2021-06-14T10:09:40.710" lastbatchcompleted="2021-06-14T10:09:40.710" lastattention="1900-01-01T00:00:00.710" clientapp=".Net SqlClient Data Provider" hostname="APPS" hostpid="4544" loginname="sa" isolationlevel="read committed (2)" xactid="170564485" currentdb="9" lockTimeout="4294967295" clientoption1="671088672" clientoption2="128056">
-    <executionStack>
-     <frame procname="adhoc" line="1" stmtstart="182" sqlhandle="0x02000000cb6b6235aee4b251e4c7d855d3e5fb04bb82ea5d0000000000000000000000000000000000000000">
-UPDATE dbo.ScheduleTypeDetail SET  ComputeOrder = @ReferenceComputeOrder + (ComputeOrder - @CurrentTotalAmountWithVATComputeOrder)  WHERE (ScheduleTypeId = @ScheduleTypeId) AND (ComputeOrder &gt;= @CurrentTotalAmountWithVATComputeOrder)     </frame>
-     <frame procname="unknown" line="1" sqlhandle="0x0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000">
-unknown        </frame>
-    </executionStack>   
-    <inputbuf>
-(@ScheduleTypeId int,@ReferenceComputeOrder int,@CurrentTotalAmountWithVATComputeOrder int)UPDATE dbo.ScheduleTypeDetail SET  ComputeOrder = @ReferenceComputeOrder + (ComputeOrder - @CurrentTotalAmountWithVATComputeOrder)  WHERE (ScheduleTypeId = @ScheduleTypeId) AND (ComputeOrder &gt;= @CurrentTotalAmountWithVATComputeOrder)     </inputbuf>
-   </process>
-   <process id="process6a89facf8" taskpriority="0" logused="2177436" waitresource="PAGE: 9:1:26762791 " waittime="3068" ownerId="170560266" transactionname="user_transaction" lasttranstarted="2021-06-14T10:09:30.513" XDES="0x12eb6f6a8" lockMode="S" schedulerid="5" kpid="4820" status="suspended" spid="182" sbid="0" ecid="0" priority="0" trancount="1" lastbatchstarted="2021-06-14T10:10:00.970" lastbatchcompleted="2021-06-14T10:10:00.970" lastattention="1900-01-01T00:00:00.970" clientapp=".Net SqlClient Data Provider" hostname="APPS" hostpid="4544" loginname="sa" isolationlevel="read committed (2)" xactid="170560266" currentdb="9" lockTimeout="4294967295" clientoption1="671088672" clientoption2="128056">
-    <executionStack>
-     <frame procname="adhoc" line="1" stmtstart="50" sqlhandle="0x0200000049785f08eee5a3dc980ad6de2b6cdb07d36454e10000000000000000000000000000000000000000">
-select FIW_RecoveredFromFIW.RecoveryDate, FIW_RecoveredFromFIW.Amount, FIW_RecoveredFromFIW.Comments, FIW_RecoveredFromFIW.AmountId, FIW_RecoveredFromFIW.SiteId, FIW_RecoveredFromFIW.ContractId from FIW_RecoveredFromFIW where FIW_RecoveredFromFIW.SiteId = @param0 AND FIW_RecoveredFromFIW.ContractId = @param1     </frame>
-     <frame procname="unknown" line="1" sqlhandle="0x0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000">
-unknown     </frame>
-    </executionStack>                                                                                                   
-    <inputbuf>   
-(@param0 int,@param1 int)select FIW_RecoveredFromFIW.RecoveryDate, FIW_RecoveredFromFIW.Amount, FIW_RecoveredFromFIW.Comments, FIW_RecoveredFromFIW.AmountId, FIW_RecoveredFromFIW.SiteId, FIW_RecoveredFromFIW.ContractId from FIW_RecoveredFromFIW where FIW_RecoveredFromFIW.SiteId = @param0 AND FIW_RecoveredFromFIW.ContractId = @param1    </inputbuf>
-   </process>
-  </process-list>   
-  <resource-list>         
-   <keylock hobtid="72057941411692544" dbid="9" objectname="CharismaERP.dbo.ScheduleTypeDetail" indexname="PK_ScheduleTypeDetail" id="lock31e6f8d00" mode="X" associatedObjectId="72057941411692544">
-    <owner-list>
-     <owner id="process6   a89facf8" mode="X"/>            
-    </owner-list>                                                               
-    <waiter-list>               
-     <waiter id="process7c708a188" mo   de="U" requestType="wait"/>      
-    </waiter-list>                                                                               
-   </keylock>
-   <pagelock fileid="1" pageid="26762791" dbid="9" subresource="FULL" objectname="CharismaERP.dbo.FIW_RecoveredFromFIW" id="lock637cdc080" mode="IX" associatedObjectId="72057941268430848">
-    <owner-list>
-     <owner id="process7c708a188" mode="IX"/>
-    </owner-list>   
-    <waiter-list>
-     <waiter id="process6a89facf8" mode="S" requestType="wait"/>
-    </waiter-list>
-   </pagelock>   
-  </resource-list>                                                                                                      
-</deadlock-list>'
-                         
-SELECT	'ipbuffer' name, spid.Nod.value('(@spid)[1]', 'int') spid, excst.Nod.value('.', 'NVARCHAR(MAX)') excstframe                                                                                           
-FROM	@dl.nodes('deadlock-list/deadlock/process-list/process') spid(Nod)   
-CROSS APPLY spid.Nod.nodes('executionStack/frame') excst(Nod)
-                                                    
-RETURN                                                                                                                                                                                                                                                                                                                                                                                                             
+SET ANSI_NULLS ON
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[XdlAnalysis]
+@SrceType	INT, --1 Xdl, 2=SQL Profiler Table
 
-SELECT	*   
-FROM	(
-	SELECT	'ipbuffer' name, spid.Nod.value('(@spid)[1]', 'int') spid, excst.Nod.value('.', 'NVARCHAR(MAX)') ipbuffer
-	FROM	@dl.nodes('deadlock-list/deadlock/process-list/process') spid(Nod)                                                                                                                        
-	CROSS APPLY spid.Nod.nodes('executionStack/frame') excst(Nod)      
-) cox                                      
-PIVOT( MAX(ipbuffer) FOR spid IN ([182], [175]) ) pvot   
-   
-IF OBJECT_ID('tempdb..#cox') IS NOT NULL   
-BEGIN   
-	DROP TABLE #cox   
+@SrceDesc	VARCHAR(MAX),
+@SrceID		INT
+AS
+DECLARE @SrceXml XML
+DECLARE @SqlStatement NVARCHAR(MAX) 
+IF @SrceType = 2 /*SQL Profiler Table*/ AND @SrceID IS NULL 
+BEGIN
+	SELECT @SqlStatement = 
+'SELECT	qprofiler.RowNumber, CONVERT(XML, qprofiler.TextData) TextDataX, qprofiler.StartTime
+FROM	' + @SrceDesc + ' qprofiler
+WHERE	qprofiler.EventClass = (SELECT etns.trace_event_id FROM sys.trace_events etns WHERE	etns.name = ''Deadlock graph'')'
+	EXECUTE sp_executesql @SqlStatement
 END
-   
-SELECT	s.*, name = i.Nod.value('(@name)', 'sysname'), value = i.Nod.value('(text())[1]', 'varchar(8000)')
+ELSE IF @SrceType = 2 /*SQL Profiler Table*/ AND @SrceID IS NOT NULL 
+BEGIN
+	SELECT @SqlStatement = 
+'SELECT	@SrceXml = CONVERT(XML, qprofiler.TextData)
+FROM	' + @SrceDesc + ' qprofiler
+WHERE	qprofiler.EventClass = (SELECT etns.trace_event_id FROM sys.trace_events etns WHERE	etns.name = ''Deadlock graph'')
+AND qprofiler.RowNumber = @SrceID'
+	EXECUTE sp_executesql @SqlStatement, N'@SrceID INT, @SrceXml XML OUTPUT', @SrceID = @SrceID, @SrceXml = @SrceXml OUTPUT
+END
+
+DECLARE @xdl NVARCHAR(MAX) = CASE WHEN @SrceXml IS NOT NULL THEN CONVERT(VARCHAR(MAX), @SrceXml) ELSE @SrceDesc END
+DECLARE @dl XML = CONVERT(XML, @xdl)
+
+IF OBJECT_ID('tempdb..#cox') IS NOT NULL
+BEGIN
+DROP TABLE #cox
+END
+SELECT s.*, name = i.Nod.value('(@name)', 'sysname'), value = i.Nod.value('(text())[1]', 'varchar(8000)'), LTRIM(spid) + '.' + LTRIM(ISNULL(ecid,0)) + '.' + LTRIM(id) as idc
 INTO #cox
-FROM (   
-	SELECT	spid.Nod.value('(@id)[1]', 'sysname') id , spid.Nod.value('(@spid)[1]', 'int') spid, spid.Nod.query('for $i in ./@* return <i name="{local-name($i)}">{string($i)}</i>') cox
-	FROM	@dl.nodes('deadlock-list/deadlock/process-list/process') spid(Nod)
+FROM (
+SELECT spid.Nod.value('(@spid)[1]', 'int') spid, spid.Nod.value('(@ecid)[1]', 'int') ecid, spid.Nod.value('(@id)[1]', 'sysname') id, spid.Nod.query('for $i in ./@* return <i name="{local-name($i)}">{string($i)}</i>') cox
+FROM @dl.nodes('deadlock-list/deadlock/process-list/process') spid(Nod)
 ) s CROSS APPLY s.cox.nodes('i') i(Nod)
 
-DECLARE @SqlStatement NVARCHAR(MAX) = ''
-DECLARE @Cols NVARCHAR(MAX) = ''   
+SELECT @SqlStatement = ''
+DECLARE @Cols NVARCHAR(MAX) = ''
 SELECT @Cols = STUFF((
-	SELECT	', ' + QUOTENAME(cox.spid)
-	FROM	#cox cox   
-	WHERE	NULLIF(cox.name, '') IS NOT NULL   
-	GROUP BY cox.spid
-	ORDER BY 1
-	FOR XML PATH(N''), TYPE
+SELECT ', ' + QUOTENAME(LTRIM(spid) + '.' + LTRIM(ISNULL(ecid,0)) + '.' + LTRIM(id))
+FROM #cox cox
+WHERE NULLIF(cox.name, '') IS NOT NULL
+GROUP BY spid, ecid, id
+ORDER BY 1
+FOR XML PATH(N''), TYPE
 ).value('.', 'NVARCHAR(MAX)'), 1, 2, '')
 
 SELECT @SqlStatement = N'
-SELECT	*   
-FROM	(
-	SELECT	spid, [name], [value]
-	FROM	#cox cox      
+SELECT *
+FROM (
+SELECT (LTRIM(spid) + ''.'' + LTRIM(ISNULL(ecid,0)) + ''.'' + LTRIM(id)) id,  [name], [value]
+FROM #cox cox
+UNION
+SELECT s.idc, ''deadlockvictim'' [name], ''1'' [value]
+FROM (
+SELECT vict.Nod.value(''(@victim)[1]'', ''sysname'')
+FROM @dl.nodes(''deadlock-list/deadlock'') vict(Nod)
+) vict(id)
+JOIN (
+SELECT id, idc
+FROM #cox
+GROUP BY id, idc
+) s(id, idc) ON vict.id = s.id
 ) cox
-PIVOT( MAX([value]) FOR spid IN (' + @Cols + ') ) pvot'
-EXEC sp_executesql @SqlStatement
-   
-SELECT @SqlStatement = N'         
-SELECT	*
-FROM	(
-	SELECT	''ipbuffer'' name, spid.Nod.value(''(@spid)[1]'', ''int'') spid, ipbuff.Nod.value(''.'', ''NVARCHAR(MAX)'') ipbuffer
-	FROM	@dl.nodes(''deadlock-list/deadlock/process-list/process'') spid(Nod)
-	CROSS APPLY spid.Nod.nodes(''inputbuf'') ipbuff(Nod)
-) cox   
-PIVOT( MAX(ipbuffer) FOR spid IN (' + @Cols + ') ) pvot'   
+PIVOT( MAX([value]) FOR id IN (' + @Cols + ') ) pvot'
 EXEC sp_executesql @SqlStatement, N'@dl XML', @dl
+
+SELECT @SqlStatement = N'
+CREATE TABLE #rez (' + '[name] INT, ' + REPLACE(@Cols, ']', '] XML') + ')
+
+INSERT INTO #rez
+SELECT *
+FROM (
+SELECT 0 name,
+(LTRIM(spid.Nod.value(''(@spid)[1]'', ''int'')) + ''.'' + LTRIM(ISNULL(spid.Nod.value(''(@ecid)[1]'', ''int''),0)) + ''.'' + LTRIM(spid.Nod.value(''(@id)[1]'', ''sysname''))) id,
+ipbuff.Nod.value(''.'', ''NVARCHAR(MAX)'') ipbuffer
+FROM @dl.nodes(''deadlock-list/deadlock/process-list/process'') spid(Nod)
+CROSS APPLY spid.Nod.nodes(''inputbuf'') ipbuff(Nod)
+) cox
+PIVOT( MAX(ipbuffer) FOR id IN (' + @Cols + ') ) pvot
+UNION ALL
+SELECT *
+FROM (
+SELECT id, descr, ''procname='' + procname + CHAR(13)+CHAR(10) + ISNULL(''line='' + LTRIM(line)+CHAR(13)+CHAR(10), '''') + ''text='' + CHAR(13) + CHAR(10) + query query
+FROM (
+SELECT ''executionStack'' name, LTRIM(spid.Nod.value(''(@spid)[1]'', ''int'')) + ''.'' + LTRIM(ISNULL(spid.Nod.value(''(@ecid)[1]'', ''int''),0)) + ''.'' + LTRIM(spid.Nod.value(''(@id)[1]'', ''sysname'')) id,
+excstfram.Nod.value(''(@procname)[1]'', ''SYSNAME'') procname,
+excstfram.Nod.value(''(@line)[1]'', ''INT'') line,
+excstfram.Nod.value(''(@stmtstart)[1]'', ''INT'') stmtstart,
+excstfram.Nod.value(''(@stmtend)[1]'', ''INT'') stmtend,
+NULLIF(CONVERT(VARCHAR(64), excstfram.Nod.value(''(@sqlhandle)[1]'', ''VARCHAR(500)'')), 0x00000000000000000000000000000000000000000000000000000000000000) sqlhandle,
+excstfram.Nod.value(''.'', ''NVARCHAR(MAX)'') query,
+descr = ROW_NUMBER() OVER(PARTITION BY spid.Nod.value(''(@id)[1]'', ''sysname'') ORDER BY excstfram.Nod DESC)
+FROM @dl.nodes(''deadlock-list/deadlock/process-list/process'') spid(Nod)
+CROSS APPLY spid.Nod.nodes(''executionStack/frame'') excstfram(Nod)
+) s
+) cox
+PIVOT( MAX(query) FOR id IN (' + @Cols + ') ) pvot
+
+SELECT * FROM #rez ORDER BY [name]'
+EXEC sp_executesql @SqlStatement, N'@dl XML', @dl
+
+IF OBJECT_ID('tempdb..#resc') IS NOT NULL
+BEGIN
+DROP TABLE #resc
+END
+
+SELECT QUOTENAME(ROW_NUMBER() OVER(ORDER BY resc.Nod)) + ' ' + resc.Nod.value('local-name(.)', 'SYSNAME') +  ISNULL(' ' + QUOTENAME('objectname='+resc.Nod.value('(@objectname)[1]', 'SYSNAME') +ISNULL(', indexname='+resc.Nod.value('(@indexname)[1]', 'SYSNAME'),''), ')'), '') resc,
+eon.Nod.value('(@id)[1]', 'sysname') id_own, eon.Nod.value('(@mode)[1]', 'sysname') lock_own,
+wai.Nod.value('(@id)[1]', 'sysname') id_wai, wai.Nod.value('(@mode)[1]', 'sysname') + ISNULL(' ' + QUOTENAME(wai.Nod.value('(@requestType)[1]', 'sysname'), ')'), '') lock_wai
+INTO #resc
+FROM @dl.nodes('deadlock-list/deadlock/resource-list/*')  resc(Nod)
+OUTER APPLY resc.Nod.nodes('owner-list/owner') eon(Nod)
+OUTER APPLY resc.Nod.nodes('waiter-list/waiter') wai(Nod)
+
+SELECT @SqlStatement = N'
+SELECT *
+FROM (
+SELECT resc.resc, cox.idc, resc.lock_own [value] FROM #resc resc JOIN (SELECT id, idc FROM #cox GROUP BY id, idc) cox ON resc.id_own = cox.id
+UNION
+SELECT resc.resc, cox.idc, resc.lock_wai [value] FROM #resc resc JOIN (SELECT id, idc FROM #cox GROUP BY id, idc) cox ON resc.id_wai = cox.id
+) cox
+PIVOT( MAX([value]) FOR idc IN (' + @Cols + ') ) pvot'
+EXEC sp_executesql @SqlStatement
