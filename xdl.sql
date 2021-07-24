@@ -52,7 +52,7 @@ ORDER BY 1
 FOR XML PATH(N''), TYPE
 ).value('.', 'NVARCHAR(MAX)'), 1, 2, '')
 
-SELECT @SqlStatement = N'   
+SELECT @SqlStatement = N'      
 SELECT *
 FROM (
 SELECT (LTRIM(spid) + ''.'' + LTRIM(ISNULL(ecid,0)) + ''.'' + LTRIM(id)) id,  [name], [value]
@@ -69,7 +69,7 @@ FROM #cox
 GROUP BY id, idc
 ) s(id, idc) ON vict.id = s.id
 ) cox
-PIVOT( MAX([value]) FOR id IN (' + @Cols + ') ) pvot'
+PIVOT( MAX([value]) FOR id IN (' + @Cols + ') ) pvot'   
 EXEC sp_executesql @SqlStatement, N'@dl XML', @dl
 
 SELECT @SqlStatement = N'
