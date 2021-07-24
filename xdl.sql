@@ -86,7 +86,7 @@ CROSS APPLY spid.Nod.nodes(''inputbuf'') ipbuff(Nod)
 ) cox
 PIVOT( MAX(ipbuffer) FOR id IN (' + @Cols + ') ) pvot
 UNION ALL
-SELECT *
+SELECT *   
 FROM (
 SELECT id, descr, ''procname='' + procname + CHAR(13)+CHAR(10) + ISNULL(''line='' + LTRIM(line)+CHAR(13)+CHAR(10), '''') + ''text='' + CHAR(13) + CHAR(10) + query query
 FROM (
