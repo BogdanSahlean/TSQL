@@ -27,10 +27,10 @@ AND qprofiler.RowNumber = @SrceID'
 	EXECUTE sp_executesql @SqlStatement, N'@SrceID INT, @SrceXml XML OUTPUT', @SrceID = @SrceID, @SrceXml = @SrceXml OUTPUT
 END
    
-DECLARE @xdl NVARCHAR(MAX) = CASE WHEN @SrceXml IS NOT NULL THEN CONVERT(VARCHAR(MAX), @SrceXml) ELSE @SrceDesc END         
+DECLARE @xdl NVARCHAR(MAX) = CASE WHEN @SrceXml IS NOT NULL THEN CONVERT(VARCHAR(MAX), @SrceXml) ELSE @SrceDesc END            
 DECLARE @dl XML = CONVERT(XML, @xdl)
 
-IF OBJECT_ID('tempdb..#cox') IS NOT NULL         
+IF OBJECT_ID('tempdb..#cox') IS NOT NULL            
 BEGIN
 DROP TABLE #cox
 END
@@ -43,7 +43,7 @@ FROM @dl.nodes('deadlock-list/deadlock/process-list/process') spid(Nod)
 
 SELECT @SqlStatement = ''
 DECLARE @Cols NVARCHAR(MAX) = ''
-SELECT @Cols = STUFF((      
+SELECT @Cols = STUFF((         
 SELECT ', ' + QUOTENAME(LTRIM(spid) + '.' + LTRIM(ISNULL(ecid,0)) + '.' + LTRIM(id))
 FROM #cox cox
 WHERE NULLIF(cox.name, '') IS NOT NULL
