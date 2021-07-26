@@ -50,7 +50,7 @@ BEGIN
 	END            
 
 	SELECT	s.rn, s.txt, ta.*
-	INTO #rd
+	INTO #rd   
 	FROM	#sttcs s
 	CROSS APPLY (   
 		SELECT	 
