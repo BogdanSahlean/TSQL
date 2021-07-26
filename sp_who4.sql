@@ -47,7 +47,7 @@ BEGIN
 	), BlkSessionsRecursion                                                                                                                                                                                              
 	AS (
 		SELECT	blk_ses.group_num, CONVERT(   HIERARCHYID, '/' + LTRIM(blk_ses.session_id) + '/') AS hid, blk_ses.session_id, blk_ses.blocked_by       
-		FROM	BlkSessions blk_ses                                                                                                                                                                                                                                 
+		FROM	BlkSessions blk_ses                                                                                                                                                                                                                                    
 		
 		   
 		   
