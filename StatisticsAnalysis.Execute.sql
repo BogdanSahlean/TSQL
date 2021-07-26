@@ -172,7 +172,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                                     <Object Database="[Contoso]" Schema="[dbo]" Table="[DimDate]" Index="[PK_DimDate_DateKey]" Alias="[ddd]" IndexKind="Clustered" Storage="RowStore" />
                                   </IndexScan>
                                 </RelOp>
-                                <RelOp AvgRowSize="9" EstimateCPU="0.00541432" EstimateIO="0.0105324" EstimateRebinds="2555" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="4779.38" EstimatedRowsRead="4779.38" LogicalOp="Index Seek" NodeId="8" Parallel="true" Partitioned="true" PhysicalOp="Index Seek" EstimatedTotalSubtreeCost="39.9793" TableCardinality="12627600">
+                                <RelOp AvgRowSize="9" EstimateCPU="0.00541432" EstimateIO="0.0105324" EstimateRebinds="2555" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="4779.38" EstimatedRowsRead="4779.38" LogicalOp="Index Seek" NodeId="8" Parallel="true" Partitioned="true" PhysicalOp="Index Seek" EstimatedTotalSubtreeCost="39.9793" TableCardinality="12627600">   
                                   <OutputList />
                                   <RunTimeInformation>
                                     <RunTimeCountersPerThread Thread="8" ActualRows="1073493" ActualRowsRead="1073493" Batches="0" ActualEndOfScans="226" ActualExecutions="226" ActualExecutionMode="Row" ActualElapsedms="6168" ActualCPUms="318" ActualScans="226" ActualLogicalReads="3022" ActualPhysicalReads="0" ActualReadAheads="1756" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />
