@@ -20,7 +20,7 @@ BEGIN
 
 	SELECT	*, QueryStatementId = SUM(CASE WHEN rt=3 THEN 1 ELSE 0 END) OVER(ORDER BY s.rn)       
 	INTO #sttcs
-	FROM (
+	FROM (   
 		SELECT	*, 
 			rt = CASE 
 				WHEN txt LIKE 'SQL Server parse and compile time:%' THEN 1
