@@ -26,7 +26,7 @@ BEGIN
 				WHEN txt LIKE 'SQL Server parse and compile time:%' THEN 1
 				WHEN txt LIKE '%SQL Server Execution Times:%' THEN 2
 				WHEN txt LIKE '(% row affected)' THEN 3
-				WHEN txt LIKE '(% rows affected)' THEN 3
+				WHEN txt LIKE '(% rows affected)' THEN 3   
 				WHEN txt LIKE 'Table ''%''. Scan count %' THEN 4
 				WHEN NULLIF(txt, '') IS NULL THEN 5
 			END
