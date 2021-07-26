@@ -52,7 +52,7 @@ BEGIN
 	SELECT	s.rn, s.txt, ta.*
 	INTO #rd
 	FROM	#sttcs s
-	CROSS APPLY (
+	CROSS APPLY (   
 		SELECT	 
 			ObjctName	= MAX(CASE WHEN typofrow = 1 THEN LTRIM(SUBSTRING(typ.Va, 7, 2000)) END) OVER(),
 			[Type]		= CASE WHEN typofrow = 2 THEN LTRIM(REVERSE(SUBSTRING(REVERSE(typ.Va), CHARINDEX(' ', REVERSE(typ.Va)), 2000))) END,
