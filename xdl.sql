@@ -52,9 +52,9 @@ ORDER BY 1
 FOR XML PATH(N''), TYPE
 ).value('.', 'NVARCHAR(MAX)'), 1, 2, '')
 
-SELECT @SqlStatement = N'               
+SELECT @SqlStatement = N'                  
 SELECT *
-FROM (   
+FROM (      
 SELECT (LTRIM(spid) + ''.'' + LTRIM(ISNULL(ecid,0)) + ''.'' + LTRIM(id)) id,  [name], [value]
 FROM #cox cox
 UNION
@@ -112,7 +112,7 @@ BEGIN
 DROP TABLE #resc
 END
 
-SELECT QUOTENAME(ROW_NUMBER() OVER(ORDER BY resc.Nod)) + ' ' + resc.Nod.value('local-name(.)', 'SYSNAME') +  ISNULL(' ' + QUOTENAME('objectname='+resc.Nod.value('(@objectname)[1]', 'SYSNAME') +ISNULL(', indexname='+resc.Nod.value('(@indexname)[1]', 'SYSNAME'),''), ')'), '') resc,
+SELECT QUOTENAME(ROW_NUMBER() OVER(ORDER BY resc.Nod)) + ' ' + resc.Nod.value('local-name(.)', 'SYSNAME') +  ISNULL(' ' + QUOTENAME('objectname='+resc.Nod.value('(@objectname)[1]', 'SYSNAME') +ISNULL(', indexname='+resc.Nod.value('(@indexname)[1]', 'SYSNAME'),''), ')'), '') resc,   
 eon.Nod.value('(@id)[1]', 'sysname') id_own, eon.Nod.value('(@mode)[1]', 'sysname') lock_own,
 wai.Nod.value('(@id)[1]', 'sysname') id_wai, wai.Nod.value('(@mode)[1]', 'sysname') + ISNULL(' ' + QUOTENAME(wai.Nod.value('(@requestType)[1]', 'sysname'), ')'), '') lock_wai
 INTO #resc
