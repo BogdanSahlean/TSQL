@@ -73,7 +73,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                   </RunTimeInformation>
                   <StreamAggregate>   
                     <DefinedValues>    
-                      <DefinedValue>
+                      <DefinedValue>   
                         <ColumnReference Column="globalagg1005" />   
                         <ScalarOperator ScalarString="SUM([partialagg1004])">
                           <Aggregate AggType="SUM" Distinct="false">
