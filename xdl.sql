@@ -110,7 +110,7 @@ EXEC sp_executesql @SqlStatement, N'@dl XML', @dl
 IF OBJECT_ID('tempdb..#resc') IS NOT NULL
 BEGIN
 DROP TABLE #resc
-END
+END   
 
 SELECT QUOTENAME(ROW_NUMBER() OVER(ORDER BY resc.Nod)) + ' ' + resc.Nod.value('local-name(.)', 'SYSNAME') +  ISNULL(' ' + QUOTENAME('objectname='+resc.Nod.value('(@objectname)[1]', 'SYSNAME') +ISNULL(', indexname='+resc.Nod.value('(@indexname)[1]', 'SYSNAME'),''), ')'), '') resc,   
 eon.Nod.value('(@id)[1]', 'sysname') id_own, eon.Nod.value('(@mode)[1]', 'sysname') lock_own,
