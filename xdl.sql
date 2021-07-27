@@ -72,7 +72,7 @@ GROUP BY id, idc
 PIVOT( MAX([value]) FOR id IN (' + @Cols + ') ) pvot'   
 EXEC sp_executesql @SqlStatement, N'@dl XML', @dl
 
-SELECT @SqlStatement = N'
+SELECT @SqlStatement = N'   
 CREATE TABLE #rez (' + '[name] INT, ' + REPLACE(@Cols, ']', '] XML') + ')
 
 INSERT INTO #rez
