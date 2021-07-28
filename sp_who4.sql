@@ -90,7 +90,7 @@ BEGIN
 		AND		NOT EXISTS(SELECT * FROM sys.sysprocesses blk_sei WHERE	blk_sei.spid = blk_se.spid)
 		UNION ALL
 		SELECT	blk_sei.spid AS session_id, blk_sei.hostname AS hst_name, blk_sei.program_name, blk_sei.loginame AS [name], blk_sei.[status], blk_sei.open_tran AS transaction_count, blk_wt.wait_type, blk_wt.resource_description, blk_wt.resource_address, CONVERT(DECIMAL(38, 4), blk_wt.wait_duration_ms*.1/1000) AS wait_duration, CONVERT(DECIMAL(38, 4), blk_co.cpu_time*.1/1000) AS cpu, blk_co.logical_reads AS reads, blk_co.writes AS writes, DB_NAME(blk_sei.dbid) AS [connection_db], blk_sei.sql_handle AS [sql_handle], blk_sei.stmt_start AS sql_statement_start, blk_sei.stmt_end AS sql_statement_end
-		FROM	sys.sysprocesses blk_sei
+		FROM	sys.sysprocesses blk_sei   
 		OUTER APPLY sys.dm_exec_sql_text(blk_sei.sql_handle) AS blk_txt   
 		JOIN	sys.dm_exec_sessions blk_co ON blk_co.session_id = blk_sei.spid
 		LEFT JOIN sys.dm_os_waiting_tasks blk_wt ON blk_wt.session_id = blk_co.session_id AND /*CXCONSUMER,CXPACKET*/blk_co.session_id <> blk_wt.blocking_session_id 
