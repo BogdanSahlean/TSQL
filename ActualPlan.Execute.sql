@@ -152,9 +152,9 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                                           </ScalarOperator>
                                           <ScalarOperator>
                                             <Const ConstValue="''2007-06-30 00:00:00.000''" />
-                                          </ScalarOperator>
+                                          </ScalarOperator>   
                                         </Intrinsic>
-                                      </ScalarOperator>   
+                                      </ScalarOperator>      
                                     </RangeExpressions>
                                   </EndRange>
                                 </SeekKeys>
