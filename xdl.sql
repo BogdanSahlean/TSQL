@@ -27,10 +27,10 @@ AND qprofiler.RowNumber = @SrceID'
 	EXECUTE sp_executesql @SqlStatement, N'@SrceID INT, @SrceXml XML OUTPUT', @SrceID = @SrceID, @SrceXml = @SrceXml OUTPUT
 END  
    
-DECLARE @xdl NVARCHAR(MAX) = CASE WHEN @SrceXml IS NOT NULL THEN CONVERT(VARCHAR(MAX), @SrceXml) ELSE @SrceDesc END               
+DECLARE @xdl NVARCHAR(MAX) = CASE WHEN @SrceXml IS NOT NULL THEN CONVERT(VARCHAR(MAX), @SrceXml) ELSE @SrceDesc END                  
 DECLARE @dl XML = CONVERT(XML, @xdl)
    
-IF OBJECT_ID('tempdb..#cox') IS NOT NULL                        4
+IF OBJECT_ID('tempdb..#cox') IS NOT NULL                           4
 BEGIN
 DROP TABLE #cox
 END
