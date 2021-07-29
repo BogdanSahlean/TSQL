@@ -47,7 +47,7 @@ SELECT @Cols = STUFF((
 SELECT ', ' + QUOTENAME(LTRIM(spid) + '.' + LTRIM(ISNULL(ecid,0)) + '.' + LTRIM(id))
 FROM #cox cox
 WHERE NULLIF(cox.name, '') IS NOT NULL   
-GROUP BY spid, ecid, id                                                                                        
+GROUP BY spid, ecid, id                                                                                           
 ORDER BY 1
 FOR XML PATH(N''), TYPE
 ).value('.', 'NVARCHAR(MAX)'), 1, 2, '')
