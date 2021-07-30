@@ -170,7 +170,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                                       </DefinedValue>
                                     </DefinedValues>
                                     <Object Database="[Contoso]" Schema="[dbo]" Table="[DimDate]" Index="[PK_DimDate_DateKey]" Alias="[ddd]" IndexKind="Clustered" Storage="RowStore" />
-                                  </IndexScan>
+                                  </IndexScan>   
                                 </RelOp>
                                 <RelOp AvgRowSize="9" EstimateCPU="0.00541432" EstimateIO="0.0105324" EstimateRebinds="2555" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="4779.38" EstimatedRowsRead="4779.38" LogicalOp="Index Seek" NodeId="8" Parallel="true" Partitioned="true" PhysicalOp="Index Seek" EstimatedTotalSubtreeCost="39.9793" TableCardinality="12627600">      
                                   <OutputList />
