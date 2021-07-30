@@ -43,7 +43,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
             </WaitStats>                                                                                                
             <QueryTimeStats CpuTime="9598" ElapsedTime="20443" />
             <RelOp AvgRowSize="11" EstimateCPU="1E-07" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Compute Scalar" NodeId="1" Parallel="false" PhysicalOp="Compute Scalar" EstimatedTotalSubtreeCost="54.6914">   
-              <OutputList>                                                                                                                                                                                                   
+              <OutputList>                                                                                                                                                                                                      
                 <ColumnReference Column="Expr1002" />
               </OutputList>
               <ComputeScalar>            
