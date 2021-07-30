@@ -110,7 +110,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                           <IndexScan Ordered="true" ScanDirection="FORWARD" ForcedIndex="false" ForceSeek="false" ForceScan="false" NoExpandHint="false" Storage="RowStore">
                             <DefinedValues />
                             <Object Database="[Contoso]" Schema="[dbo]" Table="[FactOnlineSalesPartitioning]" Index="[PK_FactOnlineSalesPartitioning_SalesKey]" Alias="[fcto]" IndexKind="Clustered" Storage="RowStore" />
-                            <SeekPredicates>   
+                            <SeekPredicates>      
                               <SeekPredicateNew>
                                 <SeekKeys>
                                   <StartRange ScanType="GE">   
