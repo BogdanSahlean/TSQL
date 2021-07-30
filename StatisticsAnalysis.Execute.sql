@@ -121,7 +121,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                                       </Identifier>
                                     </ScalarOperator>
                                   </Aggregate>
-                                </ScalarOperator>
+                                </ScalarOperator>   
                               </DefinedValue>   
                             </DefinedValues>
                             <RelOp AvgRowSize="61" EstimateCPU="12.7658" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="12216100" LogicalOp="Inner Join" NodeId="5" Parallel="true" PhysicalOp="Nested Loops" EstimatedTotalSubtreeCost="52.8304">
