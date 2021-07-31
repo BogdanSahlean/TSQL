@@ -40,7 +40,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
               <Parallelism>
                 <RelOp AvgRowSize="11" EstimateCPU="0" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Batch" EstimateRows="1" LogicalOp="Compute Scalar" NodeId="1" Parallel="true" PhysicalOp="Compute Scalar" EstimatedTotalSubtreeCost="31.6956">   
                   <OutputList>   
-                    <ColumnReference Column="Expr1002" />                                                                                       
+                    <ColumnReference Column="Expr1002" />                                                                                          
                   </OutputList   
                   <RunTimeInformation>   
                     <RunTimeCountersPerThread Thread="8" ActualRows="0" Batches="0" ActualEndOfScans="0" ActualExecutions="1" ActualExecutionMode="Batch" ActualElapsedms="0" ActualCPUms="0" ActualScans="0" ActualLogicalReads="0" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />                                                                                                                                                                                                       
