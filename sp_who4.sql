@@ -24,7 +24,7 @@ BEGIN
 	BlkSessions            
 	AS (      
 		SELECT	blk_sei.spid AS session_id, NULLIF(blk_sei.blocked, 0) AS blocked_by, NULL AS group_num   
-		FROM	sys.sysprocesses blk_sei                       
+		FROM	sys.sysprocesses blk_sei                          
 		WHERE	blk_sei.blocked <> 0                          
 		UNION ALL            
 		SELECT	blk_blk.session_id, NULL AS blocked_by, ROW_NUMBER() OVER(ORDER BY blk_blk.session_id)  AS group_num                                                                                   
@@ -40,14 +40,14 @@ BEGIN
 				SELECT -2 UNION ALL   
 				SELECT -3 UNION ALL        
 				SELECT -4
-			) AS blk_se(spid) -- Abnormal session_id. See https://docs.microsoft.com/en-us/sql/relational-databases/system-compatibility-views/sys-sysprocesses-transact-sql                                                        
+			) AS blk_se(spid) -- Abnormal session_id. See https://docs.microsoft.com/en-us/sql/relational-databases/system-compatibility-views/sys-sysprocesses-transact-sql                                                           
 			WHERE	EXISTS(SELECT * FROM sys.sysprocesses blk_sei WHERE	blk_sei.blocked = blk_se.spid)                        
 			AND		NOT EXISTS(SELECT * FROM sys.sysprocesses blk_sei WHERE	blk_sei.spid = blk_se.spid)
 		) blk_blk                                                                                                                                                                                    
 	), BlkSessionsRecursion                                                                                                                                                                                              
 	AS (
 		SELECT	blk_ses.group_num, CONVERT(   HIERARCHYID, '/' + LTRIM(blk_ses.session_id) + '/') AS hid, blk_ses.session_id, blk_ses.blocked_by       
-		FROM	BlkSessions blk_ses                                                                                                                                                                                                                                                                                                                                                                                                       
+		FROM	BlkSessions blk_ses                                                                                                                                                                                                                                                                                                                                                                                                          
 		
 		   
 		   
