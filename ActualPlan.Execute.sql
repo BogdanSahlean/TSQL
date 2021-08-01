@@ -337,7 +337,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                                       <NestedLoops Optimized="false">
                                         <OuterReferences>
                                           <ColumnReference Database="[Contoso]" Schema="[sys]" Table="[sysidxstats]" Alias="[s]" Column="id" />
-                                          <ColumnReference Database="[Contoso]" Schema="[sys]" Table="[sysidxstats]" Alias="[s]" Column="indid" />
+                                          <ColumnReference Database="[Contoso]" Schema="[sys]" Table="[sysidxstats]" Alias="[s]" Column="indid" />   
                                         </OuterReferences>
                                         <RelOp AvgRowSize="15" EstimateCPU="8.8E-07" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Filter" NodeId="9" Parallel="false" PhysicalOp="Filter" EstimatedTotalSubtreeCost="0.00328398">
                                           <OutputList>
