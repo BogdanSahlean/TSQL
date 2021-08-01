@@ -159,7 +159,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                                   </EndRange>
                                 </SeekKeys>
                                 <SeekKeys>
-                                  <StartRange ScanType="GE">
+                                  <StartRange ScanType="GE">   
                                     <RangeColumns>
                                       <ColumnReference Database="[Contoso]" Schema="[dbo]" Table="[FactOnlineSalesPartitioning]" Alias="[fcto]" Column="DateKey" />
                                     </RangeColumns>
