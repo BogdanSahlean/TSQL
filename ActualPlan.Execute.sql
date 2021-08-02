@@ -134,7 +134,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                                         </Intrinsic>
                                       </ScalarOperator>
                                     </RangeExpressions>   
-                                  </StartRange>
+                                  </StartRange>   
                                   <EndRange ScanType="LE">
                                     <RangeColumns>
                                       <ColumnReference Column="PtnId1000" />
