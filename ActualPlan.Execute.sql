@@ -70,7 +70,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                     </DefinedValues>
                     <RelOp AvgRowSize="11" EstimateCPU="0.0225244" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Batch" EstimateRows="1" LogicalOp="Aggregate" NodeId="2" Parallel="true" PhysicalOp="Hash Match" EstimatedTotalSubtreeCost="31.6956">
                       <OutputList>
-                        <ColumnReference Column="Expr1005" />         
+                        <ColumnReference Column="Expr1005" />            
                       </OutputList>
                       <MemoryFractions Input="1" Output="1" />
                       <RunTimeInformation>
