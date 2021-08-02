@@ -43,7 +43,7 @@ FROM @dl.nodes('deadlock-list/deadlock/process-list/process') spid(Nod)
                                                                                                                                             
 SELECT @SqlStatement = ''
 DECLARE @Cols NVARCHAR(MAX) = ''
-SELECT @Cols = STUFF((                                            
+SELECT @Cols = STUFF((                                               
 SELECT ', ' + QUOTENAME(LTRIM(spid) + '.' + LTRIM(ISNULL(ecid,0)) + '.' + LTRIM(id))
 FROM #cox cox
 WHERE NULLIF(cox.name, '') IS NOT NULL   
