@@ -21,14 +21,14 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
               <Wait WaitType="PAGEIOLATCH_SH" WaitTimeMs="219756" WaitCount="1822" />                                                                                                                                                                                                                                                                                                                                                                                               
               <Wait WaitType="MEMORY_ALLOCATION_EXT" WaitTimeMs="4030" WaitCount="208734" />                   
               <Wait WaitType="HTBUILD" WaitTimeMs="1899" WaitCount="14" />   
-              <Wait WaitType="SOS_SCHEDULER_YIELD" WaitTimeMs="40" WaitCount="712" />      
+              <Wait WaitType="SOS_SCHEDULER_YIELD" WaitTimeMs="40" WaitCount="712" />   
               <Wait WaitType="CXROWSET_SYNC" WaitTimeMs="9" WaitCount="37" />      
               <Wait WaitType="HTDELETE" WaitTimeMs="4" WaitCount="14" />            
               <Wait WaitType="SESSION_WAIT_STATS_CHILDREN" WaitTimeMs="4" WaitCount="7" />                     
                  <Wait WaitType="EXECSYNC" WaitTimeMs="3" WaitCount="9" />                                             
-              <Wait WaitType="RESERVED_MEMORY_ALLOCATION_EXT" WaitTimeMs="2" WaitCount="182" />                                                                                                                                                   
-            </WaitStats>            
-            <QueryTimeStats CpuTime="11398" ElapsedTime="29138" />         
+              <Wait WaitType="RESERVED_MEMORY_ALLOCATION_EXT" WaitTimeMs="2" WaitCount="182" />                                                                                                                                                
+            </WaitStats>         
+            <QueryTimeStats CpuTime="11398" ElapsedTime="29138" />      
                <RelOp AvgRowSize="11" EstimateCPU="0.0285019" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Gather Streams" NodeId="0" Parallel="true" PhysicalOp="Parallelism" EstimatedTotalSubtreeCost="31.4377">                                                                                                                                                                                 
               <OutputList>         
                 <ColumnReference Column="Expr1002" />
@@ -47,7 +47,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                     <RunTimeCountersPerThread Thread="6" ActualRows="0" Batches="0" ActualEndOfScans="0" ActualExecutions="1" ActualExecutionMode="Batch" ActualElapsedms="0" ActualCPUms="0" ActualScans="0" ActualLogicalReads="0" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />   
                     <RunTimeCountersPerThread Thread="5" ActualRows="0" Batches="0" ActualEndOfScans="0" ActualExecutions="1" ActualExecutionMode="Batch" ActualElapsedms="0" ActualCPUms="0" ActualScans="0" ActualLogicalReads="0" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />      
                     <RunTimeC/ountersPerThread Thread="4" ActualRows="0" Batches="0" ActualEndOfScans="0" ActualExecutions="1" ActualExecutionMode="Batch" ActualElapsedms="0" ActualCPUms="0" ActualScans="0" ActualLogicalReads="0" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-                    <RunTimeCountersPerThread Thread="3" ActualRows="0" Batches="0" ActualEndOfScans="0" ActualExecutions="1" ActualExecutionMode="Batch" ActualElapsedms="0" ActualCPUms="0" ActualScans="0" ActualLogicalReads="0" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />                                                   
+                    <RunTimeCountersPerThread Thread="3" ActualRows="0" Batches="0" ActualEndOfScans="0" ActualExecutions="1" ActualExecutionMode="Batch" ActualElapsedms="0" ActualCPUms="0" ActualScans="0" ActualLogicalReads="0" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />                                                         
                     <RunTimeCountersPerThread Thread="2" ActualRows="0" Batches="0" ActualEndOfScans="0" ActualExecutions="1" ActualExecutionMode="Batch" ActualElapsedms="0" ActualCPUms="0" ActualScans="0" ActualLogicalReads="0" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />
                     <RunTimeCountersPerThread Thread="1" ActualRows="0" Batches="0" ActualEndOfScans="0" ActualExecutions="1" ActualExecutionMode="Batch" ActualElapsedms="0" ActualCPUms="0" ActualScans="0" ActualLogicalReads="0" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />
                     <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="0" ActualExecutions="0" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" />
@@ -55,7 +55,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                   <ComputeScalar                      
                     <DefinedValues>                       
                       <DefinedValue>      
-                        <ColumnReference Column="Expr1002" />             
+                        <ColumnReference Column="Expr1002" />         
                         <ScalarOperator ScalarString="CONVERT_IMPLICIT(int,[Expr1005],0)">   
                           <Convert DataType="int" Style="0" Implicit="true">
                             <ScalarOperator>      
@@ -121,9 +121,9 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                                         <Intrinsic FunctionName="RangePartitionNew">
                                           <ScalarOperator>
                                             <Identifier>
-                                              <ColumnReference Column="@parm1" />   
+                                              <ColumnReference Column="@parm1" />
                                             </Identifier>
-                                          </ScalarOperator>   
+                                          </ScalarOperator>
                                           <ScalarOperator>
                                             <Const ConstValue="(1)" />
                                           </ScalarOperator>
