@@ -40,7 +40,7 @@ FROM (
 SELECT spid.Nod.value('(@spid)[1]', 'int') spid, spid.Nod.value('(@ecid)[1]', 'int') ecid, spid.Nod.value('(@id)[1]', 'sysname') id, spid.Nod.query('for $i in ./@* return <i name="{local-name($i)}">{string($i)}</i>') cox
 FROM @dl.nodes('deadlock-list/deadlock/process-list/process') spid(Nod)
 ) s CROSS APPLY s.cox.nodes('i') i(Nod)
-                                                                                                                                                                 
+                                                                                                                                                                    
 SELECT @SqlStatement = ''
 DECLARE @Cols NVARCHAR(MAX) = ''
 SELECT @Cols = STUFF((                                                        
@@ -52,7 +52,7 @@ ORDER BY 1
 FOR XML PATH(N''), TYPE
 ).value('.', 'NVARCHAR(MAX)'), 1, 2, '')
    
-SELECT @SqlStatement = N'                                 
+SELECT @SqlStatement = N'                                    
 SELECT *   
 FROM (                                    
 SELECT (LTRIM(spid) + ''.'' + LTRIM(ISNULL(ecid,0)) + ''.'' + LTRIM(id)) id,  [name], [value]
@@ -107,7 +107,7 @@ PIVOT( MAX(query) FOR id IN (' + @Cols + ') ) pvot
 SELECT * FROM #rez ORDER BY [name]'
 EXEC sp_executesql @SqlStatement, N'@dl XML', @dl
 
-IF OBJECT_ID('tempdb..#resc') IS NOT NULL                     
+IF OBJECT_ID('tempdb..#resc') IS NOT NULL                        
 BEGIN
 DROP TABLE #resc
 END   
