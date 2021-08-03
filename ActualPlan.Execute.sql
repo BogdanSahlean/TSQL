@@ -732,7 +732,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                                     </RelOp>
                                     <Predicate>
                                       <ScalarOperator ScalarString="TEMPSTATS.[name]=N''WA_FactOnlineSalesPartitioning_Stats_DateKey''">
-                                        <Compare CompareOp="EQ">
+                                        <Compare CompareOp="EQ">   
                                           <ScalarOperator>
                                             <Identifier>
                                               <ColumnReference Table="[TEMPSTATS]" Column="name" />
