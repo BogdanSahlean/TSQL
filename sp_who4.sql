@@ -13,7 +13,7 @@ AS
 BEGIN   
 	SET NOCOUNT ON                      
    
-	SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED                
+	SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED                   
       
 	IF OBJECT_ID('tempdb..#res') IS NOT NULL    
 	BEGIN          
@@ -51,7 +51,7 @@ BEGIN
 		
 		   
 		   
-		WHERE	blk_ses.blocked_by IS NULL                                                                                                                                                                                                                                                                                         
+		WHERE	blk_ses.blocked_by IS NULL                                                                                                                                                                                                                                                                                            
 		UNION ALL                           
 		SELECT	blk_hd.group_num, CONVERT(HIERARCHYID, blk_hd.hid.ToString() + LTRIM(blk_ses.session_id) + '/') AS hid, blk_ses.session_id, blk_ses.blocked_by
 		FROM	BlkSessionsRecursion blk_hd       
