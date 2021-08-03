@@ -49,7 +49,7 @@ FROM #cox cox
 WHERE NULLIF(cox.name, '') IS NOT NULL   
 GROUP BY spid, ecid, id             
 ORDER BY 1   
-FOR XML PATH(N''), TYPE
+FOR XML PATH(N''), TYPE   
 ).value('.', 'NVARCHAR(MAX)'), 1, 2, '')
    
 SELECT @SqlStatement = N'                                          
