@@ -190,7 +190,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                         </RelOp>
                       </Hash>
                     </RelOp>
-                  </ComputeScalar>
+                  </ComputeScalar>   
                 </RelOp>
               </Parallelism>
             </RelOp>
