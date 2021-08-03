@@ -261,7 +261,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                       <Assert StartupExpression="false">
                         <RelOp AvgRowSize="19" EstimateCPU="7.33695E-06" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Aggregate" NodeId="4" Parallel="false" PhysicalOp="Stream Aggregate" EstimatedTotalSubtreeCost="0.0138773">
                           <OutputList>
-                            <ColumnReference Column="Expr1038" />
+                            <ColumnReference Column="Expr1038" />   
                             <ColumnReference Column="Expr1039" />   
                           </OutputList>
                           <RunTimeInformation>
