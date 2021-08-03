@@ -58,7 +58,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                         <ColumnReference Column="Expr1002" />         
                         <ScalarOperator ScalarString="CONVERT_IMPLICIT(int,[Expr1005],0)">
                           <Convert DataType="int" Style="0" Implicit="true">
-                            <ScalarOperator>   
+                            <ScalarOperator>      
                               <Identifier>   
                                 <ColumnReference Column="Expr1005" />   
                               </Identifier>   
