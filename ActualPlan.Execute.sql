@@ -199,7 +199,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
             </ParameterList>
           </QueryPlan>
         </StmtSimple>
-      </Statements>
+      </Statements>   
     </Batch>
     <Batch>
       <Statements>
