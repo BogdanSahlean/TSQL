@@ -130,7 +130,7 @@ BEGIN
 
 	IF OBJECT_ID('tempdb..#obct_locks') IS NOT NULL 
 	BEGIN 
-		DROP TABLE #obct_locks;
+		DROP TABLE #obct_locks;   
 	END;
 
 	CREATE TABLE #obct_locks (
