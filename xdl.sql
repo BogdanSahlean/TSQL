@@ -28,7 +28,7 @@ AND qprofiler.RowNumber = @SrceID'
 END     
    
 DECLARE @xdl NVARCHAR(MAX) = CASE WHEN @SrceXml IS NOT NULL THEN CONVERT(VARCHAR(MAX), @SrceXml) ELSE @SrceDesc END                     
-DECLARE @dl XML = CONVERT(XML, @xdl)
+DECLARE @dl XML = CONVERT(XML, @xdl)   
          
 IF OBJECT_ID('tempdb..#cox') IS NOT NULL                            
 BEGIN
