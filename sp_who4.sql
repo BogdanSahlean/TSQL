@@ -18,7 +18,7 @@ BEGIN
 	IF OBJECT_ID('tempdb..#res') IS NOT NULL    
 	BEGIN          
 		DROP TABLE #res;                  
-	END;                                                                                                                                                                                                                                                                                                      
+	END;                                                                                                                                                                                                                                                                                                         
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 	WITH XMLNAMESPACES(DEFAULT 'http://schemas.microsoft.com/sqlserver/2004/07/showplan'),               
 	BlkSessions            
@@ -47,7 +47,7 @@ BEGIN
 	), BlkSessionsRecursion                                                                                                                                                                                              
 	AS (
 		SELECT	blk_ses.group_num, CONVERT(   HIERARCHYID, '/' + LTRIM(blk_ses.session_id) + '/') AS hid, blk_ses.session_id, blk_ses.blocked_by       
-		FROM	BlkSessions blk_ses                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+		FROM	BlkSessions blk_ses                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
 		
 		   
 		   
