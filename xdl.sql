@@ -52,7 +52,7 @@ ORDER BY 1
 FOR XML PATH(N''), TYPE   
 ).value('.', 'NVARCHAR(MAX)'), 1, 2, '')
    
-SELECT @SqlStatement = N'                                                      
+SELECT @SqlStatement = N'                                                         
 SELECT *   
 FROM (                                          
 SELECT (LTRIM(spid) + ''.'' + LTRIM(ISNULL(ecid,0)) + ''.'' + LTRIM(id)) id,  [name], [value]
@@ -107,7 +107,7 @@ PIVOT( MAX(query) FOR id IN (' + @Cols + ') ) pvot
 SELECT * FROM #rez ORDER BY [name]'
 EXEC sp_executesql @SqlStatement, N'@dl XML', @dl
 
-IF OBJECT_ID('tempdb..#resc') IS NOT NULL                                                    
+IF OBJECT_ID('tempdb..#resc') IS NOT NULL                                                       
 BEGIN
 DROP TABLE #resc
 END   
