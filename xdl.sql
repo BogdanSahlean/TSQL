@@ -77,7 +77,7 @@ CREATE TABLE #rez (' + '[name] INT, ' + REPLACE(@Cols, ']', '] XML') + ')
 
 INSERT INTO #rez
 SELECT *
-FROM (
+FROM (   
 SELECT 0 name,
 (LTRIM(spid.Nod.value(''(@spid)[1]'', ''int'')) + ''.'' + LTRIM(ISNULL(spid.Nod.value(''(@ecid)[1]'', ''int''),0)) + ''.'' + LTRIM(spid.Nod.value(''(@id)[1]'', ''sysname''))) id,
 ipbuff.Nod.value(''.'', ''NVARCHAR(MAX)'') ipbuffer
