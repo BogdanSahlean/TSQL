@@ -54,7 +54,7 @@ FOR XML PATH(N''), TYPE
    
 SELECT @SqlStatement = N'                                                                     
 SELECT *   
-FROM (                                          
+FROM (                                             
 SELECT (LTRIM(spid) + ''.'' + LTRIM(ISNULL(ecid,0)) + ''.'' + LTRIM(id)) id,  [name], [value]
 FROM #cox cox
 UNION      
