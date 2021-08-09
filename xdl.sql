@@ -50,7 +50,7 @@ GROUP BY spid, ecid, id
 ORDER BY 1      
 FOR XML PATH(N''), TYPE   
 ).value('.', 'NVARCHAR(MAX)'), 1, 2, '')
-   
+      
 SELECT @SqlStatement = N'                                                                     
 SELECT *   
 FROM (                                             
