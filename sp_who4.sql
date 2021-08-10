@@ -45,7 +45,7 @@ BEGIN
 			AND		NOT EXISTS(SELECT * FROM sys.sysprocesses blk_sei WHERE	blk_sei.spid = blk_se.spid)
 		) blk_blk                                                                                                                                                                                                                                                
 	), BlkSessionsRecursion                                                                                                                                                                                                 
-	AS (
+	AS (   
 		SELECT	blk_ses.group_num, CONVERT(   HIERARCHYID, '/' + LTRIM(blk_ses.session_id) + '/') AS hid, blk_ses.session_id, blk_ses.blocked_by          
 		FROM	BlkSessions blk_ses                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
 		
