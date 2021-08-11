@@ -121,9 +121,9 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                                           <ScalarOperator>
                                             <Identifier>
                                               <ColumnReference Column="@parm1" />
-                                            </Identifier>
+                                            </Identifier>   
                                           </ScalarOperator>
-                                          <ScalarOperator>
+                                          <ScalarOperator>   
                                             <Const ConstValue="(1)" />
                                           </ScalarOperator>
                                           <ScalarOperator>
