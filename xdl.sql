@@ -52,7 +52,7 @@ FOR XML PATH(N''), TYPE
 ).value('.', 'NVARCHAR(MAX)'), 1, 2, '')   
       
 SELECT @SqlStatement = N'                                                                     
-SELECT *               
+SELECT *                  
 FROM (                                             
 SELECT (LTRIM(spid) + ''.'' + LTRIM(ISNULL(ecid,0)) + ''.'' + LTRIM(id)) id,  [name], [value]
 FROM #cox cox
