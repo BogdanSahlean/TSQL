@@ -22,7 +22,7 @@ Table ''FactOnlineSales''. Scan count 9, logical reads 28523, physical reads 0, 
 DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>      
 <ShowPlanXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.539" Build="15.0.2000.5" xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan">   
   <BatchSequence>                  
-    <Batch>                                                
+    <Batch>                                                   
          <Statements>                        
         <StmtSimple StatementCompId="2" StatementEstRows="1" StatementId="1" StatementOptmLevel="FULL" CardinalityEstimationModelVersion="70" StatementSubTreeCost="54.6914" StatementText="SELECT COUNT(ddd.NorthAmericaSeason) &#xD;&#xA;FROM FactOnlineSales fcto &#xD;&#xA;JOIN DimDate ddd ON fcto.DateKey = ddd.Datekey" StatementType="SELECT" QueryHash="0x6486F95BB431C6E4" QueryPlanHash="0x13BEA4EF1B909C8D" RetrievedFromCache="true" SecurityPolicyApplied="false">
           <StatementSetOptions ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" NUMERIC_ROUNDABORT="false" QUOTED_IDENTIFIER="true" />
