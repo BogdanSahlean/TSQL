@@ -51,7 +51,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                     <RunTimeCountersPerThread Thread="1" ActualRows="0" Batches="0" ActualEndOfScans="0" ActualExecutions="1" ActualExecutionMode="Batch" ActualElapsedms="0" ActualCPUms="0" ActualScans="0" ActualLogicalReads="0" ActualPhysicalReads="0" ActualReadAheads="0" ActualLobLogicalReads="0" ActualLobPhysicalReads="0" ActualLobReadAheads="0" />   
                        <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="0" ActualExecutions="0" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" />
                   </RunTimeInformation>                                                                                   
-                  <ComputeScalar                             
+                  <ComputeScalar                                
                     <DefinedValues>                                  
                       <DefinedValue>            
                         <ColumnReference Column="Expr1002" />            
