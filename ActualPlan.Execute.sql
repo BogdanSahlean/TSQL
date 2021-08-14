@@ -227,10 +227,10 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                 <DefinedValues>
                   <DefinedValue>
                     <ColumnReference Column="Expr1034" />
-                    <ScalarOperator ScalarString="[Expr1039]">   
+                    <ScalarOperator ScalarString="[Expr1039]">      
                       <Identifier>
                         <ColumnReference Column="Expr1039" />
-                      </Identifier>
+                      </Identifier>   
                     </ScalarOperator>
                   </DefinedValue>
                 </DefinedValues>
