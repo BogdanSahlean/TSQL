@@ -52,7 +52,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                        <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="0" ActualExecutions="0" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" />
                   </RunTimeInformation>                                                                                   
                   <ComputeScalar                                
-                    <DefinedValues>                                  
+                    <DefinedValues>                                     
                       <DefinedValue>            
                         <ColumnReference Column="Expr1002" />            
                         <ScalarOperator ScalarString="CONVERT_IMPLICIT(int,[Expr1005],0)">      
