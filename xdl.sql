@@ -40,7 +40,7 @@ SELECT spid.Nod.value('(@spid)[1]', 'int') spid, spid.Nod.value('(@ecid)[1]', 'i
 FROM @dl.nodes('deadlock-list/deadlock/process-list/process') spid(Nod)
 ) s CROSS APPLY s.cox.nodes('i') i(Nod)
                                                                                                                                                                                                               
-SELECT @SqlStatement = ''                                                                                                                                
+SELECT @SqlStatement = ''                                                                                                                                   
 DECLARE @Cols NVARCHAR(MAX) = ''
 SELECT @Cols = STUFF((                                                                       
 SELECT ', ' + QUOTENAME(LTRIM(spid) + '.' + LTRIM(ISNULL(ecid,0)) + '.' + LTRIM(id))     
@@ -52,7 +52,7 @@ FOR XML PATH(N''), TYPE
 ).value('.', 'NVARCHAR(MAX)'), 1, 2, '')   
       
 SELECT @SqlStatement = N'                                                                     
-SELECT *                                 
+SELECT *                                    
 FROM (                                             
 SELECT (LTRIM(spid) + ''.'' + LTRIM(ISNULL(ecid,0)) + ''.'' + LTRIM(id)) id,  [name], [value]   
 FROM #cox cox
