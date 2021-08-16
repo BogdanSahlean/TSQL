@@ -40,7 +40,7 @@ SELECT spid.Nod.value('(@spid)[1]', 'int') spid, spid.Nod.value('(@ecid)[1]', 'i
 FROM @dl.nodes('deadlock-list/deadlock/process-list/process') spid(Nod)
 ) s CROSS APPLY s.cox.nodes('i') i(Nod)
                                                                                                                                                                                                               
-SELECT @SqlStatement = ''                                                                                                                                                           
+SELECT @SqlStatement = ''                                                                                                                                                              
 DECLARE @Cols NVARCHAR(MAX) = ''
 SELECT @Cols = STUFF((                                                                       
 SELECT ', ' + QUOTENAME(LTRIM(spid) + '.' + LTRIM(ISNULL(ecid,0)) + '.' + LTRIM(id))     
@@ -107,7 +107,7 @@ SELECT * FROM #rez ORDER BY [name]'
 EXEC sp_executesql @SqlStatement, N'@dl XML', @dl
 
 IF OBJECT_ID('tempdb..#resc') IS NOT NULL                                                                   
-                           
+                              
 BEGIN            
 DROP TABLE #resc
 END   
