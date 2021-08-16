@@ -19,7 +19,7 @@ BEGIN
 	BEGIN             
 		DROP TABLE #res;                     
 	END;                                                                                                                                                                                                                                                                                                            
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
 	WITH XMLNAMESPACES(DEFAULT 'http://schemas.microsoft.com/sqlserver/2004/07/showplan'),               
 	BlkSessions            
 	AS (            
