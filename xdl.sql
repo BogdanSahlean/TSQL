@@ -107,7 +107,7 @@ SELECT * FROM #rez ORDER BY [name]'
 EXEC sp_executesql @SqlStatement, N'@dl XML', @dl
 
 IF OBJECT_ID('tempdb..#resc') IS NOT NULL                                                                   
-                              
+                                    
 BEGIN            
 DROP TABLE #resc
 END   
