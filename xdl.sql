@@ -29,7 +29,7 @@ END
    
 DECLARE @xdl NVARCHAR(MAX) = CASE WHEN @SrceXml IS NOT NULL THEN CONVERT(VARCHAR(MAX), @SrceXml) ELSE @SrceDesc END                              
                
-IF OBJECT_ID('tempdb..#cox') IS NOT NULL                                     
+IF OBJECT_ID('tempdb..#cox') IS NOT NULL                                        
 BEGIN      
 DROP TABLE #cox   
 END
