@@ -108,7 +108,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                             <RunTimeCountersPerThread Thread="2" ActualRows="1" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="19324" ActualCPUms="2312" />
                             <RunTimeCountersPerThread Thread="1" ActualRows="1" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="20437" ActualCPUms="1840" />
                             <RunTimeCountersPerThread Thread="0" ActualRows="0" Batches="0" ActualEndOfScans="0" ActualExecutions="0" ActualExecutionMode="Row" ActualElapsedms="0" ActualCPUms="0" />
-                          </RunTimeInformation>         
+                             </RunTimeInformation>         
                           <StreamAggregate>   
                             <DefinedValues>   
                               <DefinedValue>   
