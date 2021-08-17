@@ -57,7 +57,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                       <Convert DataType="int" Style="0" Implicit="true">          
                         <ScalarOperator>         
                           <Identifier>       
-                            <ColumnReference Column="globalagg1005" />   
+                            <ColumnReference Column="globalagg1005" />      
                           </Identifier>         
                         </ScalarOperator>        
                       </Convert>
