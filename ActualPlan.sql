@@ -25,7 +25,7 @@ AS (
 		QuerySttxElapsedTime= stmbtchstmsx.Nod.value('(*:QueryPlan/*:QueryTimeStats/@ElapsedTime)[1]', 'INT'), 
 		PlanDop				= stmbtchstmsx.Nod.value('(*:QueryPlan/@DegreeOfParallelism)[1]', 'INT'), 
 		QueryText			= (SELECT stmbtchstmsx.Nod.value('(@StatementText)[1]', 'NVARCHAR(MAX)') '*' FOR XML PATH(N''), TYPE) ,
-		QueryXType2			= stmbtchstmsx.Nod.value('(@StatementType)[1]', 'NVARCHAR(40)')
+		QueryXType2			= stmbtchstmsx.Nod.value('(@StatementType)[1]', 'NVARCHAR(40)')   
 	FROM	@plan.nodes('*:ShowPlanXML/*:BatchSequence/*:Batch') stmbtch(Nod)
 	CROSS APPLY stmbtch.Nod.nodes('*:Statements') stmbtchstms(Nod   
 	CROSS APPLY stmbtchstms.Nod.nodes('*') stmbtchstmsx(Nod)
