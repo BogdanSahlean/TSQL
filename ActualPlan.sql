@@ -47,7 +47,7 @@ AS (
 	CROSS APPLY rec.NodXml.nodes('*:StmtCond/*:Then/*:Statements') stmbtchstms(Nod)
 	CROSS APPLY stmbtchstms.Nod.nodes('*') stmbtchstmsx(Nod)
 	WHERE	rec.QueryXType = 'StmtCond'
-         
+            
 	UNION ALL
 
 	SELECT	
