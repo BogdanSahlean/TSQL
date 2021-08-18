@@ -123,7 +123,7 @@ OUTER APPLY resc.Nod.nodes('waiter-list/waiter') wai(Nod)
 SELECT @SqlStatement = N'
 SELECT *   
 FROM (
-SELECT resc.resc, cox.idc, resc.lock_own [value] FROM #resc resc JOIN (SELECT id, idc FROM #cox GROUP BY id, idc) cox ON resc.id_own = cox.id      
+SELECT resc.resc, cox.idc, resc.lock_own [value] FROM #resc resc JOIN (SELECT id, idc FROM #cox GROUP BY id, idc) cox ON resc.id_own = cox.id         
 UNION
 SELECT resc.resc, cox.idc, resc.lock_wai [value] FROM #resc resc JOIN (SELECT id, idc FROM #cox GROUP BY id, idc) cox ON resc.id_wai = cox.id
 ) cox
