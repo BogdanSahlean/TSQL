@@ -121,10 +121,10 @@ DEALLOCATE CrsSttx
 
 IF OBJECT_ID('tempdb..#statistics') IS NOT NULL
 BEGIN
-	DROP TABLE #statistics
+	DROP TABLE #statistics   
 END
 
-SELECT	rez.Num, cros.*
+SELECT	rez.Num, cros.*   
 INTO	#statistics
 FROM	#sttx rez
 OUTER APPLY (
