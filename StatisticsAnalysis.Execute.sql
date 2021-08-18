@@ -80,7 +80,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                             <ScalarOperator>
                               <Identifier>
                                 <ColumnReference Column="partialagg1004" />
-                              </Identifier>
+                              </Identifier>   
                             </ScalarOperator>
                           </Aggregate>
                         </ScalarOperator>
