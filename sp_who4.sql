@@ -13,7 +13,7 @@ AS
 BEGIN   
 	SET NOCOUNT ON                      
    
-	SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED                   
+	SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED                      
          
 	IF OBJECT_ID('tempdb..#res') IS NOT NULL    
 	BEGIN             
