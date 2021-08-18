@@ -10,7 +10,7 @@ CREATE PROCEDURE ActualPlan
 AS
 IF OBJECT_ID('tempdb..#sttx') IS NOT NULL
 BEGIN   
-	DROP TABLE #sttx
+	DROP TABLE #sttx    
 END
 
 ;WITH Recursion
