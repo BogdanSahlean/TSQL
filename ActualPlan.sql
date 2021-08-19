@@ -30,7 +30,7 @@ AS (
 	CROSS APPLY stmbtch.Nod.nodes('*:Statements') stmbtchstms(Nod   
 	CROSS APPLY stmbtchstms.Nod.nodes('*') stmbtchstmsx(Nod)
 
-	UNION ALL   
+	UNION ALL      
 
 	SELECT
 		Nod					= CONCAT(rec.Nod, '-1/', DENSE_RANK() OVER(ORDER BY stmbtchstmsx.Nod), '/') , 
