@@ -8,7 +8,7 @@ GO
 CREATE PROCEDURE ActualPlan
 @plan XML
 AS
-IF OBJECT_ID('tempdb..#sttx') IS NOT NULL
+IF OBJECT_ID('tempdb..#sttx') IS NOT NULL   
 BEGIN      
 	DROP TABLE #sttx    
 END
@@ -43,7 +43,7 @@ AS (
 		PlanDop				= stmbtchstmsx.Nod.value('(*:QueryPlan/@DegreeOfParallelism)[1]', 'INT'),       
 		QueryText			= (SELECT stmbtchstmsx.Nod.value('(@StatementText)[1]', 'NVARCHAR(MAX)') '*' FOR XML PATH(N''), TYPE) ,
 		QueryXType2			= stmbtchstmsx.Nod.value('(@StatementType)[1]', 'NVARCHAR(40)')
-	FROM	Recursion rec
+	FROM	Recursion rec   
 	CROSS APPLY rec.NodXml.nodes('*:StmtCond/*:Then/*:Statements') stmbtchstms(Nod)
 	CROSS APPLY stmbtchstms.Nod.nodes('*') stmbtchstmsx(Nod)
 	WHERE	rec.QueryXType = 'StmtCond'
