@@ -28,7 +28,7 @@ AS (
 		QueryXType2			= stmbtchstmsx.Nod.value('(@StatementType)[1]', 'NVARCHAR(40)')   
 	FROM	@plan.nodes('*:ShowPlanXML/*:BatchSequence/*:Batch') stmbtch(Nod)      
 	CROSS APPLY stmbtch.Nod.nodes('*:Statements') stmbtchstms(Nod   
-	CROSS APPLY stmbtchstms.Nod.nodes('*') stmbtchstmsx(Nod)
+	CROSS APPLY stmbtchstms.Nod.nodes('*') stmbtchstmsx(Nod)   
 
 	UNION ALL      
 
