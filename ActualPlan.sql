@@ -49,7 +49,7 @@ AS (
 	WHERE	rec.QueryXType = 'StmtCond'
             
 	UNION ALL
-
+   
 	SELECT	
 		Nod					= CONCAT(rec.Nod, '-2/', DENSE_RANK() OVER(ORDER BY stmbtchstmsx.Nod), '/') , 
 		NodXml				= stmbtchstmsx.Nod.query('.'), 
