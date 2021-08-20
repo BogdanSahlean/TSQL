@@ -15,7 +15,7 @@ END
 
 ;WITH Recursion
 AS (
-	SELECT	
+	SELECT	   
 		Nod					= CONCAT('/', CONVERT(NVARCHAR(MAX), LTRIM(DENSE_RANK() OVER(ORDER BY stmbtchstmsx.Nod))), '/'), 
 		NodXml				= stmbtchstmsx.Nod.query('.'), 
 		QueryXType			= stmbtchstmsx.Nod.value('local-name(.)', 'VARCHAR(40)'), 
