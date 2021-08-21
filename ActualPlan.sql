@@ -9,7 +9,7 @@ CREATE PROCEDURE ActualPlan
 @plan XML
 AS
 IF OBJECT_ID('tempdb..#sttx') IS NOT NULL   
-BEGIN      
+BEGIN         
 	DROP TABLE #sttx    
 END
 
