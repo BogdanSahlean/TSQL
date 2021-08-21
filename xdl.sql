@@ -66,7 +66,7 @@ JOIN (
 SELECT id, idc
 FROM #cox
 GROUP BY id, idc
-) s(id, idc) ON vict.id = s.id
+) s(id, idc) ON vict.id = s.id   
 ) cox   
 PIVOT( MAX([value]) FOR id IN (' + @Cols + ') ) pvot'   
 EXEC sp_executesql @SqlStatement, N'@dl XML', @dl
