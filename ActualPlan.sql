@@ -21,7 +21,7 @@ AS (
 		QueryXType			= stmbtchstmsx.Nod.value('local-name(.)', 'VARCHAR(40)'), 
 		Num					= stmbtchstmsx.Nod.value('(@StatementId)[1]', 'INT'),
 		QueryCost			= stmbtchstmsx.Nod.value('(@StatementSubTreeCost)[1]', 'DECIMAL(9,4)'),
-		QuerySttxCpuTime	= stmbtchstmsx.Nod.value('(*:QueryPlan/*:QueryTimeStats/@CpuTime)[1]', 'INT'),    
+		QuerySttxCpuTime	= stmbtchstmsx.Nod.value('(*:QueryPlan/*:QueryTimeStats/@CpuTime)[1]', 'INT'),   
 		QuerySttxElapsedTime= stmbtchstmsx.Nod.value('(*:QueryPlan/*:QueryTimeStats/@ElapsedTime)[1]', 'INT'), 
 		PlanDop				= stmbtchstmsx.Nod.value('(*:QueryPlan/@DegreeOfParallelism)[1]', 'INT'), 
 		QueryText			= (SELECT stmbtchstmsx.Nod.value('(@StatementText)[1]', 'NVARCHAR(MAX)') '*' FOR XML PATH(N''), TYPE) ,
