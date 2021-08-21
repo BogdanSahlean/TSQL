@@ -59,7 +59,7 @@ FROM #cox cox
 UNION      
 SELECT s.idc, ''deadlockvictim'' [name], ''1'' [value]   
 FROM (      
-SELECT vict.Nod.value(''(@victim)[1]'', ''sysname'')
+SELECT vict.Nod.value(''(@victim)[1]'', ''sysname'')   
 FROM @dl.nodes(''deadlock-list/deadlock'') vict(Nod)      
 ) vict(id)   
 JOIN (
