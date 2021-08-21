@@ -29,7 +29,7 @@ AS (
 	FROM	@plan.nodes('*:ShowPlanXML/*:BatchSequence/*:Batch') stmbtch(Nod)      
 	CROSS APPLY stmbtch.Nod.nodes('*:Statements') stmbtchstms(Nod   
 	CROSS APPLY stmbtchstms.Nod.nodes('*') stmbtchstmsx(Nod)   
-
+   
 	UNION ALL      
 
 	SELECT
