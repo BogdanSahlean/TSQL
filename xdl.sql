@@ -12,7 +12,7 @@ DECLARE @SqlStatement NVARCHAR(MAX)
 IF @SrceType = 2 /*SQL Profiler Table*/ AND @SrceID IS NULL 
 BEGIN
 	SELECT @SqlStatement = 
-'SELECT	qprofiler.RowNumber, CONVERT(XML, qprofiler.TextData) TextDataX, qprofiler.StartTime
+'SELECT	qprofiler.RowNumber, CONVERT(XML, qprofiler.TextData) TextDataX, qprofiler.StartTime   
 FROM	' + @SrceDesc + ' qprofiler
 WHERE	qprofiler.EventClass = (SELECT etns.trace_event_id FROM sys.trace_events etns WHERE	etns.name = ''Deadlock graph'')'
 	EXECUTE sp_executesql @SqlStatement     
