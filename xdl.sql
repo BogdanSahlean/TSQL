@@ -18,7 +18,7 @@ WHERE	qprofiler.EventClass = (SELECT etns.trace_event_id FROM sys.trace_events e
 	EXECUTE sp_executesql @SqlStatement     
 END   
 ELSE IF @SrceType = 2 /*SQL Profiler Table*/ AND @SrceID IS NOT NULL          
-BEGIN   
+BEGIN      
 	SELECT @SqlStatement = 
 'SELECT	@SrceXml = CONVERT(XML, qprofiler.TextData)    
 FROM	' + @SrceDesc + ' qprofiler      
@@ -56,7 +56,7 @@ SELECT *
 FROM (                                                
 SELECT (LTRIM(spid) + ''.'' + LTRIM(ISNULL(ecid,0)) + ''.'' + LTRIM(id)) id,  [name], [value]      
 FROM #cox cox
-UNION      
+UNION        
 SELECT s.idc, ''deadlockvictim'' [name], ''1'' [value]   
 FROM (      
 SELECT vict.Nod.value(''(@victim)[1]'', ''sysname'')   
