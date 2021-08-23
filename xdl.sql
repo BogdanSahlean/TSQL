@@ -91,7 +91,7 @@ SELECT id, descr, ''procname='' + procname + CHAR(13)+CHAR(10) + ISNULL(''line='
 FROM (
 SELECT ''executionStack'' name, LTRIM(spid.Nod.value(''(@spid)[1]'', ''int'')) + ''.'' + LTRIM(ISNULL(spid.Nod.value(''(@ecid)[1]'', ''int''),0)) + ''.'' + LTRIM(spid.Nod.value(''(@id)[1]'', ''sysname'')) id,   
 excstfram.Nod.value(''(@procname)[1]'', ''SYSNAME'') procname,
-excstfram.Nod.value(''(@line)[1]'', ''INT'') line,
+excstfram.Nod.value(''(@line)[1]'', ''INT'') line,   
 excstfram.Nod.value(''(@stmtstart)[1]'', ''INT'') stmtstart,
 excstfram.Nod.value(''(@stmtend)[1]'', ''INT'') stmtend,
 NULLIF(CONVERT(VARCHAR(64), excstfram.Nod.value(''(@sqlhandle)[1]'', ''VARCHAR(500)'')), 0x00000000000000000000000000000000000000000000000000000000000000) sqlhandle,
