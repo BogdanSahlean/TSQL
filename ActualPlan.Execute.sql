@@ -1,7 +1,7 @@
    SET ANSI_NULLS ON   
 SET QUOTED_IDENTIFIER ON
 SET NUMERIC_ROUNDABORT OFF   
-         
+            
 GO         
       
 DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
