@@ -315,7 +315,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                         <RelOp AvgRowSize="15" EstimateCPU="1.89414" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="4" LogicalOp="Aggregate" NodeId="4" Parallel="true" PhysicalOp="Stream Aggregate" EstimatedTotalSubtreeCost="26.2047">
                           <OutputList>   
                             <ColumnReference Column="partialagg1003" />
-                          </OutputList>
+                          </OutputList>   
                           <RunTimeInformation>
                             <RunTimeCountersPerThread Thread="8" ActualRows="1" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="6463" ActualCPUms="579" />
                             <RunTimeCountersPerThread Thread="7" ActualRows="1" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="6434" ActualCPUms="500" />
