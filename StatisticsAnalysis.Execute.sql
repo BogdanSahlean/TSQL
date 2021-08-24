@@ -229,7 +229,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                                     </SeekPredicates>
                                   </IndexScan>
                                 </RelOp>
-                              </NestedLoops>
+                              </NestedLoops>   
                             </RelOp>   
                           </StreamAggregate>
                         </RelOp>
