@@ -2,7 +2,7 @@ DECLARE @sttcs NVARCHAR(MAX) =
 'SQL Server parse and compile time:    
    CPU time = 31 ms, elapsed time = 33 ms.                  
       
- SQL Server Execution Times:      
+ SQL Server Execution Times:         
    CPU time = 0 ms,  elapsed time = 0 ms.         
    
 (1 row affected)      
