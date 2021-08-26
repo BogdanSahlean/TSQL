@@ -4,7 +4,7 @@ GO
 ALTER PROCEDURE [dbo].[XdlAnalysis]   
 @SrceType	INT, --1 Xdl, 2=SQL Profiler Table
    
-@SrceDesc	VARCHAR(MAX),  
+@SrceDesc	VARCHAR(MAX),     
 @SrceID		INT   
 AS
 DECLARE @SrceXml XML            
@@ -13,7 +13,7 @@ IF @SrceType = 2 /*SQL Profiler Table*/ AND @SrceID IS NULL
 BEGIN   
 	SELECT @SqlStatement =       
 'SELECT	qprofiler.RowNumber, CONVERT(XML, qprofiler.TextData) TextDataX, qprofiler.StartTime      
-FROM	' + @SrceDesc + ' qprofiler
+FROM	' + @SrceDesc + ' qprofiler   
 WHERE	qprofiler.EventClass = (SELECT etns.trace_event_id FROM sys.trace_events etns WHERE	etns.name = ''Deadlock graph'')'
 	EXECUTE sp_executesql @SqlStatement        
 END         
