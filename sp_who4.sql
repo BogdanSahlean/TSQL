@@ -6,7 +6,7 @@ IF OBJECT_ID('sp_who4') IS NOT NULL
 BEGIN   
 	DROP PROC sp_who4         
 END   
-GO  
+GO     
 CREATE PROC sp_who4           
 @get_indexes INT = NULL --NULL=No, 1=XML, 2=SQL Statements            
 AS         
