@@ -10,7 +10,7 @@ AS
 DECLARE @SrceXml XML            
 DECLARE @SqlStatement NVARCHAR(MAX)                         
 IF @SrceType = 2 /*SQL Profiler Table*/ AND @SrceID IS NULL 
-BEGIN   
+BEGIN      
 	SELECT @SqlStatement =       
 'SELECT	qprofiler.RowNumber, CONVERT(XML, qprofiler.TextData) TextDataX, qprofiler.StartTime         
 FROM	' + @SrceDesc + ' qprofiler   
@@ -29,7 +29,7 @@ END
 DECLARE @xdl NVARCHAR(MAX) = CASE WHEN @SrceXml IS NOT NULL THEN CONVERT(VARCHAR(MAX), @SrceXml) ELSE @SrceDesc END                                 
                      
 IF OBJECT_ID('tempdb..#cox') IS NOT NULL                                                
-BEGIN                     
+BEGIN                        
 DROP TABLE #cox      
 END
 SELECT s.*, name = i.Nod.value('(@name)', 'sysname'), value = i.Nod.value('(text())[1]', 'varchar(8000)'), LTRIM(spid) + '.' + LTRIM(ISNULL(ecid,0)) + '.' + LTRIM(id) as idc
