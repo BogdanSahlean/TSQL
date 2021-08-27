@@ -25,7 +25,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
     <Batch>                                                                  
            <StmtSimple StatementCompId="2" StatementEstRows="1" StatementId="1" StatementOptmLevel="FULL" CardinalityEstimationModelVersion="70" StatementSubTreeCost="54.691   4" StatementText="SELECT COUNT(ddd.NorthAmericaSeason) &#xD;&#xA;FROM FactOnlineSales fcto &#xD;&#xA;JOIN DimDate ddd ON fcto.DateKey = ddd.Datekey" StatementType="SELECT" QueryHash="0x6486F95BB431C6E4" QueryPlanHash="0x13BEA4EF1B909C8D" RetrievedFromCache="true" SecurityPolicyApplied="false">
           <StatementSetOptions ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" NUMERIC_ROUNDABORT="false" QUOTED_IDENTIFIER="true" />
-          <QueryPlan DegreeOfParallelism="8" MemoryGrant="136" CachedPlanSize="144" CompileTime="1157" CompileCPU="85" CompileMemory="2128      
+          <QueryPlan DegreeOfParallelism="8" MemoryGrant="136" CachedPlanSize="144" CompileTime="1157" CompileCPU="85" CompileMemory="2128         
             <ThreadStat Branches="1" UsedThreads="8">                                                                                                                                                      
               <ThreadReservation NodeId="0" ReservedThreads="8" />                                                      
             </ThreadStat>                              
