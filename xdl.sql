@@ -1,7 +1,7 @@
 SET ANSI_NULLS ON
 SET QUOTED_IDENTIFIER ON
 GO
-ALTER PROCEDURE [dbo].[XdlAnalysis]   
+ALTER PROCEDURE [dbo].[XdlAnalysis]     
 @SrceType	INT, --1 Xdl, 2=SQL Profiler Table
       
 @SrceDesc	VARCHAR(MAX),        
@@ -11,7 +11,7 @@ DECLARE @SrceXml XML
 DECLARE @SqlStatement NVARCHAR(MAX)                            
 IF @SrceType = 2 /*SQL Profiler Table*/ AND @SrceID IS NULL 
 BEGIN      
-	SELECT @SqlStatement =       
+	SELECT @SqlStatement =          
 'SELECT	qprofiler.RowNumber, CONVERT(XML, qprofiler.TextData) TextDataX, qprofiler.StartTime            
 FROM	' + @SrceDesc + ' qprofiler   
 WHERE	qprofiler.EventClass = (SELECT etns.trace_event_id FROM sys.trace_events etns WHERE	etns.name = ''Deadlock graph'')'   
