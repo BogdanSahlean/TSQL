@@ -20,7 +20,7 @@ END
 ELSE IF @SrceType = 2 /*SQL Profiler Table*/ AND @SrceID IS NOT NULL             
 BEGIN     
 	SELECT @SqlStatement = 
-'SELECT	@SrceXml = CONVERT(XML, qprofiler.TextData)    
+'SELECT	@SrceXml = CONVERT(XML, qprofiler.TextData)      
    WHERE	qprofiler.EventClass = (SELECT etns.trace_event_id FROM sys.trace_events etns WHERE	etns.name = ''Deadlock graph'')      
 AND qprofiler.RowNumber = @SrceID'            
 	EXECUTE sp_executesql @SqlStatement, N'@SrceID INT, @SrceXml XML OUTPUT', @SrceID = @SrceID, @SrceXml = @SrceXml OUTPUT           
