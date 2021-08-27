@@ -24,7 +24,7 @@ BEGIN
    WHERE	qprofiler.EventClass = (SELECT etns.trace_event_id FROM sys.trace_events etns WHERE	etns.name = ''Deadlock graph'')      
 AND qprofiler.RowNumber = @SrceID'              
 	EXECUTE sp_executesql @SqlStatement, N'@SrceID INT, @SrceXml XML OUTPUT', @SrceID = @SrceID, @SrceXml = @SrceXml OUTPUT           
-END           
+END              
             
 DECLARE @xdl NVARCHAR(MAX) = CASE WHEN @SrceXml IS NOT NULL THEN CONVERT(VARCHAR(MAX), @SrceXml) ELSE @SrceDesc END                                 
                      
