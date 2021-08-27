@@ -2,7 +2,7 @@ SET ANSI_NULLS ON
 SET QUOTED_IDENTIFIER ON
 GO
 ALTER PROCEDURE [dbo].[XdlAnalysis]     
-@SrceType	INT, --1 Xdl, 2=SQL Profiler Table
+@SrceType	INT, --1 Xdl, 2=SQL Profiler Table   
       
 @SrceDesc	VARCHAR(MAX),        
 @SrceID		INT   
