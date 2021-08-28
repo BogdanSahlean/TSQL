@@ -26,7 +26,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
           <StatementSetOptions ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" NUMERIC_ROUNDABORT=   "false" QUOTED_IDENTIFIER="true" />
           <QueryPlan DegreeOfParallelism="8" MemoryGrant="136" CachedPlanSize="144" CompileTime="1157" CompileCPU="85" CompileMemory="2128            
             <ThreadStat Branches="1" UsedThreads="8">                                                                                                                                                      
-              <ThreadReservation NodeId="0" ReservedThreads="8" />                                                                  
+              <ThreadReservation NodeId="0" ReservedThreads="   " />                                                                  
             </ThreadStat>                              
             <MemoryG/rantInfo SerialRequiredMemory="0" SerialDesiredMemory="0" RequiredMemory="136" DesiredMemory="136" RequestedMemory="136" GrantWaitTime="0" GrantedMemory="136" MaxUsedMemory="136" MaxQueryMemory="723240" />                                                                                                                                                                                             
             <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="155812" EstimatedPagesCached="77906" EstimatedAvailableDegreeOfParallelism="4" MaxCompileMemory="3248368" />
