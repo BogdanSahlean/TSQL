@@ -15,7 +15,7 @@ BEGIN
 'SELECT	qprofiler.RowNumber, CONVERT(XML, qprofiler.TextData) TextDataX, qprofiler.StartTime            
 FROM	' + @SrceDesc + ' qprofiler   
 WHERE	qprofiler.EventClass = (SELECT etns.trace_event_id FROM sys.trace_events etns WHERE	etns.name = ''Deadlock graph'')'   
-	EXECUTE sp_executesql @SqlStatement  
+	EXECUTE sp_executesql @SqlStatement     
 END            
 ELSE IF @SrceType = 2 /*SQL Profiler Table*/ AND @SrceID IS NOT NULL               
 BEGIN     
