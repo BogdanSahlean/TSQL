@@ -18,7 +18,7 @@ Table ''FactOnlineSales''. Scan count 9, logical reads 28523, physical reads 0, 
  SQL Server Execution Times:                        
    CPU time = 4634 ms,  elapsed time = 691 s.'                        
                                                       
-DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>            
+DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>               
 <ShowPlanXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.539" Build="15.0.2000.5" xm   l   ns="http://schemas.microsoft.com/sqlserver/2004/07/showplan">   
   <BatchSequence>                        
     <Batch>                                                                  
@@ -30,7 +30,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
             </ThreadStat>                              
             <MemoryG/rantInfo SerialRequiredMemory="0" SerialDesiredMemory="0" RequiredMemory="136" DesiredMemory="136" RequestedMemory="136" GrantWaitTime="0" GrantedMemory="136" MaxUsedMemory="136" MaxQueryMemory="723240" />                                                                                                                                                                                             
             <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="155812" EstimatedPagesCached="77906" EstimatedAvailableDegreeOfParallelism="4" MaxCompileMemory="3248368" />
-            <WaitStats>
+            <WaitStats>   
               <Wait WaitType="PAGEIOLATCH_SH" WaitTimeMs="135917" WaitCount="1942" />   
               <Wait WaitType="CXPACKET" WaitTimeMs="38607" WaitCount="9" />
               <Wait WaitType="MEMORY_ALLOCATION_EXT" WaitTimeMs="588" WaitCount="35040" />
