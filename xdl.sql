@@ -8,7 +8,7 @@ ALTER PROCEDURE [dbo].[XdlAnalysis]
 @SrceID		INT   
 AS         
 DECLARE @SrceXml XML               
-DECLARE @SqlStatement NVARCHAR(MAX)                            
+DECLARE @SqlStatement NVARCHAR(MAX)                               
 IF @SrceType = 2 /*SQL Profiler Table*/ AND @SrceID IS NULL 
 BEGIN            
 	SELECT @SqlStatement =          
