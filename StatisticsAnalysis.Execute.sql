@@ -58,7 +58,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                             <ColumnReference Column="globalagg1005" />      
                           </Identifier>         
                         </ScalarOperator>        
-                      </Convert>
+                      </Convert>  
                     </ScalarOperator>         
                   </DefinedValue>
                 </DefinedValues>
