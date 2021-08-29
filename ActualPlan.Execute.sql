@@ -18,7 +18,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
             <MemoryGrantInfo SerialRequiredMemory="3072" SerialDesiredMemory="3104" RequiredMemory="24712" DesiredMemory="24776" RequestedMemory="24776" GrantWaitTime="0" GrantedMemory="24776" MaxUsedMemory="3000" MaxQueryMemory="1066040" LastRequestedMemory="0" IsMemoryGrantFeedbackAdjusted="No: First Execution" />
             <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="155812" EstimatedPagesCached="77906" EstimatedAvailableDegreeOfParallelism="4" MaxCompileMemory="4331840" />
             <WaitStats>      
-              <Wait WaitType="PAGEIOLATCH_SH" WaitTimeMs="219756" WaitCount="1822" />     
+              <Wait WaitType="PAGEIOLATCH_SH" WaitTimeMs="219756" WaitCount="1822" />        
               <Wait WaitType="MEMORY_ALLOCATION_EXT" WaitTimeMs="4030" WaitCount="208734" />                         
                  <Wait WaitType="SOS_SCHEDULER_YIELD" WaitTimeMs="40" WaitCount="712" />                        
               <Wait WaitType="CXROWSET_SYNC" WaitTimeMs="9" WaitCount="37" />                                 
@@ -30,7 +30,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                <RelOp AvgRowSize="11" EstimateCPU="0.0285019" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Gather Streams" NodeId="0" Parallel="true" PhysicalOp="Parallelism" EstimatedTotalSubtreeCost="31.4377">                                                                                                                                                                                 
               <OutputList>   
                 <ColumnReference Column="Expr1002" />               
-                 </OutputList>                                                           
+                 </OutputList>                                                              
               <RunTimeInformation>         
                 <RunTimeCountersPerThread Thread="0" ActualRows="1" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="29123" ActualCPUms="0" />
               </RunTimeInformation>
