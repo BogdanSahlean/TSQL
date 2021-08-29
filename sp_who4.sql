@@ -23,7 +23,7 @@ BEGIN
 	WITH XMLNAMESPACES(DEFAULT 'http://schemas.microsoft.com/sqlserver/2004/07/showplan'),                     
 	BlkSessions               
 	AS (                      
-		SELECT	blk_sei.spid AS session_id, NULLIF(blk_sei.blocked, 0) AS blocked_by, NULL AS group_num         
+		SELECT	blk_sei.spid AS session_id, NULLIF(blk_sei.blocked, 0) AS blocked_by, NULL AS group_num            
 		FROM	sys.sysprocesses blk_sei                                
 		WHERE	blk_sei.blocked <> 0                                     
 		UNION ALL                                
