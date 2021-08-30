@@ -8,10 +8,10 @@ BEGIN
 END      
 GO        
 CREATE PROC sp_who4           
-@get_indexes INT = NULL --NULL=No, 1=XML, 2=SQL Statements               
+@get_indexes INT = NULL --NULL=No, 1=XML, 2=SQL Statements                 
 AS               
 BEGIN         
-	SET NOCOUNT ON                         
+	SET NOCOUNT ON                            
         
 	SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED                         
                   
