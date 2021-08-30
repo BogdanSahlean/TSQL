@@ -5,18 +5,18 @@ GO
 IF OBJECT_ID('sp_who4') IS NOT NULL      
 BEGIN   
 	DROP PROC sp_who4            
-END         
-GO     
+END        
+GO           
 CREATE PROC sp_who4           
-@get_indexes INT = NULL --NULL=No, 1=XML, 2=SQL Statements            
-AS         
-BEGIN      
-	SET NOCOUNT ON                         
-      
+@get_indexes INT = NULL --NULL=No, 1=XML, 2=SQL Statements                 
+AS               
+BEGIN         
+	SET NOCOUNT ON                            
+        
 	SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED                         
-               
+                  
 	IF OBJECT_ID('tempdb..#res') IS NOT NULL             
-	BEGIN                
+	BEGIN                  
 		DROP TABLE #res;       
 	END;                                                                                                                                                                                                                                                                                                                     
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
@@ -28,8 +28,8 @@ BEGIN
 		WHERE	blk_sei.blocked <> 0                                     
 		UNION ALL                                
 		SELECT	blk_blk.session_id, NULL AS blocked_by, ROW_NUMBER() OVER(ORDER BY blk_blk.session_id)  AS group_num                                                                                                           
-		FROM (                           
-			SELECT	blk_sei.spid AS    session_id                           
+		FROM (                        
+			SELECT	blk_sei.spid AS    session_id                             
 			FROM	sys.sysprocesses blk_sei                                                                                                                                     
 			WHERE	EXISTS(SELECT * FROM s   ys.dm_os_waiting_tasks dmowt WHERE dmowt.blocking_session_id = blk_sei.spid) -- blk_sei.blocked = 0                                                                                                                                                                                                                    
 			AND		NOT EXISTS(SELECT * FROM sys.dm_os_waiting_tasks dmowt WHERE dmowt.session_id = blk_sei.spid) -- blk_sei.blocked = 0
