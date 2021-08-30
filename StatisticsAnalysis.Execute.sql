@@ -11,7 +11,7 @@ Table ''Worktable''. Scan count 0, logical reads 0, physical reads 0, page serve
    
    SQL Server Execution Times:                     
    CPU time = 10557   mcs,  elapsed time = 1733 ms.        
-                   
+   
 (1 row affected)           
 Table ''FactOnlineSales''. Scan count 9, logical reads 28523, physical reads 0,       page server reads 0, read-ahead reads 0, page server read-ahead reads 0, lob logical reads 0, lob physical reads 0, lob page server reads 0, lob read-ahead reads 0, lob page server read-ahead reads 0.
               
