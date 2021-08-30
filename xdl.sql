@@ -10,7 +10,7 @@ AS
 DECLARE @SrceXml XML                          
 DECLARE @SqlStatement NVARCHAR(MAX)                               
 IF @SrceType = 2 /*SQL Profiler Table*/ AND @SrceID IS NULL    
-BEGIN               
+BEGIN                  
 	SELECT @SqlStatement =                
 'SELECT	qprofiler.RowNumber, CONVERT(XML, qprofiler.TextData) TextDataX, qprofiler.StartTime            
 FROM	' + @SrceDesc + ' qprofiler   
