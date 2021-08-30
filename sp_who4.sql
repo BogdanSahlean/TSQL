@@ -7,7 +7,7 @@ BEGIN
 	DROP PROC sp_who4            
 END                 
 GO           
-CREATE PROC sp_who4           
+CREATE PROC sp_who4   
 @get_indexes INT = NULL --NULL=No, 1=XML, 2=SQL Statements                          
 AS               
 BEGIN            
