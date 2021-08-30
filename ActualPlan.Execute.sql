@@ -2,7 +2,7 @@
 SET QUOTED_IDENTIFIER ON   
 SET NUMERIC_ROUNDABORT OFF   
                      
-GO           
+GO              
             
 DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>   
 <ShowPlanXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XML   Schema" Version="1.539" Build="15.0.2000.5" xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan">
