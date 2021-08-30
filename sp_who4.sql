@@ -1,6 +1,6 @@
 SET ANSI_NULLS ON
 SET QUOTED_IDENTIFIER ON
-GO 
+GO    
 
 IF OBJECT_ID('sp_who4') IS NOT NULL      
 BEGIN   
@@ -8,13 +8,14 @@ BEGIN
 END              
 GO           
 CREATE PROC sp_who4           
-@get_indexes INT = NULL --NULL=No, 1=XML, 2=SQL Statements                    
+@get_indexes INT = NULL --NULL=No, 1=XML, 2=SQL Statements                       
 AS               
 BEGIN         
 	SET NOCOUNT ON                            
         
 	SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED                         
-   	IF OBJECT_ID('tempdb..#res') IS NOT NULL             
+                  
+	IF OBJECT_ID('tempdb..#res') IS NOT NULL             
 	BEGIN                  
 		DROP TABLE #res;       
 	END;                                                                                                                                                                                                                                                                                                                     
