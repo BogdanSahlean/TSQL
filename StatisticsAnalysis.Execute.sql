@@ -3,7 +3,7 @@ DECLARE @sttcs NVARCHAR(MAX) =
    CPU time = 31 ms, elapsed time = 33 ms.   
     SQL Server Execution Times:                                 
    CPU time = 0 ms,  elapsed time = 0 ms.                          
-   (1 row affected)      
+   (1 row affected)         
 Table ''FactOnlineSales''. Scan count 2555, logical reads 36240, physical reads 0, page server reads 0, read-ahead reads 0, page server read-ahead reads 0, lob logical reads 0, lob physical reads 0, lob page server reads 0, lob read-ahead reads 0, lob page server read-ahead reads 0.
 Table ''DimDate''. Scan count 9, logical reads 334, physical reads 0, page server reads 0, read-ahead reads 0, page server read-ahead reads 0, lob logical reads 0, lob physical reads 0, lob page server reads 0, lob read-ahead reads 0, lob page server read-ahead reads 0.
 Table ''Worktable''. Scan count 0, logical reads 0, physical reads 0, page server reads 0, read-ahead reads 0, page server read-ahead reads 0, lob logical reads 0, lob physical reads 0, lob page server reads 0, lob read-ahead reads 0, lob page server read-ahead reads 0.
