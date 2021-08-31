@@ -31,7 +31,7 @@ DECLARE @xdl NVARCHAR(MAX) = CASE WHEN @SrceXml IS NOT NULL THEN CONVERT(VARCHAR
 IF OBJECT_ID('tempdb..#cox') IS NOT NULL                                                            
 BEGIN                                             
 DROP TABLE #cox                                    
-END         
+END           
 SELECT s.*, name = i.Nod.value('(@name)', 'sysname'), value = i.Nod.value('(text())[1]', 'varchar(8000)'), LTRIM(spid) + '.' + LTRIM(ISNULL(ecid,0)) + '.' + LTRIM(id) as idc
 INTO #cox
 FROM (
