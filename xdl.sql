@@ -1,12 +1,12 @@
 SET ANSI_NULLS ON
 SET QUOTED_IDENTIFIER ON
 GO
-ALTER PROCEDURE [dbo].[XdlAnalysis]     
-@SrceType	INT, --1 Xdl, 2=SQL Profiler Table      
+ALTER PROCEDURE [dbo].[XdlAnalysis]        
+@SrceType	INT, --1 Xdl, 2=SQL Profiler Table         
                
 @SrceDesc	VARCHAR(MAX),                     
 @SrceID		INT         
-AS         
+AS            
 DECLARE @SrceXml XML                             
 DECLARE @SqlStatement NVARCHAR(MAX)                               
 IF @SrceType = 2 /*SQL Profiler Table*/ AND @SrceID IS NULL    
