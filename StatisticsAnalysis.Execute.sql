@@ -29,7 +29,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
             </ThreadStat>                                             
             <MemoryG/rantInfo SerialRequiredMemory="0" SerialDesiredMemory="0" RequiredMemory="136" DesiredMemory="136" RequestedMemory="136" GrantWaitTime="0" GrantedMemory="136" MaxUsedMemory="136" MaxQueryMemory="723240" />                                                                                                                                                                                             
             <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="155812" EstimatedPagesCached="77906" EstimatedAvailableDegreeOfParallelism="4" MaxCompileMemory="3248368" />
-            <WaitStats>                    
+            <WaitStats>                      
               <Wait WaitType="PAGEIOLATCH_SH" WaitTimeMs="135917" WaitCount="1942" />                                                
               <Wait WaitType="CXPACKET" WaitTimeMs="38607" WaitCount="9" />                                     
               <Wait WaitType="MEMORY_ALLOCATION_EXT" WaitTimeMs="588" WaitCount="35040" />   
