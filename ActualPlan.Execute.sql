@@ -22,7 +22,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                  <Wait WaitType="SOS_SCHEDULER_YIELD" WaitTimeMs="40" WaitCount="712" />                              
               <Wait WaitType="CXROWSET_SYNC" WaitTimeMs="9" WaitCount="37" />                                    
               <Wait WaitType="HTDELETE" WaitTimeMs="4" WaitCount="14" />                                                 
-                    <Wait WaitType="EXECSYNC" WaitTimeMs="3" WaitCount="9" />                                                                                              
+                    <Wait WaitType="EXECSYNC" WaitTimeMs="3" WaitCount="9" />                                                                                                 
               <Wait WaitType="RESERVED_MEMORY_ALLOCATION_EXT" WaitTimeMs="2" WaitCount="182" />                                                                                                                                                                                            
                <QueryTimeStats CpuTime="11398" ElapsedTime="29138" /   >                                    
                <RelOp AvgRowSize="11" EstimateCPU="0.0285019" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Gather Streams" NodeId="0" Parallel="true" PhysicalOp="Parallelism" EstimatedTotalSubtreeCost="31.4377">                                                                                                                                                                                 
