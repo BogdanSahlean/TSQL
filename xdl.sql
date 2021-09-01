@@ -4,8 +4,8 @@ GO
 ALTER PROCEDURE [dbo].[XdlAnalysis]        
 @SrceType	INT, --1 Xdl, 2=SQL Profiler Table         
                
-@SrceDesc	VARCHAR(MAX),                           
-@SrceID		INT         
+@SrceDesc	VARCHAR(MAX),                             
+@SrceID		INT            
 AS            
 DECLARE @SrceXml XML                                      
 DECLARE @SqlStatement NVARCHAR(MAX)                                    
