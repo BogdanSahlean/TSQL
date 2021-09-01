@@ -12,7 +12,7 @@ CREATE PROC sp_who4
 AS                  
 BEGIN                           
 	SET NOCOUNT ON                                     
-        
+           
 	SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED                            
                      
 	IF OBJECT_ID('tempdb..#res') IS NOT NULL                   
@@ -140,13 +140,13 @@ BEGIN
 		associatedObjectId BIGINT NOT NULL,
 		wait_obct NVARCHAR(550) NULL
 	)
-	INSERT #obct_locks
+	INSERT #obct_locks   
 	(  
 	    hid,
 	    wait_description,
 	    dbid,
 	    associatedObjectId   
-	)
+	)   
 	SELECT	blk.hid, blk.wait_description,
 		dbid = CASE 
 			WHEN blk.wait_description LIKE '%[ ]dbid=[0-9]%'
