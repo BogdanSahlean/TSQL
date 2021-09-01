@@ -3,7 +3,7 @@ SET QUOTED_IDENTIFIER ON
 GO    
 
 IF OBJECT_ID('sp_who4') IS NOT NULL         
-BEGIN      
+BEGIN         
 	DROP PROC sp_who4               
 END                    
 GO                    
