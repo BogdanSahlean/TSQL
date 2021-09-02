@@ -1,7 +1,7 @@
 SET ANSI_NULLS ON         
 SET QUOTED_IDENTIFIER ON         
 SET NUMERIC_ROUNDABORT OFF           
-                        
+                           
                         
 DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>   
 <ShowPlanXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XML   Schema" Version="1.539" Build="15.0.2000.5" xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan">
@@ -18,7 +18,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
             <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="155812" EstimatedPagesCached="77906" EstimatedAvailableDegreeOfParallelism="4" MaxCompileMemory="4331840" />
             <WaitStats>      
               <Wait WaitType="PAGEIOLATCH_SH" WaitTimeMs="219756" WaitCount="1822" />        
-              <Wait WaitType="MEMORY_ALLOCATION_EXT" WaitTimeMs="4030" WaitCount="208734" />                               
+              <Wait WaitType="MEMORY_ALLOCATION_EXT" WaitTimeMs="4030" WaitCount="208734" />                                  
                  <Wait WaitType="SOS_SCHEDULER_YIELD" WaitTimeMs="40" WaitCount="712" />                              
               <Wait WaitType="CXROWSET_SYNC" WaitTimeMs="9" WaitCount="37" />                                    
               <Wait WaitType="HTDELETE" WaitTimeMs="4" WaitCount="14" />                                                 
