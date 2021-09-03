@@ -1,7 +1,7 @@
 DECLARE @sttcs NVARCHAR(MAX) =
 'SQL Server parse and compile time:                    
        SQL Server Execution Times:    
-   CPU time = 0 ms,  elapsed time = 0 ms.                               
+   CPU time = 0 ms,  elapsed time = 0 ms.                                  
    (1 row affected)               
 Table ''FactOnlineSales''. Scan count 2555, logical reads 36240, physical reads 0, page server reads 0, read-ahead reads 0, page server read-ahead reads 0, lob logical reads 0, lob physical reads 0, lob page server reads 0, lob read-ahead reads 0, lob page server read-ahead reads 0.
 Table ''DimDate''. Scan count 9, logical reads 334, physical reads 0, page server reads 0, read-ahead reads 0, page server read-ahead reads 0, lob logical reads 0, lob physical reads 0, lob page server reads 0, lob read-ahead reads 0, lob page server read-ahead reads 0.
@@ -31,7 +31,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
             <WaitStats>                                 
               <Wait WaitType="PAGEIOLATCH_SH" WaitTimeMs="135917" WaitCount="1942" />                                                                                                                            
               <Wait WaitType="CXPACKET" WaitTimeMs="38607" WaitCount="9" />                                                                                                           
-              <Wait WaitType="MEMORY_ALLOCATION_EXT" WaitTimeMs="588" WaitCount="35040" />                  
+              <Wait WaitType="MEMORY_ALLOCATION_EXT" WaitTimeMs="588" WaitCount="35040" />                     
               <Wait WaitType="LATCH_SH" WaitTimeMs="19" WaitCount="5" />
               <Wait WaitType="LATCH_EX" WaitTimeMs="13" WaitCount="40" />
               <Wait WaitType="SOS_SCHEDULER_YIELD" WaitTimeMs="8" WaitCount="1476" />
