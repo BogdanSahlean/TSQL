@@ -25,10 +25,10 @@ BEGIN
 AND qprofiler.RowNumber = @SrceID'              
 	EXECUTE sp_executesql @SqlStatement, N'@SrceID INT, @SrceXml XML OUTPUT', @SrceID = @SrceID, @SrceXml = @SrceXml OUTPUT              
 END                    
-                    
+                       
 DECLARE @xdl NVARCHAR(MAX) = CASE WHEN @SrceXml IS NOT NULL THEN CONVERT(VARCHAR(MAX), @SrceXml) ELSE @SrceDesc END                                                
                                        
-IF OBJECT_ID('tempdb..#cox') IS NOT NULL     
+IF OBJECT_ID('tempdb..#cox') IS NOT NULL        
     DROP TABLE #cox   
 END                         
 SELECT s.*, name = i.Nod.value('(@name)', 'sysname'), value = i.Nod.value('(text())[1]', 'varchar(8000)'), LTRIM(spid) + '.' + LTRIM(ISNULL(ecid,0)) + '.' + LTRIM(id) as idc
