@@ -17,7 +17,7 @@ FROM	' + @SrceDesc + ' qprofiler
 WHERE	qprofiler.EventClass = (SELECT etns.trace_event_id FROM sys.trace_events etns WHERE	etns.name = ''Deadlock graph'')'   
 	EXECUTE sp_executesql @SqlStatement           
 END                  
-ELSE IF @SrceType = 2 /*SQL Profiler Table*/ AND @SrceID IS NOT NULL                              
+ELSE IF @SrceType = 2 /*SQL Profiler Table*/ AND @SrceID IS NOT NULL                                 
 BEGIN           
 	SELECT @SqlStatement =    
 'SELECT	@SrceXml = CONVERT(XML, qprofiler.TextData)         
@@ -29,7 +29,7 @@ END
 DECLARE @xdl NVARCHAR(MAX) = CASE WHEN @SrceXml IS NOT NULL THEN CONVERT(VARCHAR(MAX), @SrceXml) ELSE @SrceDesc END                                                   
                                                 
 IF OBJECT_ID('tempdb..#cox') IS NOT NULL                     
-    DROP TABLE #cox           
+    DROP TABLE #cox              
 END                         
 SELECT s.*, name = i.Nod.value('(@name)', 'sysname'), value = i.Nod.value('(text())[1]', 'varchar(8000)'), LTRIM(spid) + '.' + LTRIM(ISNULL(ecid,0)) + '.' + LTRIM(id) as idc
 INTO #cox
