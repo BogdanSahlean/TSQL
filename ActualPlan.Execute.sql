@@ -1,7 +1,7 @@
 SET ANSI_NULLS ON         
 SET QUOTED_IDENTIFIER ON         
 SET NUMERIC_ROUNDABORT OFF              
-                           
+                              
                         
 DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>   
 <ShowPlanXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XML   Schema" Version="1.539" Build="15.0.2000.5" xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan">
@@ -28,7 +28,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                <RelOp AvgRowSize="11" EstimateCPU="0.0285019" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Gather Streams" NodeId="0" Parallel="true" PhysicalOp="Parallelism" EstimatedTotalSubtreeCost="31.4377">                                                                                                                                                                                 
               <OutputList>         
                 <ColumnReference Column="Expr1002" />                                                                                      
-                 </OutputList>            
+                 </OutputList>              
               <RunTimeInformation>                                                           
                 <RunTimeCountersPerThread Thread="0" ActualRows="1" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="29123" ActualCPUms="0" />
               </RunTimeInformation>   
