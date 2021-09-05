@@ -25,7 +25,7 @@ BEGIN
 	AS (                         
 		SELECT	blk_sei.spid AS session_id, NULLIF(blk_sei.blocked, 0) AS blocked_by, NULL AS group_num               
   		WHERE	blk_sei.blocked <> 0                                                       
-		UNION ALL                                           
+		UNION ALL                                              
 		SELECT	blk_blk.session_id, NULL AS blocked_by, ROW_NUMBER() OVER(ORDER BY blk_blk.session_id)  AS group_num                                                                                                                             
 		FROM (                                                             
 			SELECT	blk_sei.spid AS    session_id               
