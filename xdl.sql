@@ -55,7 +55,7 @@ FROM (
 SELECT (LTRIM(spid) + ''.'' + LTRIM(ISNULL(ecid,0)) + ''.'' + LTRIM(id)) id,  [name], [value]      
 FROM #cox cox   
 UNION              
-SELECT s.idc, ''deadlockvictim'' [name], ''1'' [value]      
+SELECT s.idc, ''deadlockvictim'' [name], ''1'' [value]         
 FROM (      
 SELECT vict.Nod.value(''(@victim)[1]'', ''sysname'')   
 FROM @dl.nodes(''deadlock-list/deadlock'') vict(Nod)      
