@@ -30,7 +30,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
             <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="155812" EstimatedPagesCached="77906" EstimatedAvailableDegreeOfParallelism="4" MaxCompileMemory="3248368" />
             <WaitStats>                                    
               <Wait WaitType="PAGEIOLATCH_SH" WaitTimeMs="135917" WaitCount="1942" />                                                                                                                                                 
-              <Wait WaitType="CXPACKET" WaitTimeMs="38607" WaitCount="9" />                                                                                                                                                                                                                                                   
+              <Wait WaitType="CXPACKET" WaitTimeMs="38607" WaitCount="9" />                                                                                                                                                                                                                                                      
                   <Wait WaitType="LATCH_SH" WaitTimeMs="19" WaitCount="5" />                                                                                                                  
               <Wait WaitType="LATCH_EX" WaitTimeMs="13" WaitCount="40" />
               <Wait WaitType="SOS_SCHEDULER_YIELD" WaitTimeMs="8" WaitCount="1476" />
