@@ -6,7 +6,7 @@ SET NUMERIC_ROUNDABORT OFF
 DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>      
 <ShowPlanXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XML   Schema" Version="1.539" Build="15.0.2000.5" xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan">
   <BatchSequence   
-    <Batch>         
+    <Batch>            
       <Statements>   
         <StmtSimple StatementCompId="4" StatementEstRows="1" StatementId="1" StatementOptmLevel="FULL" CardinalityEstimationModelVersion="150" StatementSubTreeCost="31.7731" StatementText="SELECT	COUNT(*) Count1&#xD;&#xA;FROM	FactOnlineSalesPartitioning fcto&#xD;&#xA;WHERE	fcto.DateKey &gt;= @parm1 &#xD;&#xA;AND		fcto.DateKey &lt;= @parm2" StatementType="SELECT" QueryHash="0x219AEFEE9C81A99E" QueryPlanHash="0x6088CE1DC76D5BE4" RetrievedFromCache="true" SecurityPolicyApplied="false" BatchModeOnRowStoreUsed="true">
           <StatementSetOptions ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" NUMERIC_ROUNDABORT="false" QUOTED_IDENTIFIER="true" />              
@@ -19,7 +19,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
             <WaitStats>      
               <Wait WaitType="PAGEIOLATCH_SH" WaitTimeMs="219756" WaitCount="1822" />        
               <Wait WaitType="MEMORY_ALLOCATION_EXT" WaitTimeMs="4030" WaitCount="208734" />                                  
-                 <Wait WaitType="SOS_SCHEDULER_YIELD" WaitTimeMs="40" WaitCount="712" />                                 
+                 <Wait WaitType="SOS_SCHEDULER_YIELD" WaitTimeMs="40" WaitCount="712" />                                    
               <Wait WaitType="CXROWSET_SYNC" WaitTimeMs="9" WaitCount="37" />                                       
               <Wait WaitType="HTDELETE" WaitTimeMs="4" WaitCount="14" />                                                    
                     <Wait WaitType="EXECSYNC" WaitTimeMs="3" WaitCount="9" />                                                                                                 
@@ -28,7 +28,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                <RelOp AvgRowSize="11" EstimateCPU="0.0285019" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="1" LogicalOp="Gather Streams" NodeId="0" Parallel="true" PhysicalOp="Parallelism" EstimatedTotalSubtreeCost="31.4377">                                                                                                                                                                                 
               <OutputList>               
                 <ColumnReference Column="Expr1002" />                                                                                                                               
-                 </OutputList>                            
+                 </OutputList>                              
               <RunTimeInformation>                       
                 <RunTimeCountersPerThread Thread="0" ActualRows="1" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row"   ="29123" ActualCPUms="0" />
               </RunTimeInformation>               
