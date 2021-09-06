@@ -7,7 +7,7 @@ Table ''FactOnlineSales''. Scan count 2555, logical reads 36240, physical reads 
 Table ''DimDate''. Scan count 9, logical reads 334, physical reads 0, page server reads 0, read-ahead reads 0, page server read-ahead reads 0, lob logical reads 0, lob physical reads 0, lob page server reads 0, lob read-ahead reads 0, lob page server read-ahead reads 0.
 Table ''Worktable''. Scan count 0, logical reads 0, physical reads 0, page server reads 0, read-ahead reads 0, page server read-ahead reads 0, lob logical reads 0, lob physical reads 0, lob page server reads 0, lob read-ahead reads 0, lob page server read-ahead reads 0.
    
-   SQL Server Execution Times:                        
+   SQL Server Execution Times:                           
    CPU time = 10557   mcs,  elapsed time = 1733 ms.                      
                 
 (1 row affected)                             
@@ -30,7 +30,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
             <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="155812" EstimatedPagesCached="77906" EstimatedAvailableDegreeOfParallelism="4" MaxCompileMemory="3248368" />
             <WaitStats>                                    
               <Wait WaitType="PAGEIOLATCH_SH" WaitTimeMs="135917" WaitCount="1942" />                                                                                                                                                   
-              <Wait WaitType="CXPACKET" WaitTimeMs="38607" WaitCount="9" />                                                                                                                                                                                                                                                         
+              <Wait WaitType="CXPACKET" WaitTimeMs="38607" WaitCount="9" />                                                                                                                                                                                                                                                               
                   <Wait WaitType="LATCH_SH" WaitTimeMs="19" WaitCount="5" />                                                                                                                    
               <Wait WaitType="LATCH_EX" WaitTimeMs="13" WaitCount="40" />
               <Wait WaitType="SOS_SCHEDULER_YIELD" WaitTimeMs="8" WaitCount="1476" />
