@@ -9,7 +9,7 @@ ALTER PROCEDURE [dbo].[XdlAnalysis]
 AS               
 DECLARE @SrceXml XML                                            
 DECLARE @SqlStatement NVARCHAR(MAX)                                    
-IF @SrceType = 2 /*SQL Profiler Table*/ AND @SrceID IS NULL          
+IF @SrceType = 2 /*SQL Profiler Table*/ AND @SrceID IS NULL             
 BEGIN                    
 	SELECT @SqlStatement =                   
 'SELECT	qprofiler.RowNumber, CONVERT(XML, qprofiler.TextData) TextDataX, qprofiler.StartTime                       
