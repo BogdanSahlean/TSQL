@@ -27,7 +27,7 @@ BEGIN
   		WHERE	blk_sei.blocked <> 0                                                       
 		UNION ALL                                                 
 		SELECT	blk_blk.session_id, NULL AS blocked_by, ROW_NUMBER() OVER(ORDER BY blk_blk.session_id)  AS group_num                                                                                                                             
-		FROM (                                                                      
+		FROM (                                                                         
 			SELECT	blk_sei.spid AS    session_id                        
 			FROM	sys.sysprocesses blk_sei                                                                                                                                                                                        
 			WHERE	EXISTS(SELECT * FROM s   ys.dm_os_waiting_tasks dmowt WHERE dmowt.blocking_session_id = blk_sei.spid) -- blk_sei.blocked = 0                                                                                                                                                                                                                                               
