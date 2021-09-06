@@ -5,8 +5,8 @@ ALTER PROCEDURE [dbo].[XdlAnalysis]
 @SrceType	INT, --1 Xdl, 2=SQL Profiler Table         
                      
 @SrceDesc	VARCHAR(MAX),                                      
-@SrceID		INT               
-AS            
+@SrceID		INT                  
+AS               
 DECLARE @SrceXml XML                                            
 DECLARE @SqlStatement NVARCHAR(MAX)                                    
 IF @SrceType = 2 /*SQL Profiler Table*/ AND @SrceID IS NULL          
