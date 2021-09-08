@@ -25,7 +25,7 @@ BEGIN
 AND qprofiler.RowNumber = @SrceID'              
                               
 DECLARE @xdl NVARCHAR(MAX) = CASE WHEN @SrceXml IS NOT NULL THEN CONVERT(VARCHAR(MAX), @SrceXml) ELSE @SrceDesc END                
-                                                           
+                                                             
 IF OBJECT_ID('tempdb..#cox') IS NOT NULL                    
     DROP TABLE #cox                                                                     
 END                                             
