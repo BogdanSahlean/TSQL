@@ -31,7 +31,7 @@ IF OBJECT_ID('tempdb..#cox') IS NOT NULL
 END                                             
 SELECT s.*, name = i.Nod.value('(@name)', 'sysname'), value = i.Nod.value('(text())[1]', 'varchar(8000)'), LTRIM(spid) + '.' + LTRIM(ISNULL(ecid,0)) + '.' + LTRIM(id) as idc
 INTO #cox         
-FROM (                   
+FROM (                      
 SELECT spid.Nod.value('(@spid)[1]', 'int') spid, spid.Nod.value('(@ecid)[1]', 'int') ecid, spid.Nod.value('(@id)[1]', 'sysname') id, spid.Nod.query('for $i in ./@* return <i name="{local-name($i)}">{string($i)}</i>') cox
 FROM @dl.nodes('deadlock-list/deadlock/process-list/process') spid(Nod)
 ) s CROSS APPLY s.cox.nodes('i') i(Nod)
