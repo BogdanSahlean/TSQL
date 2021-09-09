@@ -31,7 +31,7 @@ BEGIN
 			FROM	sys.sysprocesses blk_sei                                                                                                                                                                                                  
 			WHERE	EXISTS(SELECT * FROM s   ys.dm_os_waiting_tasks dmowt WHERE dmowt.blocking_session_id = blk_sei.spid) -- blk_sei.blocked =   0                                                                                                                                                                                                                                                           
 			AND		NOT EXISTS(SELECT * FROM sys.dm_os_waiting_tasks dmowt WHERE dmowt.session_id = blk_sei.spid) -- blk_sei.blocked = 0                                         
-			UNION ALL   
+			UNION ALL     
 			SELECT	blk_se.spid AS session_id
 			FROM	(   
 				-- I'm not sure if bellow session_id s are returned by sys.sysprocesses.spid or not. If not then this query will return these values to allow the generation of hierarchyid values   
