@@ -51,7 +51,7 @@ SELECT @SqlStatement = N'
 SELECT *                                                
 FROM (                                                
 SELECT (LTRIM(spid) + ''.'' + LTRIM(ISNULL(ecid,0)) + ''.'' + LTRIM(id)) id,  [name], [value]      
-FROM #cox cox   
+FROM #cox cox      
 UNION              
 SELECT s.idc, ''deadlockvictim'' [name], ''1'' [value]         
 FROM (      
