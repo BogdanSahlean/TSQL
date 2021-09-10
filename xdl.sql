@@ -3,7 +3,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 ALTER PROCEDURE [dbo].[XdlAnalysis]        
 @SrceType	INT, --1 Xdl, 2=SQL Profiler Table         
-                     
+                        
 @SrceDesc	VARCHAR(MAX),                                      
 @SrceID		INT                    
 AS               
@@ -23,7 +23,7 @@ BEGIN
 'SELECT	@SrceXml = CONVERT(XML, qprofiler.TextData)            
    WHERE	qprofiler.EventClass = (SELECT etns.trace_event_id FROM sys.trace_events etns WHERE	etns.name = ''Deadlock graph'')         
 AND qprofiler.RowNumber = @SrceID'              
-                                    
+                                       
 DECLARE @xdl NVARCHAR(MAX) = CASE WHEN @SrceXml IS NOT NULL THEN CONVERT(VARCHAR(MAX), @SrceXml) ELSE @SrceDesc END                   
                                                                          
 IF OBJECT_ID('tempdb..#cox') IS NOT NULL                               
