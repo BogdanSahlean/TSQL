@@ -139,7 +139,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                                         <Intrinsic FunctionName="RangePartitionNew">
                                           <ScalarOperator>
                                             <Identifier>    
-                                              <ColumnReference Column="@parm2" />   
+                                              <ColumnReference Column="@parm2" />      
                                           </ScalarOperator>
                                           <ScalarOperator>
                                             <Const ConstValue="(1)" />
