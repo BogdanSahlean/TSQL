@@ -12,8 +12,7 @@ BEGIN
 	PRINT @statistics
 
 	DECLARE @xms XML = CONVERT(XML, @statistics) 
-
-	IF OBJECT_ID('tempdb..#sttcs') IS NOT NULL
+   
 	BEGIN
 		DROP TABLE #sttcs   
 	END
