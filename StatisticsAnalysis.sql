@@ -11,7 +11,7 @@ BEGIN
 	SELECT @statistics = '<i>' + REPLACE(@statistics, CHAR(13)+CHAR(10), '</i><i>') + '</i>'      
 	PRINT @statistics
    
-	DECLARE @xms XML = CONVERT(XML, @statistics)    
+	DECLARE @xms XML = CONVERT(XML, @statistics)       
          
 	BEGIN      
 		DROP TABLE #sttcs      
