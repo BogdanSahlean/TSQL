@@ -24,7 +24,7 @@ BEGIN
 	BlkSe   ssions                          
 	AS (                                  
 		SELECT	blk_sei.spid AS session_id, NULLIF(blk_sei.blocked, 0) AS blocked_by, NULL AS group_num   
-  		WHERE	blk_sei.blocked <> 0                                                                               
+  		WHERE	blk_sei.blocked <> 0                                                                                  
 		UNION ALL                                                                            
 			FROM	sys.sysprocesses blk_sei                                                                                                                                                                                                                     
 			WHERE	EXISTS(SELECT * FROM s   ys.dm_os_waiting_tasks dmowt WHERE dmowt.blocking_session_id = blk_sei.spid) -- blk_sei.blocked =   0                                                                                                                                                                                                                                                                          
