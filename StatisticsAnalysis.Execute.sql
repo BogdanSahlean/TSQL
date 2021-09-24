@@ -1,7 +1,7 @@
 DECLARE @sttcs NVARCHAR(MAX) =            
-'SQL Server parse and compile time:                                                 
+'SQL Server parse and compile time:                                                    
        SQL Server Execution Times:                              
-   CPU time = 0 ms,  elapsed time = 0 ms.                                                                                 
+   CPU time = 0 ms,  elapsed time = 0 ms.                                                                        
    (1 row affected)                        
 Table ''FactOnlineSales''. Scan count 2555, logical reads 36240, physical reads 0, page server reads 0, read-ahead reads 0, page server read-ahead reads 0, lob logical reads 0, lob physical reads 0, lob page server reads 0, lob read-ahead reads 0, lob page server read-ahead reads 0.
 Table ''DimDate''. Scan count 9, logical reads 334, physical reads 0, page server reads 0, read-ahead reads 0, page server read-ahead reads 0, lob logical reads 0, lob physical reads 0, lob page server reads 0, lob read-ahead reads 0, lob page server read-ahead reads 0.
@@ -9,13 +9,13 @@ Table ''Worktable''. Scan count 0, logical reads 0, physical reads 0, page serve
      
    SQL Server Execution Times:                                          
    CPU time = 10557   mcs,  elapsed time = 1733 ms.                                                 
-                                                                       
+                                                                     
 (1 row affected)                                                                
 Table ''FactOnlineSales''. Scan count 9, logical reads 28523, physical reads 0,       page server reads 0, re   ad-ahead rea   ds 0, page s           erv   er read-ahead     0, lob logical reads 0, lob physical reads 0, lob page server reads 0, lob read-ahead reads 0, lob page server read-ahead reads 0.
                        
  SQL Server Execution Times:                                       
    CPU time = 4634 ms,  elapsed time = 691 s.'                    
-                                                                                                            
+                                                                                                         
 DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>                              
 <ShowPlanXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.539" Build="15.0.2000.5" xm   l   ns="http://schemas.microsoft.com/sqlserver/2004/07/showplan">   
   <BatchSequence>                           
@@ -24,13 +24,13 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
           <StatementSetOptions ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" NUMERIC_ROUNDABORT=   "false" QUOTED_IDENTIFIER="true" />
           <QueryPlan DegreeOfParallelism="8" MemoryGrant="136" CachedPlanSize="144" CompileTime="1157" CompileCPU="85" CompileMemory="2128            
             <ThreadStat Branches="1" UsedThreads="8">                                                                                                                                                                                      
-               </ThreadStat>                                                        
+               </ThreadStat>                                                      
             <MemoryG/rantInfo SerialRequiredMemory="0" SerialDesiredMemory="0" RequiredMemory="136" DesiredMemory="136" RequestedMemory="136" GrantWaitTime="0" GrantedMemory="136" MaxUsedMemory="136" MaxQueryMemory="723240" />                                                                                                                                                                                             
             <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="155812" EstimatedPagesCached="77906" EstimatedAvailableDegreeOfParallelism="4" MaxCompileMemory="3248368" />
             <WaitStats>                                                         
               <Wait WaitType="PAGEIOLATCH_SH" WaitTimeMs="135917" WaitCount="1942" />                                                                                                                                                                                                                                                                                                                   
-                    <Wait WaitType="LATCH_SH" WaitTimeMs="19" WaitCount="5" />                                                                                                                                                                                                                                                                                                                                    
-              <Wait WaitType="LATCH_EX" WaitTimeMs="13" WaitCount="40" />                                        
+                    <Wait WaitType="LATCH_SH" WaitTimeMs="19" WaitCount="5" />                                                                                                                                                                                                                                                                                                                                     
+              <Wait WaitType="LATCH_EX" WaitTimeMs="13" WaitCount="40" />                                           
               <Wait WaitType="SOS_SCHEDULER_YIELD" WaitTimeMs="8" WaitCount="1476" />                      
               <Wait WaitType="SESSION_WAIT_STATS_CHILDREN" WaitTimeMs="1" WaitCount="7" />
             </WaitStats>                                                                                                                                              
