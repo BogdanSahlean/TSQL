@@ -2,7 +2,7 @@ qSET QUOTED_IDENTIFIER ON
 SET ANSI_NULLS ON
 GO
 CREATE OR ALTER PROCEDURE StatisticsAnalysis
-@statistics NVARCHAR(MAX),       
+@statistics NVARCHAR(MAX),          
 @plan XML         
 AS    
 BEGIN        
