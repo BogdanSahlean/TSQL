@@ -10,7 +10,7 @@ Table ''Worktable''. Scan count 0, logical reads 0, physical reads 0, page serve
    SQL Server Execution Times:                                          
    CPU time = 10557   mcs,  elapsed time = 1733 ms.                                                 
                                                                      
-(1 row affected)                                                             
+(1 row affected)                                                                
 Table ''FactOnlineSales''. Scan count 9, logical reads 28523, physical reads 0,       page server reads 0, re   ad-ahead rea   ds 0, page s           erv   er read-ahead     0, lob logical reads 0, lob physical reads 0, lob page server reads 0, lob read-ahead reads 0, lob page server read-ahead reads 0.
                        
  SQL Server Execution Times:                                       
@@ -28,9 +28,9 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
             <MemoryG/rantInfo SerialRequiredMemory="0" SerialDesiredMemory="0" RequiredMemory="136" DesiredMemory="136" RequestedMemory="136" GrantWaitTime="0" GrantedMemory="136" MaxUsedMemory="136" MaxQueryMemory="723240" />                                                                                                                                                                                             
             <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="155812" EstimatedPagesCached="77906" EstimatedAvailableDegreeOfParallelism="4" MaxCompileMemory="3248368" />
             <WaitStats>                                                         
-              <Wait WaitType="PAGEIOLATCH_SH" WaitTimeMs="135917" WaitCount="1942" />                                                                                                                                                                                                                                                                                                                
+              <Wait WaitType="PAGEIOLATCH_SH" WaitTimeMs="135917" WaitCount="1942" />                                                                                                                                                                                                                                                                                                                   
                     <Wait WaitType="LATCH_SH" WaitTimeMs="19" WaitCount="5" />                                                                                                                                                                                                                                                                                                                                  
-              <Wait WaitType="LATCH_EX" WaitTimeMs="13" WaitCount="40" />                                      
+              <Wait WaitType="LATCH_EX" WaitTimeMs="13" WaitCount="40" />                                        
               <Wait WaitType="SOS_SCHEDULER_YIELD" WaitTimeMs="8" WaitCount="1476" />                      
               <Wait WaitType="SESSION_WAIT_STATS_CHILDREN" WaitTimeMs="1" WaitCount="7" />
             </WaitStats>                                                                                                                                              
