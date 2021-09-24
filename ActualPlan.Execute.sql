@@ -1,6 +1,6 @@
       SET ANSI_NULLS ON            
 SET QUOTED_IDENTIFIER ON                     
-SET NUMERIC_ROUNDABORT OFF                 
+SET NUMERIC_ROUNDABORT OFF                    
                                                     
                                                  
 DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>            
@@ -1643,17 +1643,4 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                                       <ColumnReference Column="@last" />
                                     </Identifier>
                                   </ScalarOperator>
-                                </Compare>
-                              </ScalarOperator>
-                            </Logical>
-                          </ScalarOperator>
-                        </Predicate>
-                      </TableScan>
-                    </RelOp>
-                  </StreamAggregate>
-                </RelOp>
-              </ComputeScalar>
-            </RelOp>
-            <ParameterList>
-              <ColumnReference Column="@cot2" ParameterDataType="bigint" ParameterRuntimeValue="(9963541)" />
-              <ColumnReference Column="@last" ParameterDataType="datetime" ParameterRuntimeValue="''2009-11-24 00
+         
