@@ -1,6 +1,6 @@
 DECLARE @sttcs NVARCHAR(MAX) =            
 'SQL Server parse and compile time:                                                                       
-       SQL Server Execution Times:                                                        
+       SQL Server Execution Times:                                                           
    CPU time = 0 ms,  elapsed time = 0 ms.                                                                                                 
    (1 row affected)       
 Table ''FactOnlineSales''. Scan count 2555, logical reads 36240, physical reads 0, page server reads 0, read-ahead reads 0, page server read-ahead reads 0, lob logical reads 0, lob physical reads 0, lob page server reads 0, lob read-ahead reads 0, lob page server read-ahead reads 0.
