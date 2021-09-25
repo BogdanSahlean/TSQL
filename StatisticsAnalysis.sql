@@ -5,7 +5,7 @@ CREATE OR ALTER PROCEDURE StatisticsAnalysis
 @statistics NVARCHAR(MAX),             
 @plan XML         
 AS      
-BEGIN             
+BEGIN                
 	DECLARE @TIME BIT = 0            
      
 	SELECT @statistics = '<i>' + REPLACE(@statistics, CHAR(13)+CHAR(10), '</i><i>') + '</i>'      
