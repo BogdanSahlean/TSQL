@@ -5,7 +5,7 @@ CREATE OR ALTER PROCEDURE StatisticsAnalysis
 @statistics NVARCHAR(MAX),             
 @plan XML         
 AS            
-BEGIN                      
+BEGIN                         
 	DECLARE @TIME BIT = 0            
          
 	SELECT @statistics = '<i>' + REPLACE(@statistics, CHAR(13)+CHAR(10), '</i><i>') + '</i>'      
@@ -27,7 +27,7 @@ BEGIN
 				WHEN txt LIKE '(% row affected)' THEN 3                  
 				WHEN txt LIKE '(% rows affected)' THEN 3                          
 				WHEN txt LIKE 'Table ''%''. Scan count %' THEN 4                                    
-				WHEN NULLIF(txt, '') IS NULL THEN 5                              
+				WHEN NULLIF(txt, '') IS NULL THEN 5                                
 			END   
 		FROM (         
 			SELECT	rn = ROW_NUMBER() OVER(ORDER BY i.Nod), que = i.Nod.query('.'), txt = LTRIM(RTRIM(i.Nod.value('.', 'NVARCHAR(MAX)')))
