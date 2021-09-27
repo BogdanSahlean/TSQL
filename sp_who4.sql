@@ -3,7 +3,7 @@ SET QUOTED_IDENTIFIER ON
 GO         
    
 IF OBJECT_ID('sp_who4') IS NOT NULL                  
-BEGIN                          
+BEGIN                             
 	DROP PROC sp_who4                                         
 END                           
 GO                               
@@ -23,7 +23,7 @@ BEGIN
 	WITH XMLNAMESPACES(DEFAULT 'http://schemas.microsoft.com/sqlserver/2004/07/showplan'),                                        
 	BlkSe   ssions                                      
 	AS (                                     
-		SELECT	blk_sei.spid AS session_id, NULLIF(blk_sei.blocked, 0) AS blocked_by, NULL AS group_num         
+		SELECT	blk_sei.spid AS session_id, NULLIF(blk_sei.blocked, 0) AS blocked_by, NULL AS group_num           
   		WHERE	blk_sei.blocked <> 0                                                                                     
 		UNION ALL                                                                               
 			FROM	sys.sysprocesses blk_sei                                                                                                                                                                                                                           
