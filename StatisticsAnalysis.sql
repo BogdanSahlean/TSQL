@@ -6,7 +6,7 @@ CREATE OR ALTER PROCEDURE StatisticsAnalysis
 @plan XML         
 AS            
 BEGIN                         
-	DECLARE @TIME BIT = 0            
+	DECLARE @TIME BIT = 0               
          
 	SELECT @statistics = '<i>' + REPLACE(@statistics, CHAR(13)+CHAR(10), '</i><i>') + '</i>'      
 	PRINT @statistics
