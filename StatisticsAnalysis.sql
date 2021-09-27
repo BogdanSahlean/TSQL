@@ -13,7 +13,7 @@ BEGIN
       
 	DECLARE @xms XML = CONVERT(XML, @statistics)       
          
-	BEGIN            
+	BEGIN               
 		DROP TABLE #sttcs      
 	END
 
