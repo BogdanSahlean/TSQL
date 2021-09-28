@@ -1,32 +1,32 @@
 SET ANSI_NULLS ON
-SET QUOTED_IDENTIFIER ON   
+SET QUOTED_IDENTIFIER ON      
 GO        
 ALTER PROCEDURE [dbo].[XdlAnalysis]              
-@SrceType	INT, --1 Xdl, 2=SQL Profiler Table                                                             
-                                                           
+@SrceType	INT, --1 Xdl, 2=SQL Profiler Table                                                                
+                                                             
 @SrceDesc	VARCHAR(MAX),                                                                                 
-@SrceID		INT                                                        
-AS                                                       
-DECLARE @SrceXml XML              
-DECLARE @SqlStatement NVARCHAR(MAX)          
+@SrceID		INT                                                      
+AS                                                  
+DECLARE @SrceXml XML         
+DECLARE @SqlStatement NVARCHAR(MAX)         
 IF @SrceType = 2 /*SQL Profiler Table*/ AND @SrceID IS NULL                           
 BEGIN                         
 	SELECT @SqlStatement =                      
 'SELECT	qprofiler.RowNumber, CONVERT(XML, qprofiler.TextData) TextDataX, qprofiler.StartTime                         
-FROM	' + @SrceDesc + ' qprofiler               
+FROM	' + @SrceDesc + ' qprofiler                  
 WHERE	qprofiler.EventClass = (SELECT etns.trace_event_id FROM sys.trace_events etns WHERE	etns.name = ''Deadlock graph'')'   
 	EXECUTE sp_executesql @SqlStatement           
 END  
 ELSE IF @SrceType = 2 /*SQL Profiler Table*/ AND @SrceID IS NOT NULL                                     
 BEGIN             
-	SELECT @SqlStatement =       
+	SELECT @SqlStatement =         
 'SELECT	@SrceXml = CONVERT(XML, qprofiler.TextData)              
    WHERE	qprofiler.EventClass = (SELECT etns.trace_event_id FROM sys.trace_events etns WHERE	etns.name = ''Deadlock graph'')                      
 AND qprofiler.RowNumber = @SrceID'                               
                        
 DECLARE @xdl NVARCHAR(MAX) = CASE WHEN @SrceXml IS NOT NULL THEN CONVERT(VARCHAR(MAX), @SrceXml) ELSE @SrceDesc END                                                                                                         
-                                               
-IF OBJECT_ID('tempdb..#cox') IS NOT NULL                                                                                                            
+                                                    
+IF OBJECT_ID('tempdb..#cox') IS NOT NULL                                                                                                       
   END                                                                       
 SELECT s.*, name = i.Nod.value('(@name)', 'sysname'), value = i.Nod.value('(text())[1]', 'varchar(8000)'), LTRIM(spid) + '.' + LTRIM(ISNULL(ecid,0)) + '.' + LTRIM(id) as idc
 INTO #cox                               
@@ -34,7 +34,7 @@ FROM (
 SELECT spid.Nod.value('(@spid)[1]', 'int') spid, spid.Nod.value('(@ecid)[1]', 'int') ecid, spid.Nod.value('(@id)[1]', 'sysname') id, spid.Nod.query('for $i in ./@* return <i name="{local-name($i)}">{string($i)}</i>') cox
 FROM @dl.nodes('deadlock-list/deadlock/process-list/process') spid(Nod)
 ) s CROSS APPLY s.cox.nodes('i') i(Nod)
-                                                                                                                                                                                                              
+                                                                                                                                                                                                                
 SELECT @SqlStatement = ''                                                                                                                                                                                                                                                    
 DECLARE @Cols NVARCHAR(MAX) = ''
 SELECT @Cols = STUFF((                                                                       
