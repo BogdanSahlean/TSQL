@@ -6,7 +6,7 @@ ALTER PROCEDURE [dbo].[XdlAnalysis]
                                                            
 @SrceDesc	VARCHAR(MAX),                                                                                 
 @SrceID		INT                                                      
-AS                                                 
+AS                                                    
 DECLARE @SrceXml XML              
 DECLARE @SqlStatement NVARCHAR(MAX)          
 IF @SrceType = 2 /*SQL Profiler Table*/ AND @SrceID IS NULL                           
@@ -26,7 +26,7 @@ AND qprofiler.RowNumber = @SrceID'
                        
 DECLARE @xdl NVARCHAR(MAX) = CASE WHEN @SrceXml IS NOT NULL THEN CONVERT(VARCHAR(MAX), @SrceXml) ELSE @SrceDesc END                                                                                                         
                                                
-IF OBJECT_ID('tempdb..#cox') IS NOT NULL                                                                                                          
+IF OBJECT_ID('tempdb..#cox') IS NOT NULL                                                                                                            
   END                                                                       
 SELECT s.*, name = i.Nod.value('(@name)', 'sysname'), value = i.Nod.value('(text())[1]', 'varchar(8000)'), LTRIM(spid) + '.' + LTRIM(ISNULL(ecid,0)) + '.' + LTRIM(id) as idc
 INTO #cox                               
