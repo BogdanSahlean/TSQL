@@ -1,11 +1,11 @@
 SET ANSI_NULLS ON
-SET QUOTED_IDENTIFIER ON        
+SET QUOTED_IDENTIFIER ON      
 GO        
 ALTER PROCEDURE [dbo].[XdlAnalysis]                 
-@SrceType	INT, --1 Xdl, 2=SQL Profiler Table                                                                
+@SrceType	INT, --1 Xdl, 2=SQL Profiler Table                                                                   
                                                                 
-@SrceDesc	VARCHAR(MAX),                                                                                    
-@SrceID		INT                                                            
+@SrceDesc	VARCHAR(MAX),                                                                                 
+@SrceID		INT                                                         
 AS                                                     
 DECLARE @SrceXml XML         
 DECLARE @SqlStatement NVARCHAR(MAX)            
@@ -25,7 +25,7 @@ BEGIN
 AND qprofiler.RowNumber = @SrceID'                               
                        
 DECLARE @xdl NVARCHAR(MAX) = CASE WHEN @SrceXml IS NOT NULL THEN CONVERT(VARCHAR(MAX), @SrceXml) ELSE @SrceDesc END   
-                                                      
+     
 IF OBJECT_ID('tempdb..#cox') IS NOT NULL                                                                                                       
   END                                                                         
 SELECT s.*, name = i.Nod.value('(@name)', 'sysname'), value = i.Nod.value('(text())[1]', 'varchar(8000)'), LTRIM(spid) + '.' + LTRIM(ISNULL(ecid,0)) + '.' + LTRIM(id) as idc
