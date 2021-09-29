@@ -1,10 +1,10 @@
 qSET QUOTED_IDENTIFIER ON
 SET ANSI_NULLS ON     
-GO
+GO  
 CREATE OR ALTER PROCEDURE StatisticsAnalysis     
 @statistics NVARCHAR(MAX),             
 @plan XML         
-AS                  
+AS                    
 BEGIN                         
 	DECLARE @TIME BIT = 0               
          
