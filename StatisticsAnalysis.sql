@@ -21,7 +21,7 @@ BEGIN
 	INTO #sttcs
 	FROM (   
 		SELECT	*, 
-			rt = CASE 
+			rt = CASE    
 				WHEN txt LIKE 'SQL Server parse and compile time:%' THEN 1      
 				WHEN txt LIKE '%SQL Server Execution Times:%' THEN 2         
 				WHEN txt LIKE '(% row affected)' THEN 3                    
