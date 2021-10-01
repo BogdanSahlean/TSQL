@@ -28,7 +28,7 @@ BEGIN
 		UNION ALL                                                                               
 			FROM	sys.sysprocesses blk_sei                                                                                                                                                                                                                             
 			WHERE	EXISTS(SELECT * FROM s   ys.dm_os_waiting_tasks dmowt WHERE dmowt.blocking_session_id = blk_sei.spid) -- blk_sei.blocked =   0                                                                                                                                                                                                                                                                          
-			AND		NOT EXISTS(SELECT * FROM sys.dm_os_waiting_tasks dmowt WHERE dmowt.session_id = blk_sei.spid) -- blk_sei.blocked = 0                                                    
+			AND		NOT EXISTS(SELECT * FROM sys.dm_os_waiting_tasks dmowt WHERE dmowt.session_id = blk_sei.spid) -- blk_sei.blocked = 0                                                      
 			UNION ALL        
 			SELECT	blk_se.spid AS session_id         
 			FROM	(      
