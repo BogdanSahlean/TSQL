@@ -27,4 +27,4 @@
 
 		Call
 		EXECUTE XdlAnalysis 33, @Action=2 
-		Extended analysis: extract execution plans like @Action=1 and from execution plans analysis of queries which are the source of locks (from deadlock, section 3) 
+		Extended analysis: extract exe
