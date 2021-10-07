@@ -10,7 +10,7 @@ CREATE PROC sp_who4
 @get_indexes INT = NULL --NULL=No, 1=XML, 2=SQL Statements
 AS
 BEGIN
-	SET NOCOUNT ON   
+	SET NOCOUNT ON
 
 	SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED 
 
@@ -123,6 +123,9 @@ BEGIN
 	) qp
 	ORDER BY is_blocked DESC, blk_hi.group_num, blk_hi.hid
 	OPTION(KEEPFIXED PLAN, MAXDOP 1);
+
+	CREATE STATISTICS stcs1 ON #resc(hid) WITH NORECOMPUTE 
+	CREATE STATISTICS stcs2 ON #resc(wait_description) WITH NORECOMPUTE
 
 	IF OBJECT_ID('tempdb..#obct_locks') IS NOT NULL 
 	BEGIN 
