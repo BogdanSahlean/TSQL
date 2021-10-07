@@ -1,6 +1,6 @@
 SET ANSI_NULLS ON
 SET QUOTED_IDENTIFIER ON
-GO  
+GO
 IF OBJECT_ID('sp_who4') IS NOT NULL
 BEGIN
 	DROP PROC sp_who4 
@@ -231,6 +231,9 @@ BEGIN
 			) idx_cols_include(Cols)
 			FOR XML RAW('indexes'), TYPE, ELEMENTS)
 		) cols([indexes])
+		OPTION ( 
+		RECOMPILE
+		)
 	END
 
 	SELECT	s.group_num, s.blocking_connections, s.connection_db, s.obct, s.sql_statement, s.[status], s.transaction_count, s.wait_type, s.wait_obct, s.wait_duration, s.cpu, s.reads, s.writes, s.[indexes], s.query_plan, s.program_name, s.hst_name, s.[name], s.hid
