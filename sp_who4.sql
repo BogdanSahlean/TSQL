@@ -7,7 +7,7 @@ BEGIN
 END
 GO
 CREATE PROC sp_who4
-@get_indexes INT = NULL --NULL=No, 1=XML, 2=SQL Statements
+@extractindexes INT = NULL --NULL=No, 1=Execution Plans, 2=XML Missing Indexes, 3=Indexes SQL Statements
 AS
 BEGIN
 	SET NOCOUNT ON
@@ -116,9 +116,10 @@ BEGIN
 	OUTER APPLY (
 		SELECT	TOP(1) 
 				pl.query_plan, 
-				CASE WHEN @get_indexes = 1 THEN pl.query_plan.query('//MissingIndexes') END [indexes]
+				CASE WHEN @extractindexes = 2 THEN pl.query_plan.query('//MissingIndexes') END [indexes]
 		FROM	sys.dm_exec_requests rq OUTER APPLY sys.dm_exec_query_plan(rq.plan_handle) pl
-		WHERE	blk.session_id = rq.session_id
+		WHERE	@extractindexes >= 1 --1=Execution Plans, 2=XML Missing Indexes and 3=SQL Statement Missing Indexes 
+		AND		blk.session_id = rq.session_id
 		ORDER BY rq.request_id
 	) qp
 	ORDER BY is_blocked DESC, blk_hi.group_num, blk_hi.hid
@@ -182,7 +183,7 @@ BEGIN
 		EXEC(@SqlStatement) 
 	END
 
-	IF @get_indexes = 2 
+	IF @extractindexes = 3 --SQL Statements Indexes
 	BEGIN
 		UPDATE	es 
 		SET		[indexes] = cols.[indexes]
