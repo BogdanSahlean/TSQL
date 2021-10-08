@@ -1,7 +1,7 @@
 SET ANSI_NULLS ON
 SET QUOTED_IDENTIFIER ON
 GO
-IF OBJECT_ID('sp_who4') IS NOT NULL      
+IF OBJECT_ID('sp_who4') IS NOT NULL
 BEGIN
 	DROP PROC sp_who4 
 END
@@ -23,7 +23,7 @@ BEGIN
 		group_num				INT,
 		hid						HIERARCHYID,
 		blocking_connections	VARCHAR(4000),
-		session_id				INT   
+		session_id				INT
 	);
 
 	WITH BlkSessions
