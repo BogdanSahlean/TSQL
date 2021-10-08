@@ -1,10 +1,10 @@
 SET ANSI_NULLS ON
 SET QUOTED_IDENTIFIER ON
 GO
-IF OBJECT_ID('sp_who4') IS NOT NULL
+IF OBJECT_ID('sp_who4') IS NOT NULL   
 BEGIN
 	DROP PROC sp_who4 
-END   
+END
 GO
 CREATE PROC sp_who4
 @extractindexes INT = NULL --NULL=No, 1=Execution Plans, 2=XML Missing Indexes, 3=Indexes SQL Statements
@@ -19,19 +19,25 @@ BEGIN
 		DROP TABLE #resc;
 	END;
 
-	WITH XMLNAMESPACES(DEFAULT 'http://schemas.microsoft.com/sqlserver/2004/07/showplan'),
-	BlkSessions
+	CREATE TABLE #sessions (
+		group_num				INT,
+		hid						HIERARCHYID,
+		blocking_connections	VARCHAR(4000),
+		session_id				INT   
+	);
+
+	WITH BlkSessions
 	AS (
 		SELECT	blk_sei.spid AS session_id, NULLIF(blk_sei.blocked, 0) AS blocked_by, NULL AS group_num
 		FROM	sys.sysprocesses blk_sei
 		WHERE	blk_sei.blocked <> 0 
 		UNION ALL
-		SELECT	blk_blk.session_id, NULL AS blocked_by, ROW_NUMBER() OVER(ORDER BY blk_blk.session_id)  AS group_num  
+		SELECT	blk_blk.session_id, NULL AS blocked_by, ROW_NUMBER() OVER(ORDER BY blk_blk.session_id)  AS group_num
 		FROM (
 			SELECT	blk_sei.spid AS session_id
 			FROM	sys.sysprocesses blk_sei
-			WHERE	EXISTS(SELECT * FROM sys.dm_os_waiting_tasks dmowt WHERE dmowt.blocking_session_id = blk_sei.spid) -- blk_sei.blocked = 0
-			AND		NOT EXISTS(SELECT * FROM sys.dm_os_waiting_tasks dmowt WHERE dmowt.session_id = blk_sei.spid) -- blk_sei.blocked = 0   
+			WHERE	EXISTS(SELECT * FROM sys.dm_os_waiting_tasks mo WHERE mo.blocking_session_id = blk_sei.spid) -- blk_sei.blocked = 0
+			AND		NOT EXISTS(SELECT * FROM sys.dm_os_waiting_tasks mo WHERE mo.session_id = blk_sei.spid) -- blk_sei.blocked = 0
 			UNION ALL
 			SELECT	blk_se.spid AS session_id
 			FROM	(
@@ -56,6 +62,16 @@ BEGIN
 	AS (
 		SELECT	blk_hid.group_num, blk_hid.hid, blk_hid.hid.ToString() AS blocking_connections, blk_hid.session_id
 		FROM	BlkSessionsRecursion blk_hid
+	)
+	INSERT	#sessions 
+	SELECT	* 
+	FROM	BlkHierarchy;
+
+	WITH XMLNAMESPACES(DEFAULT 'http://schemas.microsoft.com/sqlserver/2004/07/showplan'),
+	BlkHierarchy
+	AS (
+		SELECT	*
+		FROM	#sessions
 	)
 	SELECT	blk_hi.group_num, blk_hi.blocking_connections, QUOTENAME(blk.connection_db) AS connection_db, blk_sql.obct, blk_sql.sql_statement, blk.[status], blk.transaction_count, blk.wait_type, blk_lok.resource_type, blk.cpu, blk.wait_duration, blk.reads, blk.writes, qp.query_plan, qp.[indexes], blk.[sql_handle], CASE WHEN blk_hi.blocking_connections IS NULL THEN 0 ELSE 1 END AS is_blocked, blk.resource_description wait_description, blk.hst_name, blk.program_name, blk.[name], blk_hi.hid, CONVERT(INT, NULL) dbid, CONVERT(BIGINT, NULL) associatedObjectId, CONVERT(NVARCHAR(550), NULL) wait_obct  
 	INTO #resc
@@ -243,5 +259,4 @@ BEGIN
 	SELECT	s.group_num, s.blocking_connections, s.connection_db, s.obct, s.sql_statement, s.[status], s.transaction_count, s.wait_type, s.wait_obct, s.wait_duration, s.cpu, s.reads, s.writes, s.[indexes], s.query_plan, s.program_name, s.hst_name, s.[name], s.hid
 	FROM	#resc s
 	ORDER BY is_blocked DESC, group_num, hid
-
 END
