@@ -1,7 +1,7 @@
 USE [Test3]
 SET QUOTED_IDENTIFIER ON   
 SET ANSI_NULLS ON   
-GO
+GO  
 CREATE OR ALTER PROCEDURE [dbo].[XdlAnalysis]         
 @SrceDesc VARCHAR(MAX) = NULL,
 @SrceDB TINYINT = NULL, --0 Db From Deadlock Graph, 1 Current Database
@@ -29,7 +29,7 @@ BEGIN
 	FROM	sys.traces tcc
 	WHERE	EXISTS (
 		SELECT	*
-		FROM	sys.fn_trace_geteventinfo(tcc.id) t   
+		FROM	sys.fn_trace_geteventinfo(tcc.id) t     
 		JOIN	sys.trace_events e ON t.eventid = e.trace_event_id   
 		WHERE	e.name = 'Deadlock graph'    
 	) 
