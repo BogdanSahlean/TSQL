@@ -1,5 +1,5 @@
 SET ANSI_NULLS ON
-SET QUOTED_IDENTIFIER ON   
+SET QUOTED_IDENTIFIER ON
 GO
 IF OBJECT_ID('sp_who4') IS NOT NULL
 BEGIN
@@ -73,7 +73,7 @@ BEGIN
 		SELECT	*
 		FROM	#sessions
 	)
-	SELECT	blk_hi.group_num, blk_hi.blocking_connections, QUOTENAME(blk.connection_db) AS connection_db, blk_sql.obct, blk_sql.sql_statement, blk.[status], blk.transaction_count, blk.wait_type, blk_lok.resource_type, blk.cpu, blk.wait_duration, blk.reads, blk.writes, qp.query_plan, qp.[indexes], blk.[sql_handle], CASE WHEN blk_hi.blocking_connections IS NULL THEN 0 ELSE 1 END AS is_blocked, blk.resource_description wait_description, blk.hst_name, blk.program_name, blk.[name], blk_hi.hid, CONVERT(INT, NULL) dbid, CONVERT(BIGINT, NULL) associatedObjectId, CONVERT(NVARCHAR(550), NULL) wait_obct  
+	SELECT	blk_hi.group_num, ISNULL(blk_hi.blocking_connections, '/' + CAST(blk.session_id AS VARCHAR(11)) + '/') blocking_connections, QUOTENAME(blk.connection_db) AS connection_db, blk_sql.obct, blk_sql.sql_statement, blk.[status], blk.transaction_count, blk.wait_type, blk_lok.resource_type, blk.cpu, blk.wait_duration, blk.reads, blk.writes, /*qp.*/ CAST(NULL AS XML) query_plan, /*qp.*/ CAST(NULL AS XML) [indexes], blk.[sql_handle], CASE WHEN blk_hi.blocking_connections IS NULL THEN 0 ELSE 1 END AS is_blocked, blk.resource_description wait_description, blk.hst_name, blk.program_name, blk.[name], blk_hi.hid, CONVERT(INT, NULL) dbid, CONVERT(BIGINT, NULL) associatedObjectId, CONVERT(NVARCHAR(550), NULL) wait_obct, /*aux*/blk.session_id 
 	INTO #resc
 	FROM (
 		SELECT	blk_sei.spid AS session_id, blk_sei.hostname AS hst_name, blk_sei.program_name, blk_sei.loginame AS [name], blk_sei.[status], blk_sei.open_tran AS transaction_count,  blk_wt.wait_type, blk_wt.resource_description, blk_wt.resource_address, CONVERT(DECIMAL(38, 4), blk_wt.wait_duration_ms*.1/1000) AS wait_duration, CONVERT(DECIMAL(38, 4), blk_co.cpu_time*.1/1000) AS cpu, blk_co.logical_reads AS reads, blk_co.writes AS writes, DB_NAME(blk_sei.dbid) AS [connection_db], blk_sei.sql_handle AS [sql_handle], blk_sei.stmt_start AS sql_statement_start, blk_sei.stmt_end AS sql_statement_end
@@ -129,7 +129,7 @@ BEGIN
 		) blk_sqlffs2
 		OUTER APPLY sys.dm_exec_sql_text(blk.sql_handle) blk_sqltxt
 	) blk_sql
-	OUTER APPLY (
+	/*OUTER APPLY (
 		SELECT	TOP(1) 
 				pl.query_plan, 
 				CASE WHEN @extractindexes = 2 THEN pl.query_plan.query('//MissingIndexes') END [indexes]
@@ -137,7 +137,7 @@ BEGIN
 		WHERE	@extractindexes >= 1 --1=Execution Plans, 2=XML Missing Indexes and 3=SQL Statement Missing Indexes 
 		AND		blk.session_id = rq.session_id
 		ORDER BY rq.request_id
-	) qp
+	) qp*/
 	ORDER BY is_blocked DESC, blk_hi.group_num, blk_hi.hid
 	OPTION(KEEPFIXED PLAN, MAXDOP 1);
 
@@ -197,6 +197,26 @@ BEGIN
 			) obct ON lo.hid = obct.hid', '')
 
 		EXEC(@SqlStatement) 
+	END
+
+	IF @extractindexes >= 1
+	BEGIN
+		WITH CteUpdate
+		AS (
+			SELECT	esc.query_plan, esc.[indexes], qp.query_plan query_plan2, qp.[indexes] indexes2
+			FROM	#resc esc
+			OUTER APPLY (
+				SELECT	TOP(1) 
+						pl.query_plan, 
+						CASE WHEN @extractindexes = 2 THEN pl.query_plan.query('//MissingIndexes') END [indexes]
+				FROM	sys.dm_exec_requests rq OUTER APPLY sys.dm_exec_query_plan(rq.plan_handle) pl
+				WHERE	@extractindexes >= 1 --1=Execution Plans, 2=XML Missing Indexes and 3=SQL Statement Missing Indexes 
+				AND		rq.session_id = esc.session_id
+				ORDER BY rq.request_id
+			) qp
+		)
+		UPDATE	CteUpdate 
+		SET		query_plan = query_plan2, [indexes] = [indexes2];
 	END
 
 	IF @extractindexes = 3 --SQL Statements Indexes
@@ -259,4 +279,5 @@ BEGIN
 	SELECT	s.group_num, s.blocking_connections, s.connection_db, s.obct, s.sql_statement, s.[status], s.transaction_count, s.wait_type, s.wait_obct, s.wait_duration, s.cpu, s.reads, s.writes, s.[indexes], s.query_plan, s.program_name, s.hst_name, s.[name], s.hid
 	FROM	#resc s
 	ORDER BY is_blocked DESC, group_num, hid
+
 END
