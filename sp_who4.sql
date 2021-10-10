@@ -73,7 +73,7 @@ BEGIN
 		SELECT	*
 		FROM	#sessions
 	)
-	SELECT	blk_hi.group_num, ISNULL(blk_hi.blocking_connections, '/' + CAST(blk.session_id AS VARCHAR(11)) + '/') blocking_connections, QUOTENAME(blk.connection_db) AS connection_db, blk_sql.obct, blk_sql.sql_statement, blk.[status], blk.transaction_count, blk.wait_type, blk_lok.resource_type, blk.cpu, blk.wait_duration, blk.reads, blk.writes, /*qp.*/ CAST(NULL AS XML) query_plan, /*qp.*/ CAST(NULL AS XML) [indexes], blk.[sql_handle], CASE WHEN blk_hi.blocking_connections IS NULL THEN 0 ELSE 1 END AS is_blocked, blk.resource_description wait_description, blk.hst_name, blk.program_name, blk.[name], blk_hi.hid, CONVERT(INT, NULL) dbid, CONVERT(BIGINT, NULL) associatedObjectId, CONVERT(NVARCHAR(550), NULL) wait_obct, /*aux*/blk.session_id 
+	SELECT	blk_hi.group_num, ISNULL(blk_hi.blocking_connections, '/' + CAST(blk.session_id AS VARCHAR(11)) + '/') blocking_connections, QUOTENAME(blk.connection_db) AS connection_db, blk_sql.obct, blk_sql.sql_statement, blk.[status], blk.transaction_count, blk.wait_type, blk.cpu, blk.wait_duration, blk.reads, blk.writes, /*qp.*/ CAST(NULL AS XML) query_plan, /*qp.*/ CAST(NULL AS XML) [indexes], blk.[sql_handle], CASE WHEN blk_hi.blocking_connections IS NULL THEN 0 ELSE 1 END AS is_blocked, blk.resource_description wait_description, blk.hst_name, blk.program_name, blk.[name], blk_hi.hid, CONVERT(INT, NULL) dbid, CONVERT(BIGINT, NULL) associatedObjectId, CONVERT(NVARCHAR(550), NULL) wait_obct, /*aux*/blk.session_id 
 	INTO #resc
 	FROM (
 		SELECT	blk_sei.spid AS session_id, blk_sei.hostname AS hst_name, blk_sei.program_name, blk_sei.loginame AS [name], blk_sei.[status], blk_sei.open_tran AS transaction_count,  blk_wt.wait_type, blk_wt.resource_description, blk_wt.resource_address, CONVERT(DECIMAL(38, 4), blk_wt.wait_duration_ms*.1/1000) AS wait_duration, CONVERT(DECIMAL(38, 4), blk_co.cpu_time*.1/1000) AS cpu, blk_co.logical_reads AS reads, blk_co.writes AS writes, DB_NAME(blk_sei.dbid) AS [connection_db], blk_sei.sql_handle AS [sql_handle], blk_sei.stmt_start AS sql_statement_start, blk_sei.stmt_end AS sql_statement_end
@@ -117,7 +117,6 @@ BEGIN
 			AND		NOT EXISTS(SELECT * FROM sys.dm_os_waiting_tasks dowt WHERE /*CXCONSUMER,CXPACKET*/dowt.session_id <> dowt.blocking_session_id AND dowt.blocking_session_id = der.session_id)
 		)
 	) blk
-	LEFT JOIN sys.dm_tran_locks blk_lok ON blk_lok.lock_owner_address = blk.resource_address
 	LEFT JOIN BlkHierarchy blk_hi ON blk_hi.session_id = blk.session_id
 	OUTER APPLY (
 		SELECT
@@ -279,5 +278,4 @@ BEGIN
 	SELECT	s.group_num, s.blocking_connections, s.connection_db, s.obct, s.sql_statement, s.[status], s.transaction_count, s.wait_type, s.wait_obct, s.wait_duration, s.cpu, s.reads, s.writes, s.[indexes], s.query_plan, s.program_name, s.hst_name, s.[name], s.hid
 	FROM	#resc s
 	ORDER BY is_blocked DESC, group_num, hid
-
 END
