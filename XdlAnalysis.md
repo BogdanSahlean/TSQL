@@ -26,5 +26,5 @@
 		In case of using the name of stored procedure to extract de execution plan, following options could be used: @SrceDB NULL/0 Db From Deadlock Graph, 1 Current Database 
 
 		Call
-		EXECUTE XdlAnalysis 33, @Action=2 
+		EXECUTE XdlAnalysis 33, @Action=2    
 		Extended analysis: extract query execution plans
