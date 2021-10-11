@@ -27,4 +27,4 @@
 
 		Call
 		EXECUTE XdlAnalysis 33, @Action=2 
-		Extended analysis: extract exe
+		Extended analysis: extract query execution plans 
