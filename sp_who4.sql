@@ -7,7 +7,7 @@ BEGIN
 END
 GO
 CREATE PROC sp_who4
-@extractindexes INT = NULL --NULL=No, 1=Execution Plans, 2=Xml Missing Indexes, 8=Indexes Sql Statements
+@extractindexes INT = NULL --NULL=No, 1=Execution Plans, 2=Xml Missing Indexes, 8=Indexes Sql Statements   
 AS
 BEGIN
 	SET NOCOUNT ON
