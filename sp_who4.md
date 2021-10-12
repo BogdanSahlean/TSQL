@@ -3,3 +3,4 @@ Parameters
 
 Internals https://www.sqlservercentral.com/articles/sp_who4
 Similar Functions With sp_WhoIsActive
+   
