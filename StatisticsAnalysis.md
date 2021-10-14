@@ -1,5 +1,6 @@
 # StatisticsAnalysis
 
 ## Parameters
-@statistics NVARCHAR(MAX)
+`@statistics NVARCHAR(MAX)
 @plan XML
+`
