@@ -8,7 +8,13 @@ Stored procedure used to analyze execution plans by extracting every single quer
 
 # Behaviour
 
-Behaviour
+Results:
+[x] Query text extraction, meaning extracting query text from execution plan,
+[x] Single query extraction, meaning extracting the query plan just for current query,
+[x] Query Cost,
+[x] Dop
+[x] Cardinality estimator used by Query Optimizer and
+[x] Id Query, a number representing an identifier for every query from execution plan.
 
 # Execution
 
