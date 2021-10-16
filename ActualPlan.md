@@ -16,6 +16,9 @@ Results:
 - [x] Cardinality estimator used by Query Optimizer and
 - [x] Id Query, a number representing an identifier for every query from execution plan.
 
+Example:
+![image](https://user-images.githubusercontent.com/62909052/137581040-4b659ae9-4d4e-4038-80b1-008670200dc0.png)
+
 # Execution
 
 `EXECUTE Analysis @plan`
