@@ -15,6 +15,7 @@ More, this procedure is able to take the real execution plan, to extract the tex
 Calling StatisticsAnalysis stored procedure will generate a new temp table `##sttcslgc`. From this point, the end user could do with this table any action for analysis.
 
 Example:
+
 ![image](https://user-images.githubusercontent.com/62909052/137581234-012f429f-e29e-417a-ae95-f99aebc242e9.png)
 
 # Execution
