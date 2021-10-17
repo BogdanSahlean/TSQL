@@ -25,22 +25,22 @@ This proc returns just 19 columns containing details about current blocked conne
 - [x] group_num: This column will contain identifiers for groups of SQL Server blocked connections
 - [x] blocking_session: current spid  or session_id  plus parent spid for blocking scenarios
 - [x] connection_db: database for current connection
-- [x] obct: Name of current procedure   
+- [x] obct: Name of current procedure
 - [x] sql_statement: Active sql statement 
-- [x] Status: sys.sysprocesses.status
-- [x] Transaction count (for current connection)
-- [x] Wait type: Last wait type
-- [x] Wait object: Blocked objects (ex: indices)
-- [x] Wait duration: Difference between current date time 
-- [x] CPU
-- [x] Reads
-- [x] Writes
-- [x] Indexes: Missing indexes
-- [x] Query plan: The execution plan of current object
-- [x] Program name
-- [x] Hst name: Name of the host currently connected to SQL Server
-- [x] Name of login
-- [x] Hid: Binary representation of Connections Blocked. A hierachyid column used to store blocked spids in a hierarchical manner thus: root blocking session\level 1 blocked session\level 2 blocked session\etc.  
+- [x] current_status: sys.sysprocesses.status
+- [x] transaction_count (for current connection)
+- [x] wait_type: Last wait type
+- [x] wait_obct: Blocked objects (ex: indices)
+- [x] wait_duration 
+- [x] cpu
+- [x] reads: buffer logical reads
+- [x] writes
+- [x] missingindexes
+- [x] query_plan: The execution plan of current object
+- [x] program_name
+- [x] hst_name: Name of the host currently connected to SQL Server
+- [x] name: Name of login
+- [x] hid: Binary representation of Connections Blocked. A hierachyid column used to store blocked spids in a hierarchical manner thus: root blocking session\level 1 blocked session\level 2 blocked session\etc. 
 
 # Execution  
 
