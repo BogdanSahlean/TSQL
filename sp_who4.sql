@@ -7,7 +7,7 @@ BEGIN
 END
 GO
 CREATE PROC sp_who4
-@extractindexes INT = NULL --NULL=No, 1=Execution Plans, 2=Xml Missing Indexes, 8=Indexes Sql Statements   
+@extractindexes INT = NULL --NULL=No, 1=Execution Plans, 2=Xml Missing Indexes, 8=Indexes Sql Statements
 AS
 BEGIN
 	SET NOCOUNT ON
@@ -27,9 +27,9 @@ BEGIN
 	);
 
 	WITH BlkSessions
-	AS (   
-		SELECT	blk_sei.spid AS session_id, NULLIF(blk_sei.blocked, 0) AS blocked_by, NULL AS group_num      
-		FROM	sys.sysprocesses blk_sei   
+	AS (
+		SELECT	blk_sei.spid AS session_id, NULLIF(blk_sei.blocked, 0) AS blocked_by, NULL AS group_num
+		FROM	sys.sysprocesses blk_sei
 		WHERE	blk_sei.blocked <> 0 
 		UNION ALL
 		SELECT	blk_blk.session_id, NULL AS blocked_by, ROW_NUMBER() OVER(ORDER BY blk_blk.session_id)  AS group_num
@@ -73,17 +73,17 @@ BEGIN
 		SELECT	*
 		FROM	#sessions
 	)
-	SELECT	blk_hi.group_num, ISNULL(blk_hi.blocking_session, '/' + CAST(blk.session_id AS VARCHAR(11)) + '/') blocking_session, QUOTENAME(blk.connection_db) AS connection_db, blk_sql.obct, blk_sql.sql_statement, blk.[status], blk.transaction_count, blk.wait_type, blk.cpu, blk.wait_duration, blk.reads, blk.writes, CAST(NULL AS XML) execution_plan, CAST(NULL AS XML) [missingindexes], blk.[sql_handle], CASE WHEN blk_hi.blocking_session IS NULL THEN 0 ELSE 1 END AS is_blocked, blk.resource_description wait_description, blk.hst_name, blk.program_name, blk.[name], blk_hi.hid, CONVERT(INT, NULL) dbid, CONVERT(BIGINT, NULL) associatedObjectId, CONVERT(NVARCHAR(550), NULL) wait_obct, /*aux*/blk.session_id 
+	SELECT	blk_hi.group_num, ISNULL(blk_hi.blocking_session, '/' + CAST(blk.session_id AS VARCHAR(11)) + '/') blocking_session, QUOTENAME(blk.connection_db) AS connection_db, blk_sql.obct, blk_sql.sql_statement, blk.[current_status], blk.transaction_count, blk.wait_type, blk.cpu, blk.wait_duration, blk.reads, blk.writes, CAST(NULL AS XML) execution_plan, CAST(NULL AS XML) [missingindexes], blk.[sql_handle], CASE WHEN blk_hi.blocking_session IS NULL THEN 0 ELSE 1 END AS is_blocked, blk.resource_description wait_description, blk.hst_name, blk.program_name, blk.[name], blk_hi.hid, CONVERT(INT, NULL) dbid, CONVERT(BIGINT, NULL) associatedObjectId, CONVERT(NVARCHAR(550), NULL) wait_obct, /*aux*/blk.session_id 
 	INTO #resc
 	FROM (
-		SELECT	blk_sei.spid AS session_id, blk_sei.hostname AS hst_name, blk_sei.program_name, blk_sei.loginame AS [name], blk_sei.[status], blk_sei.open_tran AS transaction_count,  blk_wt.wait_type, blk_wt.resource_description, blk_wt.resource_address, CONVERT(DECIMAL(38, 4), blk_wt.wait_duration_ms*.1/1000) AS wait_duration, CONVERT(DECIMAL(38, 4), blk_co.cpu_time*.1/1000) AS cpu, blk_co.logical_reads AS reads, blk_co.writes AS writes, DB_NAME(blk_sei.dbid) AS [connection_db], blk_sei.sql_handle AS [sql_handle], blk_sei.stmt_start AS sql_statement_start, blk_sei.stmt_end AS sql_statement_end
+		SELECT	blk_sei.spid AS session_id, blk_sei.hostname AS hst_name, blk_sei.program_name, blk_sei.loginame AS [name], blk_sei.[status] current_status, blk_sei.open_tran AS transaction_count,  blk_wt.wait_type, blk_wt.resource_description, blk_wt.resource_address, CONVERT(DECIMAL(38, 4), blk_wt.wait_duration_ms*.1/1000) AS wait_duration, CONVERT(DECIMAL(38, 4), blk_co.cpu_time*.1/1000) AS cpu, blk_co.logical_reads AS reads, blk_co.writes AS writes, DB_NAME(blk_sei.dbid) AS [connection_db], blk_sei.sql_handle AS [sql_handle], blk_sei.stmt_start AS sql_statement_start, blk_sei.stmt_end AS sql_statement_end
 		FROM	sys.sysprocesses blk_sei
 		OUTER APPLY sys.dm_exec_sql_text(blk_sei.sql_handle) AS blk_txt
 		JOIN	sys.dm_exec_sessions blk_co ON blk_co.session_id = blk_sei.spid	
 		JOIN	sys.dm_os_waiting_tasks blk_wt ON blk_wt.session_id = blk_co.session_id
 		WHERE	blk_sei.blocked <> 0
 		UNION ALL
-		SELECT	blk_sei.spid AS session_id, blk_sei.hostname AS hst_name, blk_sei.program_name, blk_sei.loginame AS [name], blk_sei.[status], blk_sei.open_tran AS transaction_count, blk_wt.wait_type, blk_wt.resource_description, blk_wt.resource_address, CONVERT(DECIMAL(38, 4), blk_wt.wait_duration_ms*.1/1000) AS wait_duration, CONVERT(DECIMAL(38, 4), blk_co.cpu_time*.1/1000) AS cpu, blk_co.logical_reads AS reads, blk_co.writes AS writes, DB_NAME(blk_sei.dbid) AS [connection_db], blk_sei.sql_handle AS [sql_handle], blk_sei.stmt_start AS sql_statement_start, blk_sei.stmt_end AS sql_statement_end
+		SELECT	blk_sei.spid AS session_id, blk_sei.hostname AS hst_name, blk_sei.program_name, blk_sei.loginame AS [name], blk_sei.[status] current_status, blk_sei.open_tran AS transaction_count, blk_wt.wait_type, blk_wt.resource_description, blk_wt.resource_address, CONVERT(DECIMAL(38, 4), blk_wt.wait_duration_ms*.1/1000) AS wait_duration, CONVERT(DECIMAL(38, 4), blk_co.cpu_time*.1/1000) AS cpu, blk_co.logical_reads AS reads, blk_co.writes AS writes, DB_NAME(blk_sei.dbid) AS [connection_db], blk_sei.sql_handle AS [sql_handle], blk_sei.stmt_start AS sql_statement_start, blk_sei.stmt_end AS sql_statement_end
 		FROM	sys.sysprocesses blk_sei
 		OUTER APPLY sys.dm_exec_sql_text(blk_sei.sql_handle) AS blk_txt
 		JOIN	sys.dm_exec_sessions blk_co ON blk_co.session_id = blk_sei.spid
@@ -91,7 +91,7 @@ BEGIN
 		WHERE	blk_sei.blocked = 0
 		AND		EXISTS(SELECT * FROM sys.sysprocesses blk_wt WHERE blk_wt.blocked = blk_sei.spid)
 		UNION ALL
-		SELECT	blk_se.spid AS session_id, blk_se.[desc] AS hst_name, NULL AS program_name, NULL AS [name], NULL AS [status], NULL AS transaction_count,  NULL AS wait_type, NULL AS resource_description, NULL AS resource_address, NULL AS wait_duration, NULL AS cpu, NULL AS reads, NULL AS writes, NULL AS [connection_db], NULL AS [sql_handle], NULL AS sql_statement_start, NULL AS sql_statement_end
+		SELECT	blk_se.spid AS session_id, blk_se.[desc] AS hst_name, NULL AS program_name, NULL AS [name], NULL AS [current_status], NULL AS transaction_count,  NULL AS wait_type, NULL AS resource_description, NULL AS resource_address, NULL AS wait_duration, NULL AS cpu, NULL AS reads, NULL AS writes, NULL AS [connection_db], NULL AS [sql_handle], NULL AS sql_statement_start, NULL AS sql_statement_end
 		FROM	(
 			-- I'm not sure if bellow session_id s are returned by sys.sysprocesses.spid or not. If not then this query will return these values to allow the generation of hierarchyid values
 			SELECT -2, 'The blocking resource is owned by an orphaned distributed transaction.' UNION ALL
@@ -101,7 +101,7 @@ BEGIN
 		WHERE	EXISTS(SELECT * FROM sys.sysprocesses blk_sei WHERE	blk_sei.blocked = blk_se.spid)
 		AND		NOT EXISTS(SELECT * FROM sys.sysprocesses blk_sei WHERE	blk_sei.spid = blk_se.spid)
 		UNION ALL
-		SELECT	blk_sei.spid AS session_id, blk_sei.hostname AS hst_name, blk_sei.program_name, blk_sei.loginame AS [name], blk_sei.[status], blk_sei.open_tran AS transaction_count, blk_wt.wait_type, blk_wt.resource_description, blk_wt.resource_address, CONVERT(DECIMAL(38, 4), blk_wt.wait_duration_ms*.1/1000) AS wait_duration, CONVERT(DECIMAL(38, 4), blk_co.cpu_time*.1/1000) AS cpu, blk_co.logical_reads AS reads, blk_co.writes AS writes, DB_NAME(blk_sei.dbid) AS [connection_db], blk_sei.sql_handle AS [sql_handle], blk_sei.stmt_start AS sql_statement_start, blk_sei.stmt_end AS sql_statement_end
+		SELECT	blk_sei.spid AS session_id, blk_sei.hostname AS hst_name, blk_sei.program_name, blk_sei.loginame AS [name], blk_sei.[status] current_status, blk_sei.open_tran AS transaction_count, blk_wt.wait_type, blk_wt.resource_description, blk_wt.resource_address, CONVERT(DECIMAL(38, 4), blk_wt.wait_duration_ms*.1/1000) AS wait_duration, CONVERT(DECIMAL(38, 4), blk_co.cpu_time*.1/1000) AS cpu, blk_co.logical_reads AS reads, blk_co.writes AS writes, DB_NAME(blk_sei.dbid) AS [connection_db], blk_sei.sql_handle AS [sql_handle], blk_sei.stmt_start AS sql_statement_start, blk_sei.stmt_end AS sql_statement_end
 		FROM	sys.sysprocesses blk_sei
 		OUTER APPLY sys.dm_exec_sql_text(blk_sei.sql_handle) AS blk_txt
 		JOIN	sys.dm_exec_sessions blk_co ON blk_co.session_id = blk_sei.spid
@@ -266,7 +266,8 @@ BEGIN
 		)
 	END
 
-	SELECT	s.group_num, s.blocking_session, s.connection_db, s.obct, s.sql_statement, s.[status], s.transaction_count, s.wait_type, s.wait_obct, s.wait_duration, s.cpu, s.reads, s.writes, s.[missingindexes], s.execution_plan, s.program_name, s.hst_name, s.[name], s.hid
+	SELECT	s.group_num, s.blocking_session, s.connection_db, s.obct, s.sql_statement, s.[current_status], s.transaction_count, s.wait_type, s.wait_obct, s.wait_duration, s.cpu, s.reads, s.writes, s.[missingindexes], s.execution_plan, s.program_name, s.hst_name, s.[name], s.hid
 	FROM	#resc s
 	ORDER BY is_blocked DESC, group_num, hid
+
 END
