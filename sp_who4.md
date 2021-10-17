@@ -25,7 +25,7 @@ This proc returns just 19 columns containing details about current blocked conne
 - [x] group_num: This column will contain identifiers for groups of SQL Server blocked connections
 - [x] blocking_session: current spid  or session_id  plus parent spid for blocking scenarios
 - [x] connection_db: database for current connection
-- [x] obct: Name of current procedure
+- [x] obct: Name of current procedure   
 - [x] sql_statement: Active sql statement 
 - [x] Status: sys.sysprocesses.status
 - [x] Transaction count (for current connection)
