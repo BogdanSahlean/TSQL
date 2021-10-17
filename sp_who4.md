@@ -22,11 +22,11 @@ Stored procedure have following 2 main important goals:
 2. Extraction of missing indices from execution plans having as primary goal the simplification of QO of queries implied in blocking. Thus, we could get some  for QO of blocked queries just because sp_who2 will extract these missing indices quicker instead of using SSMS (SQL Server Management Studio) for analysis of execution plans.
 
 This proc returns just 19 columns containing details about current blocked connections and various info that help the analysis: 
-- [x] Group Num: This column will contain identifiers for groups of SQL Server blocked connections
-- [x] Connections Blocked: current spid  or session_id  plus parent spid for blocking scenarios
-- [x] Connection DB: database for current connection
-- [x] Object: Name of current procedure
-- [x] SQL Statement: Active sql statement 
+- [x] group_num: This column will contain identifiers for groups of SQL Server blocked connections
+- [x] blocking_session: current spid  or session_id  plus parent spid for blocking scenarios
+- [x] connection_db: database for current connection
+- [x] obct: Name of current procedure
+- [x] sql_statement: Active sql statement 
 - [x] Status: sys.sysprocesses.status
 - [x] Transaction count (for current connection)
 - [x] Wait type: Last wait type
@@ -40,7 +40,7 @@ This proc returns just 19 columns containing details about current blocked conne
 - [x] Program name
 - [x] Hst name: Name of the host currently connected to SQL Server
 - [x] Name of login
-- [x] Hid: Binary representation of Connections Blocked. A hierachyid column used to store blocked spids in a hierarchical manner thus: root blocking session\level 1 blocked session\level 2 blocked session\etc. 
+- [x] Hid: Binary representation of Connections Blocked. A hierachyid column used to store blocked spids in a hierarchical manner thus: root blocking session\level 1 blocked session\level 2 blocked session\etc.  
 
 # Execution  
 
