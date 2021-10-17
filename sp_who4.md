@@ -46,4 +46,8 @@ This proc returns just 19 columns containing details about current blocked conne
 
 `sp_who4`
 
+`EXEC sp_who4`
+
 `EXECUTE sp_who4`
+
+![image](https://user-images.githubusercontent.com/62909052/137621730-07e821f8-ce36-4889-bbb6-1636b4185097.png)
