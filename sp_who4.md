@@ -5,7 +5,7 @@ Analysis blocking of active SQL Server sessions could be hard if current SQL Ser
 This proc will simplify the analysis of blocked connections because will create groups of blocked connections and will extract the missing indices. This is main reason why this proc (sp_Who4) could be used to simplify the analysis of blocked processes and then take fast decision for QO (the missing indices).
 
 Similar functionalities with sp_WhoIsActive.
-
+   
 Internals https://www.sqlservercentral.com/articles/sp_who4
 
 # Parameters
