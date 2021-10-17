@@ -11,9 +11,9 @@ Internals https://www.sqlservercentral.com/articles/sp_who4
 # Parameters
 
 `@extractindexes INT = NULL --NULL=No`
-1. Extract Execution Plans 
-2. Extract Xml Missing Indexes
-8. Extract Sql Statements for Indexes
+- [x] `@extractindexes=1` Extract Execution Plans 
+- [x] `@extractindexes=2` Extract Xml Missing Indexes
+- [x] `@extractindexes=8` Extract Sql Statements for Indexes
 
 # Behaviour
 
@@ -40,7 +40,7 @@ This proc returns just 19 columns containing details about current blocked conne
 - [x] program_name
 - [x] hst_name: Name of the host currently connected to SQL Server
 - [x] name: Name of login
-- [x] hid: Binary representation of Connections Blocked. A hierachyid column used to store blocked spids in a hierarchical manner thus: root blocking session\level 1 blocked session\level 2 blocked session\etc. 
+- [x] hid: Binary representation of blocking_session. A hierachyid column used to store blocked spids in a hierarchical manner thus: root blocking session\level 1 blocked session\level 2 blocked session\etc. 
 
 # Execution  
 
