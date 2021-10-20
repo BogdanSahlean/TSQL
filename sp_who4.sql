@@ -18,7 +18,7 @@ BEGIN
 	BEGIN 
 		DROP TABLE #resc;
 	END;
-
+   
 	CREATE TABLE #sessions (
 		group_num				INT,
 		hid						HIERARCHYID,
