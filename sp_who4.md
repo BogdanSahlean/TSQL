@@ -18,7 +18,7 @@ Internals https://www.sqlservercentral.com/articles/sp_who4
 # Behaviour
 
 Stored procedure have following 2 main important goals: 
-1. Blocked connections should be displayed using a hierarchical way: this means parent first and children’s and children of children’s, etc . In this case, is simply to identify the cause of blocking because the root connection will be the first connection displayed.
+1. Blocked connections should be displayed using a hierarchical way: this means parent first and children’s and children of children’s, etc . In this case, is simply to identify the cause of blocking because the root connection will be the first connection displayed.   
 2. Extraction of missing indices from execution plans having as primary goal the simplification of QO of queries implied in blocking. Thus, we could get some  for QO of blocked queries just because sp_who2 will extract these missing indices quicker instead of using SSMS (SQL Server Management Studio) for analysis of execution plans.
 
 This proc returns just 19 columns containing details about current blocked connections and various info that help the analysis: 
