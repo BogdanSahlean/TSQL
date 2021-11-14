@@ -30,7 +30,7 @@ This proc returns just 19 columns containing details about current blocked conne
 - [x] current_status: sys.sysprocesses.status                  
 - [x] transaction_count (for current connection)
 - [x] wait_type: Last wait type
-- [x] wait_obct: Blocked objects (ex: indices)   
+- [x] wait_obct: Blocked objects (ex: indices)      
 - [x] wait_duration 
 - [x] cpu
 - [x] reads: buffer logical reads
