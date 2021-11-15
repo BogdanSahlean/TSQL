@@ -9,7 +9,7 @@ Similar functionalities with sp_WhoIsActive.
 Internals https://www.sqlservercentral.com/articles/sp_who4
 
 # Parameters
-
+   
 `@extractindexes INT = NULL --NULL=No`
 - [x] `@extractindexes=1` Extract Execution Plans 
 - [x] `@extractindexes=2` Extract Xml Missing Indexes
