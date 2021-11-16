@@ -27,7 +27,7 @@ This proc returns just 19 columns containing details about current blocked conne
 - [x] connection_db: database for current connection        
 - [x] obct: Name of current procedure
 - [x] sql_statement: Active sql statement   
-- [x] current_status: sys.sysprocesses.status                     
+- [x] current_status: sys.sysprocesses.status                        
 - [x] transaction_count (for current connection)
 - [x] wait_type: Last wait type
 - [x] wait_obct: Blocked objects (ex: indices)            
