@@ -84,7 +84,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                       <RunTimeInformation>
                         <RunTimeCountersPerThread Thread="0" ActualRows="8" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="20442" ActualCPUms="0" />
                       </RunTimeInformation>
-                      <Parallelism>
+                      <Parallelism>   
                         <RelOp AvgRowSize="15" EstimateCPU="1.83242" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimatedExecutionMode="Row" EstimateRows="4" LogicalOp="Aggregate" NodeId="4" Parallel="true" PhysicalOp="Stream Aggregate" EstimatedTotalSubtreeCost="54.6629">
                           <OutputList>
                             <ColumnReference Column="partialagg1004" />
