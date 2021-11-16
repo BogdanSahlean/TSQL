@@ -18,7 +18,7 @@
 	Show only the full list with deadlocks
 		Call:
 		EXECUTE XdlAnalysis @ListAllDeads = 1
-
+  
 	Extended analysis of single deadlock graph event
 		Call
 		EXECUTE XdlAnalysis 33, @Action=1 
@@ -27,4 +27,4 @@
 
 		Call
 		EXECUTE XdlAnalysis 33, @Action=2    
-		Extended analysis: extract query execution plans
+		Extended analysis: extract query execution plans   
