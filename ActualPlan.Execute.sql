@@ -18,7 +18,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
             <MemoryGrantInfo SerialRequiredMemory="3072" SerialDesiredMemory="3104" RequiredMemory="24712" DesiredMemory="24776" RequestedMemory="24776" GrantWa   itTime="0" GrantedMemory="24776" MaxUsedMemory="3000" MaxQueryMemory="1066040" LastRequestedMemory="0" IsMemoryGrantFeedbackAdjusted="No: First Execution" />
             <OptimizerHardwareDependentProperties EstimatedAvailableMemoryGrant="155812" EstimatedPagesCached="77906" EstimatedAvailableDegreeOfParallelism="4" MaxCompil   eMemory="4331840" />
             <WaitStats>      
-              <Wait WaitType="PAGEIOLATCH_SH" WaitTimeMs="219756" WaitCount="1822" />                                
+              <Wait WaitType="PAGEIOLATCH_SH" WaitTimeMs="219756" WaitCount="1822" />                                   
               <Wait WaitType="MEMORY_ALLOCATION_EXT" WaitTimeMs="4030" WaitCount="208734" />                                                                                                                                      
               <Wait WaitType="RESERVED_MEMORY_ALLOCATION_EXT" WaitTimeMs="2" WaitCount="182" />                                                                                                                                                                                                                                                  
                <QueryTimeStats CpuTime="11398" ElapsedTime="29138" /   >                                                               
