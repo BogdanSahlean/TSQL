@@ -59,7 +59,7 @@ DECLARE @plan XML = N'<?xml version="1.0" encoding="utf-16"?>
                   <OutputList>
                     <ColumnReference Column="globalagg1005" />
                   </OutputList>
-                  <RunTimeInformation>   
+                  <RunTimeInformation>      
                     <RunTimeCountersPerThread    Thread="0" ActualRows="1" Batches="0" ActualEndOfScans="1" ActualExecutions="1" ActualExecutionMode="Row" ActualElapsedms="20442" ActualCPUms="0" />
                   </RunTimeInformation>
                   <StreamAggregate>   
