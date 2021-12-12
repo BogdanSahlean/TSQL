@@ -1,12 +1,12 @@
 Reading all deadlocks graph events from following sources: 
-	Extended events files (including system health)
-	Extended events ring buffer
-	Trace file
-	Trace table
-	Event Notifications
+- [x] Extended events files (including system health)
+- [x] Extended events ring buffer
+- [x] Trace file
+- [x] Trace table
+- [x] Event Notifications
 	
-	Call: 
-	`EXECUTE XdlAnalysis --col ID contains the unique indentifier of every deadlock)`
+Call: 
+`EXECUTE XdlAnalysis --col ID contains the unique indentifier of every deadlock)`
 
 Analysis of a single deadlock graph event
 	Call:
