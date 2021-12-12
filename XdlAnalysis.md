@@ -40,10 +40,4 @@ In case of using the name of stored procedure to extract de execution plan, foll
 - [x] @SrceDB 1 Current Database 
 
 Call
-
 `EXECUTE XdlAnalysis 33, @Action=2`    
-
-Extended analysis: extract query execution plans   
-   
-   
-       
