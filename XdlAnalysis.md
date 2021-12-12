@@ -7,6 +7,12 @@ Reading all deadlocks graph events from following sources:
 - [x] Trace table
 - [x] Event Notifications
 	
+# Parameters	
+
+# Behaiour
+
+# Execution
+
 Call: 
 
 `EXECUTE XdlAnalysis --col ID contains the unique indentifier of every deadlock)`
