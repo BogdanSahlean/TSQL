@@ -9,13 +9,13 @@ Reading all deadlocks graph events from following sources:
 	
 # Parameters	
 
-`@SrceDesc VARCHAR(MAX) = NULL --ID of deadlock from @ListAllDeads = 1 or Xdl Deadlock graph`
+`@SrceDesc VARCHAR(MAX) = NULL --ID of deadlock from @ListAllDeads = 1 or Xdl Deadlock graph`,Optional
 
-`@SrceDB TINYINT = NULL, --0 Db From Deadlock Graph, 1 Current Database`
+`@SrceDB TINYINT = NULL, --0 Db From Deadlock Graph, 1 Current Database`,Optional
 
-`@ListAllDeads TINYINT = 0, -- 0/1`
+`@ListAllDeads TINYINT = 0, -- 0/1`,Optional
 
-`@Action TINYINT = NULL --0 Null, 1 Extract Execution Plans, 1 Analyze Plans`
+`@Action TINYINT = NULL --0 Null, 1 Extract Execution Plans, 1 Analyze Plans`,Optional
 
 # Behaviour
 
