@@ -35,7 +35,9 @@ Call
 
 Extended analysis: extract execution plans from sqlhandle and/or name of stored procedure (format DB.Schema.Procedure)
 
-In case of using the name of stored procedure to extract de execution plan, following options could be used: @SrceDB NULL/0 Db From Deadlock Graph, 1 Current Database 
+In case of using the name of stored procedure to extract de execution plan, following options could be used: 
+- [x] @SrceDB NULL/0 Db From Deadlock Graph, 
+- [x] @SrceDB 1 Current Database 
 
 Call
 
