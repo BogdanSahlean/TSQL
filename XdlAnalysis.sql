@@ -26,7 +26,7 @@ BEGIN
 	DECLARE	@trace_id INT, @StartTime DATETIME, @path NVARCHAR(500)
 	DECLARE CrsProfiler CURSOR LOCAL STATIC FORWARD_ONLY READ_ONLY FOR
 	SELECT	tcc.id, NULL StartTime, tcc.path
-	FROM	sys.traces tcc    
+	FROM	sys.traces tcc       
 	WHERE	EXISTS (    
 		SELECT	*
 		FROM	sys.fn_trace_geteventinfo(tcc.id) t              
