@@ -9,7 +9,7 @@ Reading all deadlocks graph events from following sources:
 	
 # Parameters	
 
-`@SrceDesc VARCHAR(MAX) = NULL --ID of deadlock or Xdl Deadlock graph`
+`@SrceDesc VARCHAR(MAX) = NULL --ID of deadlock from @ListAllDeads = 1 or Xdl Deadlock graph`
 
 `@SrceDB TINYINT = NULL, --0 Db From Deadlock Graph, 1 Current Database`
 
