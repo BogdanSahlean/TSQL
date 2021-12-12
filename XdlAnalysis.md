@@ -6,21 +6,26 @@ Reading all deadlocks graph events from following sources:
 - [x] Event Notifications
 	
 Call: 
+
 `EXECUTE XdlAnalysis --col ID contains the unique indentifier of every deadlock)`
 
 Analysis of a single deadlock graph event
-	Call:
-	`EXECUTE XdlAnalysis 33				--Analysis of ID 33, simplified analysis`
-	`EXECUTE XdlAnalysis 33, @Action=0/*NULL*/	--Analysis of ID 33, simplified analysis`
-	`--or`
-	`EXECUTE XdlAnalysis '<deadlock victim="process2706ded9c28">...'`
+
+Call:
+`EXECUTE XdlAnalysis 33				--Analysis of ID 33, simplified analysis`
+`EXECUTE XdlAnalysis 33, @Action=0/*NULL*/	--Analysis of ID 33, simplified analysis`
+`--or`
+`EXECUTE XdlAnalysis '<deadlock victim="process2706ded9c28">...'`
 
 Show only the full list with deadlocks
-	Call:
-	`EXECUTE XdlAnalysis @ListAllDeads = 1`
+
+Call:
+
+`EXECUTE XdlAnalysis @ListAllDeads = 1`
         
 Extended analysis of single deadlock graph event
-	Call
+
+Call
 	`EXECUTE XdlAnalysis 33, @Action=1` 
 	Extended analysis: extract execution plans from sqlhandle and/or name of stored procedure (format DB.Schema.Procedure)
 	In case of using the name of stored procedure to extract de execution plan, following options could be used: @SrceDB NULL/0 Db From Deadlock Graph, 1 Current Database 
