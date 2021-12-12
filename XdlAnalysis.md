@@ -9,6 +9,14 @@ Reading all deadlocks graph events from following sources:
 	
 # Parameters	
 
+`@SrceDesc VARCHAR(MAX) = NULL`
+
+`@SrceDB TINYINT = NULL, --0 Db From Deadlock Graph, 1 Current Database`
+
+`@ListAllDeads TINYINT = 0, -- 0/1`
+
+`@Action TINYINT = NULL --0 Null, 1 Extract Execution Plans, 1 Analyze Plans`
+
 # Behaviour
 
 # Execution
