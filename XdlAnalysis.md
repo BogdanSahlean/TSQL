@@ -9,7 +9,7 @@ Reading all deadlocks graph events from following sources:
 	
 # Parameters	
 
-# Behaiour
+# Behaviour
 
 # Execution
 
