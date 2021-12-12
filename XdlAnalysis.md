@@ -6,7 +6,7 @@
 		Event Notifications
 	
 		Call: 
-		EXECUTE XdlAnalysis --col ID contains the unique indentifier of every deadlock)
+		`EXECUTE XdlAnalysis --col ID contains the unique indentifier of every deadlock)
 
 	Analysis of a single deadlock graph event
 		Call:
