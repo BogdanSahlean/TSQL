@@ -19,6 +19,8 @@ Reading all deadlocks graph events from following sources:
 
 # Behaviour
 
+Reading and analyzing deadlocks xml graph events.
+
 # Execution
 
 Reading all deadlocks graph events. 
