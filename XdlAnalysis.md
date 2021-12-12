@@ -13,6 +13,8 @@ Reading all deadlocks graph events from following sources:
 
 # Execution
 
+Reading all deadlocks graph events. 
+
 Call: 
 
 `EXECUTE XdlAnalysis --col ID contains the unique indentifier of every deadlock)`
