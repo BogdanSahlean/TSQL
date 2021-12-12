@@ -20,6 +20,6 @@ Example:
 
 # Execution
 
-`EXEC StatisticsAnalysis @statistics` 
+`EXEC StatisticsAnalysis @statistics`    
 
 `EXEC StatisticsAnalysis @statistics, @plan`   
