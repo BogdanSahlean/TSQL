@@ -31,7 +31,7 @@ Call:
 
 Analysis of a single deadlock graph event   
                               
-Call:   
+Call:      
 
 `EXECUTE XdlAnalysis 33				--Analysis of ID 33, simplified analysis`
 
