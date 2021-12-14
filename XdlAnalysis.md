@@ -18,19 +18,19 @@ Reading all deadlocks graph events from following sources:
 `@Action TINYINT = NULL --0 Null, 1 Extract Execution Plans, 1 Analyze Plans`,Optional
 
 # Behaviour
-   
+      
 Reading and analyzing deadlocks xml graph events.
 
 # Execution
 
-Reading all deadlocks graph events. 
+Reading all deadlocks graph events.    
 
 Call: 
 
-`EXECUTE XdlAnalysis --col ID contains the unique indentifier of every deadlock)`
+`EXECUTE XdlAnalysis --col ID contains the unique indentifier of every deadlock)`   
 
 Analysis of a single deadlock graph event   
-                                
+                                   
 Call:      
 
 `EXECUTE XdlAnalysis 33				--Analysis of ID 33, simplified analysis`
