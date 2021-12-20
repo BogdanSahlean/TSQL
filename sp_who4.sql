@@ -119,7 +119,7 @@ BEGIN
 		)
 	) blk
 	LEFT JOIN BlkHierarchy blk_hi ON blk_hi.session_id = blk.session_id
-	OUTER APPLY (
+	OUTER APPLY (  
 		SELECT
 			obct = QUOTENAME(DB_NAME(blk_sqltxt.dbid)) + '.' + QUOTENAME(OBJECT_SCHEMA_NAME(blk_sqltxt.objectid, blk_sqltxt.dbid)) + '.' + QUOTENAME(OBJECT_NAME(blk_sqltxt.objectid, blk_sqltxt.dbid)), 
 			sql_statement = (SELECT SUBSTRING(blk_sqltxt.[text], /*1*/ blk_sqlffs2.sql_start, /*2000*/ blk_sqlffs2.sql_len) AS '*' FOR XML PATH(''), TYPE) -- Instead of sql_start and sql_len used to return current sql statement we are returning text of sql batch
