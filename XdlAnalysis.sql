@@ -28,7 +28,7 @@ BEGIN
 	SELECT	tcc.id, NULL StartTime, tcc.path
 	FROM	sys.traces tcc          
 	WHERE	EXISTS (          
-		SELECT	*
+		SELECT	*   
 		FROM	sys.fn_trace_geteventinfo(tcc.id) t                 
 		JOIN	sys.trace_events e ON t.eventid = e.trace_event_id                                                                                                                                                                                                                            
 		WHERE	e.name = 'Deadlock graph'                   
