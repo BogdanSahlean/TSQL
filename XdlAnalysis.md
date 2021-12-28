@@ -7,6 +7,7 @@
 	
 		Call: 
 		EXECUTE XdlAnalysis --col ID contains the unique indentifier of every deadlock)
+![image](https://user-images.githubusercontent.com/62909052/147550807-ed16d0d9-5708-4d6e-b1fc-81cf83ac71ed.png)
 
 	Analysis of a single deadlock graph event
 		Call:
