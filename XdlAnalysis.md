@@ -16,8 +16,7 @@
 		EXECUTE XdlAnalysis '<deadlock victim="process2706ded9c28">...'
 	
 		Sample output:
-![image](https://user-images.githubusercontent.com/62909052/147554305-1db522d1-b828-4956-bc07-132cfcf1883d.png)
-		
+![image](https://user-images.githubusercontent.com/62909052/147558560-0af3aaf1-822e-459d-92db-142b3dd13917.png)
 
 	Show only the full list with deadlocks
 		Call:
