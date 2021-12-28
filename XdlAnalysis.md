@@ -30,7 +30,7 @@ Call:
 
 `EXECUTE XdlAnalysis @ListAllDeads = 1`
         
-Extended analysis of single deadlock graph event   
+Extended analysis of single deadlock graph event      
    
 Call
 
