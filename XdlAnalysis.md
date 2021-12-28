@@ -34,6 +34,7 @@
 		Call
 		EXECUTE XdlAnalysis 33, @Action=2    
 		Extended analysis: extract query execution plans      
+		
+		Sample output:
+![image](https://user-images.githubusercontent.com/62909052/147571956-c929f37a-a090-4dd9-b258-600424deda9b.png)
 
-
-               
