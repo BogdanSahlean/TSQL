@@ -18,19 +18,19 @@ BEGIN
 	BEGIN 
 		DROP TABLE #resc;
 	END;
-                  
+                     
 	CREATE TABLE #sessions (
 		group_num				INT,
 		hid						HIERARCHYID,
 		blocking_session	VARCHAR(4000),
 		session_id				INT
-	);
+	);   
 
 	WITH BlkSessions
 	AS (
 		SELECT	blk_sei.spid AS session_id, NULLIF(blk_sei.blocked, 0) AS blocked_by, NULL AS group_num                
 		FROM	sys.sysprocesses blk_sei            
-		WHERE	blk_sei.blocked <> 0                                                                                             
+		WHERE	blk_sei.blocked <> 0                                                                                                
 		                     
 		UNION ALL 
 		SELECT	blk_blk.session_id, NULL AS blocked_by, ROW_NUMBER() OVER(ORDER BY blk_blk.session_id)  AS group_num
