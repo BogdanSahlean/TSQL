@@ -19,8 +19,8 @@ Example:
 ![image](https://user-images.githubusercontent.com/62909052/137581234-012f429f-e29e-417a-ae95-f99aebc242e9.png)
 
 # Execution
-
-`EXEC StatisticsAnalysis @statistics`    
+   
+`EXEC StatisticsAnalysis @statistics`       
 
 `EXEC StatisticsAnalysis @statistics, @plan`      
 
