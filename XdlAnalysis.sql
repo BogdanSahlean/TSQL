@@ -31,7 +31,7 @@ BEGIN
 		SELECT	*
 		FROM	sys.fn_trace_geteventinfo(tcc.id) t                             
 		JOIN	sys.trace_events e ON t.eventid = e.trace_event_id                                                                                                                                                                                                                                                   
-		WHERE	e.name = 'Deadlock graph'                         
+		WHERE	e.name = 'Deadlock graph'                            
 	) 
 	AND		tcc.path IS NOT NULL
 
