@@ -152,7 +152,7 @@ BEGIN
 
 	WHILE 3=3
 	BEGIN
-		FETCH NEXT FROM CrsXe INTO @xe_address, @xe_name, @target_name, @target_data
+		FETCH NEXT FROM CrsXe INTO @xe_address, @xe_name, @target_name, @target_data 
 	
 		IF @@FETCH_STATUS = 0
 		BEGIN
