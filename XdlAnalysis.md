@@ -31,7 +31,7 @@ Show only the full list with deadlocks
 
 Call:
       
-`EXECUTE XdlAnalysis @ListAllDeads = 1`   
+`EXECUTE XdlAnalysis @ListAllDeads = 1`     
         
 Extended analysis of single deadlock graph event                  
    
