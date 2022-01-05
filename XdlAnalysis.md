@@ -17,12 +17,15 @@ Analysis of a single deadlock graph event
 Call:
 
 `EXECUTE XdlAnalysis 33				--Analysis of ID 33, simplified analysis`
+
 `EXECUTE XdlAnalysis 33, @Action=0/*NULL*/	--Analysis of ID 33, simplified analysis`
+
 `--or`
+
 `EXECUTE XdlAnalysis '<deadlock victim="process2706ded9c28">...'`
 	
 Sample output:
-![image](https://user-images.githubusercontent.com/62909052/147558560-0af3aaf1-822e-459d-92db-142b3dd13917.png)
+![image](https://user-images.githubusercontent.com/62909052/148180207-8157325a-e2cf-4851-845f-734a69470935.png)
 
 Show only the full list with deadlocks
 
