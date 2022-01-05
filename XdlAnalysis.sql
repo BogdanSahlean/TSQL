@@ -1,15 +1,15 @@
 USE [Test3]
-SET QUOTED_IDENTIFIER ON   
+SET QUOTED_IDENTIFIER ON
 SET ANSI_NULLS ON   
-GO  
-CREATE OR ALTER PROCEDURE [dbo].[XdlAnalysis]         
+GO
+CREATE OR ALTER PROCEDURE [dbo].[XdlAnalysis]
 @SrceDesc VARCHAR(MAX) = NULL,
 @SrceDB TINYINT = NULL, --0 Db From Deadlock Graph, 1 Current Database
 @ListAllDeads TINYINT = 0, -- 0/1
-@Action TINYINT = NULL --0 Null, 1 Extract Execution Plans, 1 Analyze Plans
+@Action TINYINT = NULL --0 Null, 1 Extract Execution Plans, 1 Analyze Locks
 AS
 DECLARE @SrceXml XML
-DECLARE @SqlStatement NVARCHAR(MAX)  
+DECLARE @SqlStatement NVARCHAR(MAX)
 IF (@SrceDesc IS NULL AND @SrceDB IS NULL) AND @ListAllDeads = 0
 BEGIN
 	IF OBJECT_ID('tempdb..#trace_file') IS NULL
@@ -19,19 +19,19 @@ BEGIN
 			StartTime		datetime,
 			path			nvarchar(500),
 			deadlock_graph	xml,
-			id				int   identity(1,30)
+			id				int	identity(1,30)
 		)
 	END
 
 	DECLARE	@trace_id INT, @StartTime DATETIME, @path NVARCHAR(500)
 	DECLARE CrsProfiler CURSOR LOCAL STATIC FORWARD_ONLY READ_ONLY FOR
 	SELECT	tcc.id, NULL StartTime, tcc.path
-	FROM	sys.traces tcc    
-	WHERE	EXISTS (    
+	FROM	sys.traces tcc
+	WHERE	EXISTS (
 		SELECT	*
-		FROM	sys.fn_trace_geteventinfo(tcc.id) t                             
-		JOIN	sys.trace_events e ON t.eventid = e.trace_event_id                                                                                                                                                                                                                                                                                                          
-		WHERE	e.name = 'Deadlock graph'                                   
+		FROM	sys.fn_trace_geteventinfo(tcc.id) t
+		JOIN	sys.trace_events e ON t.eventid = e.trace_event_id
+		WHERE	e.name = 'Deadlock graph'
 	) 
 	AND		tcc.path IS NOT NULL
 
@@ -152,7 +152,7 @@ BEGIN
 
 	WHILE 3=3
 	BEGIN
-		FETCH NEXT FROM CrsXe INTO @xe_address, @xe_name, @target_name, @target_data 
+		FETCH NEXT FROM CrsXe INTO @xe_address, @xe_name, @target_name, @target_data
 	
 		IF @@FETCH_STATUS = 0
 		BEGIN
@@ -395,9 +395,17 @@ END
 SELECT s.*, name = i.Nod.value('(@name)', 'sysname'), value = i.Nod.value('(text())[1]', 'varchar(8000)'), LTRIM(spid) + '.' + LTRIM(ISNULL(ecid,0)) + '.' + LTRIM(id) as idc
 INTO #cox
 FROM (
-SELECT spid.Nod.value('(@spid)[1]', 'int') spid, spid.Nod.value('(@ecid)[1]', 'int') ecid, spid.Nod.value('(@id)[1]', 'sysname') id, spid.Nod.query('for $i in ./@* return <i name="{local-name($i)}">{string($i)}</i>') cox
+SELECT 
+	spid.Nod.value('(@spid)[1]', 'int') spid, spid.Nod.value('(@ecid)[1]', 'int') ecid, spid.Nod.value('(@id)[1]', 'sysname') id,
+	spid.Nod.query('for $i in ./@* return <i name="{local-name($i)}">{string($i)}</i>') cox,
+	spid.Nod.value('(@waittime)[1]', 'sysname') waittime
 FROM @xdl.nodes('deadlock/process-list/process') spid(Nod)
 ) s CROSS APPLY s.cox.nodes('i') i(Nod)
+
+INSERT #cox(spid, ecid, id, cox, waittime, [name], [value], idc)
+SELECT	spid, ecid, id, cox, waittime, 'currentdb_actual' [name], QUOTENAME(DB_NAME(CAST(NULLIF([value], '') AS INT))) [value], idc
+FROM	#cox
+WHERE	[name] = 'currentdb'
 
 SELECT @SqlStatement = ''
 DECLARE @Cols NVARCHAR(MAX) = ''
@@ -405,8 +413,8 @@ SELECT @Cols = STUFF((
 SELECT ', ' + QUOTENAME(LTRIM(spid) + '.' + LTRIM(ISNULL(ecid,0)) + '.' + LTRIM(id))
 FROM #cox cox
 WHERE NULLIF(cox.name, '') IS NOT NULL
-GROUP BY spid, ecid, id
-ORDER BY 1
+GROUP BY spid, ecid, id, waittime
+ORDER BY waittime
 FOR XML PATH(N''), TYPE
 ).value('.', 'NVARCHAR(MAX)'), 1, 2, '')
 
@@ -415,8 +423,8 @@ SELECT @Cols2 = STUFF((
 SELECT ', rez.' + QUOTENAME(LTRIM(spid) + '.' + LTRIM(ISNULL(ecid,0)) + '.' + LTRIM(id)  + '.plan') + ' = srce.' + QUOTENAME(LTRIM(spid) + '.' + LTRIM(ISNULL(ecid,0)) + '.' + LTRIM(id))
 FROM #cox cox
 WHERE NULLIF(cox.name, '') IS NOT NULL
-GROUP BY spid, ecid, id
-ORDER BY 1
+GROUP BY spid, ecid, id, waittime
+ORDER BY waittime
 FOR XML PATH(N''), TYPE
 ).value('.', 'NVARCHAR(MAX)'), 1, 2, '')
 
