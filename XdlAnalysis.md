@@ -47,7 +47,7 @@ Call:
 Extended analysis of single deadlock graph event                  
    
 Call
-
+  
 `EXECUTE XdlAnalysis 33, @Action=1`
 
 Extended analysis: extract execution plans from sqlhandle and/or name of stored procedure (format DB.Schema.Procedure)
