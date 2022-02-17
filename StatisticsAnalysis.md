@@ -22,7 +22,7 @@ Example:
 
 `EXEC StatisticsAnalysis @statistics`      
 
-`EXEC StatisticsAnalysis @statistics, @plan`   
+`EXEC StatisticsAnalysis @statistics, @plan`      
 
 
 
