@@ -99,7 +99,7 @@ BEGIN
 	ORDER BY db.name
 	SELECT @SqlStatementDb= STUFF(@SqlStatementDb, 1, 6, '')
 
-	DECLARE @db TABLE(db SYSNAME)
+	DECLARE @db TABLE(db SYSNAME)  
 	INSERT @db(db)
 	EXEC(@SqlStatementDb)
 
