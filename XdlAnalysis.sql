@@ -94,7 +94,8 @@ BEGIN
 		HAVING	COUNT(*) = 3
 	)'
 	FROM	sys.databases db
-	WHERE db.name = DB_NAME() AND (SELECT COUNT(*) FROM sys.databases d) > 10
+	WHERE db.name = DB_NAME() 
+	AND db.state_desc = 'ONLINE' AND db.user_access_desc = 'MULTI_USER' AND (SELECT COUNT(*) FROM sys.databases d) > 10
 	OR (SELECT COUNT(*) FROM sys.databases d) <= 10
 	ORDER BY db.name
 	SELECT @SqlStatementDb= STUFF(@SqlStatementDb, 1, 6, '')
