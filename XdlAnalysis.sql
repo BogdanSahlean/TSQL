@@ -12,7 +12,7 @@ DECLARE @SrceXml XML
 DECLARE @SqlStatement NVARCHAR(MAX)
 IF (@SrceDesc IS NULL AND @SrceDB IS NULL) AND @ListAllDeads = 0
 BEGIN
-	IF OBJECT_ID('tempdb..#trace_file') IS NULL
+	IF OBJECT_ID('tempdb..#trace_file') IS NULL  
 	BEGIN
 		CREATE TABLE #trace_file (
 			trace_id		int,
