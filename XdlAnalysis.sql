@@ -717,7 +717,7 @@ wai.Nod.value('(@id)[1]', 'sysname') id_wai, ISNULL(wai.Nod.value('(@mode)[1]', 
 INTO #resc
 FROM @xdl.nodes('deadlock/resource-list/*')  resc(Nod)
 OUTER APPLY resc.Nod.nodes('owner-list/owner') eon(Nod)
-OUTER APPLY resc.Nod.nodes('waiter-list/waiter') wai(Nod)
+OUTER APPLY resc.Nod.nodes('waiter-list/waiter') wai(Nod)   
 CROSS APPLY ( 
 	SELECT ISNULL(QUOTENAME(PARSENAME(resc.Nod.value('(@objectname)[1]', 'SYSNAME'),3)) + '.','') 
 		+ ISNULL(QUOTENAME(PARSENAME(resc.Nod.value('(@objectname)[1]', 'SYSNAME'),2)) + '.', '')
