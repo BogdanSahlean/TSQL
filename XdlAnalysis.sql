@@ -18,7 +18,7 @@ BEGIN
 			trace_id		int,
 			StartTime		datetime,
 			path			nvarchar(500),
-			deadlock_graph	        xml,    
+			deadlock_graph	        xml,      
 			id			int identity(1,30)
 		)
 	END
@@ -30,7 +30,7 @@ BEGIN
 	WHERE	EXISTS (
 		SELECT	*   
 		FROM	sys.fn_trace_geteventinfo(tcc.id) t        
-		JOIN	sys.trace_events e ON t.eventid = e.trace_event_id                                                                                                                                                        
+		JOIN	sys.trace_events e ON t.eventid = e.trace_event_id                                                                                                                                                          
 		WHERE	e.name = 'Deadlock graph'           
 	) 
 	AND		tcc.path IS NOT NULL
