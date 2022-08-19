@@ -18,7 +18,7 @@ BEGIN
 	END
 
 	SELECT	*, QueryStatementId = SUM(CASE WHEN rt=3 THEN 1 ELSE 0 END) OVER(ORDER BY s.rn)         
-	INTO #sttcs
+	INTO #sttcs  
 	FROM (   
 		SELECT	*, 
 			rt = CASE    
