@@ -110,7 +110,7 @@ BEGIN
 	SELECT * FROM @db
 
 	OPEN CrsProfiler
-
+  
 	WHILE 3=3
 	BEGIN
 		FETCH NEXT FROM CrsProfiler INTO @Objct
