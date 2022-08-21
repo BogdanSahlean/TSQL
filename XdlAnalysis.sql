@@ -74,7 +74,7 @@ BEGIN
 	BEGIN
 		CREATE TABLE #trace_table (
 			RowNumber		int,
-			trace_table		nvarchar(500),
+			trace_table		nvarchar(500),  
 			StartTime		datetime,
 			deadlock_graph	xml,
 			id				int	identity(2,30)
