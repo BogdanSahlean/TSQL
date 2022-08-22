@@ -18,7 +18,7 @@ BEGIN
 			trace_id		int,
 			StartTime		datetime,
 			path			nvarchar(500),
-			deadlock_graph	        xml,                      
+			deadlock_graph	        xml,                        
 			id			int identity(1,30)
 		)
 	END
@@ -30,7 +30,7 @@ BEGIN
 	WHERE	EXISTS (   
 		SELECT	*   
 		FROM	sys.fn_trace_geteventinfo(tcc.id) t        
-		JOIN	sys.trace_events e ON t.eventid = e.trace_event_id                                                                                                                                                                                                     
+		JOIN	sys.trace_events e ON t.eventid = e.trace_event_id                                                                                                                                                                                                       
 		WHERE	e.name = 'Deadlock graph'           
 	) 
 	AND		tcc.path IS NOT NULL
@@ -170,9 +170,9 @@ BEGIN
 						file_offset		bigint,
 						[timestamp]		datetime,
 						deadlock_graph	xml,
-						id				int	identity(3,30)
+						id				int	identity(3,30)  
 					)
-				END
+				END  
 
 				DECLARE @FileName NVARCHAR(500) = @target_data.value('(EventFileTarget/File/@name)[1]', 'NVARCHAR(500)')
 				INSERT	#xe_event_file(xe_address, xe_name, target_name, [file_name], file_offset, [timestamp], deadlock_graph)
