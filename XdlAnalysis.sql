@@ -12,14 +12,14 @@ DECLARE @SrceXml XML
 DECLARE @SqlStatement NVARCHAR(MAX)
 IF (@SrceDesc IS NULL AND @SrceDB IS NULL) AND @ListAllDeads = 0
 BEGIN
-	IF OBJECT_ID('tempdb..#trace_file') IS NULL
+	IF OBJECT_ID('tempdb..#trace_file') IS NULL  
 	BEGIN
 		CREATE TABLE #trace_file (
 			trace_id		int,
 			StartTime		datetime,
 			path			nvarchar(500),
-			deadlock_graph	        xml,                                 
-			id			int identity(1,30)
+			deadlock_graph	xml,    --21
+			id				int	identity(1,30)
 		)
 	END
 
@@ -27,10 +27,10 @@ BEGIN
 	DECLARE CrsProfiler CURSOR LOCAL STATIC FORWARD_ONLY READ_ONLY FOR   
 	SELECT	tcc.id, NULL StartTime, tcc.path
 	FROM	sys.traces tcc
-	WHERE	EXISTS (   
+	WHERE	EXISTS (
 		SELECT	*   
-		FROM	sys.fn_trace_geteventinfo(tcc.id) t          
-		JOIN	sys.trace_events e ON t.eventid = e.trace_event_id                                                                                                                                                                                                                                                                   
+		FROM	sys.fn_trace_geteventinfo(tcc.id) t   
+		JOIN	sys.trace_events e ON t.eventid = e.trace_event_id                                                                                                                        
 		WHERE	e.name = 'Deadlock graph'           
 	) 
 	AND		tcc.path IS NOT NULL
@@ -74,7 +74,7 @@ BEGIN
 	BEGIN
 		CREATE TABLE #trace_table (
 			RowNumber		int,
-			trace_table		nvarchar(500),  
+			trace_table		nvarchar(500),
 			StartTime		datetime,
 			deadlock_graph	xml,
 			id				int	identity(2,30)
@@ -94,10 +94,9 @@ BEGIN
 		HAVING	COUNT(*) = 3
 	)'
 	FROM	sys.databases db
-	WHERE db.state_desc = 'ONLINE' AND db.user_access_desc = 'MULTI_USER' AND (
-		db.name = DB_NAME() AND (SELECT COUNT(*) FROM sys.databases d WHERE d.state_desc = 'ONLINE' AND d.user_access_desc = 'MULTI_USER') > 10
-		OR (SELECT COUNT(*) FROM sys.databases d WHERE d.state_desc = 'ONLINE' AND d.user_access_desc = 'MULTI_USER') <= 10 
-	)
+	WHERE db.name = DB_NAME() 
+	AND db.state_desc = 'ONLINE' AND db.user_access_desc = 'MULTI_USER' AND (SELECT COUNT(*) FROM sys.databases d) > 10
+	OR (SELECT COUNT(*) FROM sys.databases d) <= 10
 	ORDER BY db.name
 	SELECT @SqlStatementDb= STUFF(@SqlStatementDb, 1, 6, '')
 
@@ -110,7 +109,7 @@ BEGIN
 	SELECT * FROM @db
 
 	OPEN CrsProfiler
-  
+
 	WHILE 3=3
 	BEGIN
 		FETCH NEXT FROM CrsProfiler INTO @Objct
@@ -170,9 +169,9 @@ BEGIN
 						file_offset		bigint,
 						[timestamp]		datetime,
 						deadlock_graph	xml,
-						id				int	identity(3,30)  
+						id				int	identity(3,30)
 					)
-				END  
+				END
 
 				DECLARE @FileName NVARCHAR(500) = @target_data.value('(EventFileTarget/File/@name)[1]', 'NVARCHAR(500)')
 				INSERT	#xe_event_file(xe_address, xe_name, target_name, [file_name], file_offset, [timestamp], deadlock_graph)
@@ -435,32 +434,6 @@ SELECT *
 FROM (
 SELECT (LTRIM(spid) + ''.'' + LTRIM(ISNULL(ecid,0)) + ''.'' + LTRIM(id)) id,  [name], [value]
 FROM #cox cox
-UNION
-SELECT (LTRIM(spid) + ''.'' + LTRIM(ISNULL(ecid,0)) + ''.'' + LTRIM(id)) id, ''clientoptions1_desc''  [name], desc.txt [value]
-FROM #cox cox
-OUTER APPLY (
-	SELECT (
-		SELECT CONVERT(INT, CASE WHEN [name] = ''clientoptions1'' THEN [name] END)
-			  SELECT '' ,DISABLE_DEF_CNST_CHK''		++ CASE WHEN @settings & 1		>= 1 THEN		'' ON''	ELSE '' OFF'' END
-		UNION SELECT '' ,IMPLICIT_TRANSACTIONS''	++ CASE WHEN @settings & 2		>= 2 THEN		'' ON''	ELSE '' OFF'' END
-		UNION SELECT '' ,CURSOR_CLOSE_ON_COMMIT''	++ CASE WHEN @settings & 4		>= 4 THEN		'' ON''	ELSE '' OFF'' END
-		UNION SELECT '' ,ANSI_WARNINGS''			++ CASE WHEN @settings & 8		>= 8 THEN		'' ON''	ELSE '' OFF'' END
-		UNION SELECT '' ,ANSI_PADDING''				++ CASE WHEN @settings & 16	>= 16 THEN		'' ON''	ELSE '' OFF'' END
-		UNION SELECT '' ,ANSI_NULLS''				++ CASE WHEN @settings & 32	>= 32 THEN		'' ON''	ELSE '' OFF'' END
-		UNION SELECT '' ,ARITHABORT''				++ CASE WHEN @settings & 64	>= 64 THEN		'' ON''	ELSE '' OFF'' END
-		UNION SELECT '' ,ARITHIGNORE''				++ CASE WHEN @settings & 128	>= 128 THEN		'' ON''	ELSE '' OFF'' END
-		UNION SELECT '' ,QUOTED_IDENTIFIER''		++ CASE WHEN @settings & 256	>= 256 THEN		'' ON''	ELSE '' OFF'' END
-		UNION SELECT '' ,NOCOUNT''					++ CASE WHEN @settings & 512	>= 512 THEN		'' ON''	ELSE '' OFF'' END
-		UNION SELECT '' ,ANSI_NULL_DFLT_ON''		++ CASE WHEN @settings & 1024	>= 1024 THEN	'' ON''	ELSE '' OFF'' END
-		UNION SELECT '' ,ANSI_NULL_DFLT_OFF''		++ CASE WHEN @settings & 2048	>= 2048 THEN	'' ON''	ELSE '' OFF'' END
-		UNION SELECT '' ,CONCAT_NULL_YIELDS_NULL''	++ CASE WHEN @settings & 4096	>= 4096 THEN	'' ON''	ELSE '' OFF'' END
-		UNION SELECT '' ,NUMERIC_ROUNDABORT''		++ CASE WHEN @settings & 8192	>= 8192 THEN	'' ON''	ELSE '' OFF'' END
-		UNION SELECT '' ,XACT_ABORT''				++ CASE WHEN @settings & 16384	>= 16384 THEN	'' ON''	ELSE '' OFF'' END
-		ORDER BY 1
-		FOR XML PATH(N''''), TYPE
-	).value(''.'', ''VARCHAR(2000)'')
-) desc(txt)
-WHERE [name] = ''clientoptions1''
 UNION
 SELECT s.idc, ''deadlockvictim'' [name], ''1'' [value]
 FROM (
