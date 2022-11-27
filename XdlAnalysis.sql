@@ -84,7 +84,7 @@ BEGIN
 	DECLARE @SqlStatementDb VARCHAR(4000) = ''
 	SELECT	@SqlStatementDb = @SqlStatementDb + 'UNION 
 	SELECT	''' + QUOTENAME(db.name) + ''' + ''.'' + QUOTENAME(SCHEMA_NAME(t.schema_id)) + ''.'' + QUOTENAME(OBJECT_NAME(t.object_id)) Objct
-	FROM	' + QUOTENAME(db.name) + '.sys.tables t
+	FROM	' + QUOTENAME(db.name) + '.sys.tables t 
 	WHERE	EXISTS
 	(
 		SELECT	* 
