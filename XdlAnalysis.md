@@ -1,6 +1,6 @@
 # XdlAnalysis
 
-Reading all deadlocks graph events from following sources: 
+Reading all deadlocks graph events from following sources:  
 - [x] Extended events files (including system health)
 - [x] Extended events ring buffer
 - [x] Trace file
@@ -18,7 +18,7 @@ Reading all deadlocks graph events from following sources:
 `@Action TINYINT = NULL --0 Null, 1 Extract Execution Plans, 1 Analyze Plans`,Optional
 
 # Behaviour
-      
+          
 Reading and analyzing deadlocks xml graph events.
 
 # Execution
@@ -27,10 +27,10 @@ Reading all deadlocks graph events.
 
 Call: 
 
-`EXECUTE XdlAnalysis --col ID contains the unique indentifier of every deadlock)`   
+`EXECUTE XdlAnalysis --col ID contains the unique indentifier of every deadlock)`     
 
 Analysis of a single deadlock graph event        
-                                      
+                                          
 Call:      
 
 `EXECUTE XdlAnalysis 33				--Analysis of ID 33, simplified analysis`
@@ -42,7 +42,7 @@ Call:
 `EXECUTE XdlAnalysis '<deadlock victim="process2706ded9c28">...'`
 
 Show only the full list with deadlocks
-
+  
 Call:
 
 `EXECUTE XdlAnalysis @ListAllDeads = 1`
