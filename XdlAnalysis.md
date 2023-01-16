@@ -1,6 +1,6 @@
 # XdlAnalysis
 
-Reading all deadlocks graph events from following sources:   
+Reading all deadlocks graph events from following sources:    
 - [x] Extended events files (including system health)
 - [x] Extended events ring buffer
 - [x] Trace file
