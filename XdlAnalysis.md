@@ -18,7 +18,7 @@ Reading all deadlocks graph events from following sources:
 `@Action TINYINT = NULL --0 Null, 1 Extract Execution Plans, 1 Analyze Plans`,Optional
 
 # Behaviour
-          
+           
 Reading and analyzing deadlocks xml graph events.
 
 # Execution
