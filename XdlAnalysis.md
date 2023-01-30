@@ -40,7 +40,7 @@ The order of session cols is descending order calculated with waittime property.
 
 Show only the full list with deadlocks
 
-Call: 
+Call:  
              
 `EXECUTE XdlAnalysis @ListAllDeads = 1`             
         
