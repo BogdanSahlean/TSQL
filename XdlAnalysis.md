@@ -24,7 +24,7 @@ Call:
 
 `EXECUTE XdlAnalysis '<deadlock victim="process2706ded9c28">...'`  
 	
-Sample output:
+Sample output: 
 
 ![image](https://user-images.githubusercontent.com/62909052/148302678-547296a5-0818-478e-967a-45cbb1ae94ea.png)
                                   
