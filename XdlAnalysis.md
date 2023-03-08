@@ -30,7 +30,7 @@ Call:
 `EXECUTE XdlAnalysis --col ID contains the unique indentifier of every deadlock)`     
 
 Analysis of a single deadlock graph event        
-                                                      
+                                                       
 Call:      
 
 `EXECUTE XdlAnalysis 33				--Analysis of ID 33, simplified analysis`
