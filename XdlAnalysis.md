@@ -55,7 +55,7 @@ In case of using the name of stored procedure to extract de execution plan, foll
        
 Call
 
-`EXECUTE XdlAnalysis 33, @Action=2`
+`EXECUTE XdlAnalysis 33, @Action=2` 
 
 Extended analysis: extract query execution plans       
 		
