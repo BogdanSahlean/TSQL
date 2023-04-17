@@ -9,7 +9,7 @@ CREATE OR ALTER PROCEDURE [dbo].[XdlAnalysis]
 @Action TINYINT = NULL --0 Null, 1 Extract Execution Plans, 1 Analyze Locks
 AS
 DECLARE @SrceXml XML
-DECLARE @SqlStatement NVARCHAR(MAX)
+DECLARE @SqlStatement NVARCHAR(MAX) 
 IF (@SrceDesc IS NULL AND @SrceDB IS NULL) AND @ListAllDeads = 0
 BEGIN
 	IF OBJECT_ID('tempdb..#trace_file') IS NULL  
