@@ -130,7 +130,7 @@ BEGIN
 					WHERE tcc.trace_table = @Objct AND tcc.RowNumber >= qprofiler.RowNumber     
 				)
 				OR NOT 
-				EXISTS
+				EXISTS 
 				(
 					SELECT * FROM #trace_table tcc 
 					WHERE tcc.trace_table = @Objct
