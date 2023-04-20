@@ -20,7 +20,7 @@ Call:
 
 `EXECUTE XdlAnalysis 33, @Action=0/*NULL*/	--Analysis of ID 33, simplified analysis`                                                                                                    
 
-`--or`
+`--or` 
 
 `EXECUTE XdlAnalysis '<deadlock victim="process2706ded9c28">...'`   
 	
