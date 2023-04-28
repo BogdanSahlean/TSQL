@@ -30,7 +30,7 @@ Sample output:
                                        
 There are 3 categories of info which are returned by this stored procedure:     
 - [x] Category 1: Properties of every session
-- [x] Category 2: Queries executed by every session and                                                                                                                                                                                                                                           
+- [x] Category 2: Queries executed by every session and                                                                                                                                                                                                                                            
 - [x] Category 3: Locks    
       
 Every session is identified by SPID and ExecutionContext and ID (the name of the process). In this case, session 169.7.process77f265868 means (1) SPID 169 having the (2) ECID execution context 7 (thread 7) and (3) ID process77f265868. In the case of a query using paralelism we could see an ECID different than 0. More, in case of a query using paralelism we could see 2 or more sessions having the same SPID but with different ECIDs (threads), meaning we have intra-query parallelism deadlocks.
