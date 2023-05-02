@@ -868,4 +868,4 @@ SELECT resc.resc, cox.idc, resc.lock_wai [value] FROM #resc resc JOIN (SELECT id
 ) cox
 PIVOT( MAX([value]) FOR idc IN (' + @Cols + ') ) pvot 
 ' + CASE WHEN @Action = 2 THEN '' ELSE '--' END + ' LEFT JOIN ##abcde cc ON pvot.resc = cc.resc'
-EXEC sp_executesql @SqlStatement
+EXEC sp_executesql @SqlStatement 
