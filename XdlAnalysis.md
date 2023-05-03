@@ -846,6 +846,7 @@ BEGIN
 DROP TABLE #resc
 END
 
+
 SELECT QUOTENAME(ROW_NUMBER() OVER(ORDER BY resc.Nod)) + ' ' + resc.Nod.value('local-name(.)', 'SYSNAME') +  ISNULL(' ' + QUOTENAME('objectname=' + obct.objectname +ISNULL(', indexname=' + QUOTENAME(resc.Nod.value('(@indexname)[1]', 'SYSNAME')) ,''), ')') , '') + ISNULL(' ' + QUOTENAME(ISNULL(resc.Nod.value('(@wrc)[1]', 'VARCHAR(444)'), '') + ISNULL(' ,dbid=' + resc.Nod.value('(@dbid)[1]', 'VARCHAR(12)'), '') + ISNULL(' ,file_id=' + resc.Nod.value('(@file_id)[1]', 'VARCHAR(12)') , '') + ISNULL(' ,page_id=' + resc.Nod.value('(@page_id)[1]', 'VARCHAR(12)') , '') + ISNULL(' ,slot_page=' + resc.Nod.value('(@slot_page)[1]', 'VARCHAR(12)') , '') + ISNULL(' ,hobt_id=' + resc.Nod.value('(@hobt_id)[1]', 'VARCHAR(12)') , '') + ISNULL(' ,index_id=' + resc.Nod.value('(@index_id)[1]', 'VARCHAR(12)') , '')), '') resc,
 obct.objectname,
 eon.Nod.value('(@id)[1]', 'sysname') id_own, ISNULL(eon.Nod.value('(@mode)[1]', 'sysname') + ' own', 'own') lock_own,
