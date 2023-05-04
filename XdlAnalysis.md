@@ -88,7 +88,7 @@ BEGIN
 	WHERE	EXISTS
 	(
 		SELECT	* 
-		FROM	sys.columns col2
+		FROM	sys.columns col2 
 		WHERE	col2.object_id = t.object_id 
 		AND		col2.name IN (''RowNumber'', ''TextData'', ''StartTime'')
 		HAVING	COUNT(*) = 3
