@@ -330,7 +330,7 @@ BEGIN
 	SELECT * FROM #xe_event_buffer
 	SELECT * FROM #trace_file
 	SELECT * FROM #trace_table 
-	SELECT * FROM #events_not
+	SELECT * FROM #events_not 
 	*/
 
 	INSERT	##deadlock_graph (EventSequence, ServerName, StartTime, SourceType, TraceQueueTable, [FileName], XeAdress, FileOffset, [Events], [Service], ActivationProcedure, DeadlockGraph, ID)
