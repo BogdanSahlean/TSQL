@@ -1,15 +1,15 @@
-USE [Test3]
-SET QUOTED_IDENTIFIER ON
-SET ANSI_NULLS ON   
+USE Test3
+SET QUOTED_IDENTIFIER ON 
+SET ANSI_NULLS ON  
 GO
 CREATE OR ALTER PROCEDURE [dbo].[XdlAnalysis]
-@SrceDesc VARCHAR(MAX) = NULL,
+@SrceDesc VARCHAR(MAX) = NULL, 
 @SrceDB TINYINT = NULL, --0 Db From Deadlock Graph, 1 Current Database
 @ListAllDeads TINYINT = 0, -- 0/1
 @Action TINYINT = NULL --0 Null, 1 Extract Execution Plans, 1 Analyze Locks
 AS
 DECLARE @SrceXml XML
-DECLARE @SqlStatement NVARCHAR(MAX) 
+DECLARE @SqlStatement NVARCHAR(MAX)
 IF (@SrceDesc IS NULL AND @SrceDB IS NULL) AND @ListAllDeads = 0
 BEGIN
 	IF OBJECT_ID('tempdb..#trace_file') IS NULL  
@@ -18,8 +18,8 @@ BEGIN
 			trace_id		int,
 			StartTime		datetime,
 			path			nvarchar(500),
-			deadlock_graph	xml,         
-			id				int	identity(1,30) 
+			deadlock_graph	xml,    --21
+			id				int	identity(1,30)
 		)
 	END
 
@@ -30,7 +30,7 @@ BEGIN
 	WHERE	EXISTS (
 		SELECT	*   
 		FROM	sys.fn_trace_geteventinfo(tcc.id) t   
-		JOIN	sys.trace_events e ON t.eventid = e.trace_event_id                                                                                                                                    
+		JOIN	sys.trace_events e ON t.eventid = e.trace_event_id        
 		WHERE	e.name = 'Deadlock graph'           
 	) 
 	AND		tcc.path IS NOT NULL
@@ -88,7 +88,7 @@ BEGIN
 	WHERE	EXISTS
 	(
 		SELECT	* 
-		FROM	sys.columns col2
+		FROM	sys.columns col2 
 		WHERE	col2.object_id = t.object_id 
 		AND		col2.name IN (''RowNumber'', ''TextData'', ''StartTime'')
 		HAVING	COUNT(*) = 3
@@ -130,7 +130,7 @@ BEGIN
 					WHERE tcc.trace_table = @Objct AND tcc.RowNumber >= qprofiler.RowNumber     
 				)
 				OR NOT 
-				EXISTS 
+				EXISTS
 				(
 					SELECT * FROM #trace_table tcc 
 					WHERE tcc.trace_table = @Objct
@@ -330,7 +330,7 @@ BEGIN
 	SELECT * FROM #xe_event_buffer
 	SELECT * FROM #trace_file
 	SELECT * FROM #trace_table 
-	SELECT * FROM #events_not
+	SELECT * FROM #events_not 
 	*/
 
 	INSERT	##deadlock_graph (EventSequence, ServerName, StartTime, SourceType, TraceQueueTable, [FileName], XeAdress, FileOffset, [Events], [Service], ActivationProcedure, DeadlockGraph, ID)
@@ -382,6 +382,133 @@ BEGIN
 	ELSE
 	BEGIN
 		SELECT @xdl = CAST(@SrceDesc AS XML)
+
+		-- If BPRP Then XML -> XDL
+		IF @xdl.value('local-name(*[1])', 'SYSNAME') = 'blocked-process-report'
+		BEGIN
+			DECLARE @bprp XML = @xdl
+
+			DROP TABLE IF EXISTS #Session
+			DROP TABLE IF EXISTS #Locks
+			SELECT	x.XmlRef.query('local-name(..)') SesionType, XmlRef.query('.') XmlRef, 
+					num = IDENTITY(INT, 1, 1)
+			INTO	#Session
+			FROM	@bprp.nodes('blocked-process-report/*/process') x(XmlRef)
+
+			DECLARE CrsXml CURSOR LOCAL STATIC READ_ONLY FORWARD_ONLY
+			FOR
+			SELECT	x.XmlRef, num
+			FROM	#Session x	
+			WHERE	x.XmlRef.exist('process/@id') = 0
+
+			DECLARE @XmlRef XML, @num INT = 0, @id VARCHAR(44), @sequ INT = 0
+			OPEN CrsXml
+
+			WHILE 1=1
+			BEGIN
+				FETCH NEXT  FROM CrsXml INTO @XmlRef, @num
+				IF @@FETCH_STATUS = 0
+				BEGIN
+					SELECT @sequ = @sequ + 1
+					SELECT @id = 'newprocess' + CONVERT(VARCHAR(11), @sequ)
+
+					SET @XmlRef.modify('             
+						insert attribute id {sql:variable("@id") }             
+						into   (/process)[1] ') 
+					UPDATE	#Session
+					SET		XmlRef = @XmlRef 
+					WHERE num = @num
+				END
+				ELSE
+				BEGIN
+					BREAK
+				END
+			END
+
+			CLOSE CrsXml
+			DEALLOCATE CrsXml
+
+			SELECT	*
+			INTO #Locks
+			FROM (
+				SELECT	id		= s.XmlRef.value('(@id)[1]', 'VARCHAR(44)'),
+						wrc		= s.XmlRef.value('(@waitresource)[1]', 'VARCHAR(444)'),
+						status	= s.XmlRef.value('(@status)[1]', 'VARCHAR(44)'),
+						dbid	= s.XmlRef.value('(@currentdb)[1]', 'INT'),
+						mode	= s.XmlRef.value('(@lockMode)[1]', 'VARCHAR(44)')
+				FROM	#Session seos
+				OUTER APPLY seos.XmlRef.nodes('process') s(XmlRef)
+			) xx
+			OUTER APPLY (
+				SELECT	type, database_id, 
+					file_id		= CASE WHEN type IN ('RID', 'PAGE') THEN v3 END,
+					page_id		= CASE WHEN type IN ('RID', 'PAGE') THEN v4 END,
+					slot_page	= CASE WHEN type IN ('RID') THEN v5 END,
+					object_id	= CASE WHEN type IN ('TAB') THEN v3 END,
+					hobt_id		= CASE WHEN type IN ('KEY') THEN v3 END,
+					index_id	= CASE WHEN type IN ('TAB') THEN v4 END,
+					hash_key	= CASE WHEN type IN ('KEY') THEN v4 END
+				FROM (
+					SELECT *, 
+						type = wrc_xml.value('i[1]', 'VARCHAR(44)'), 
+						database_id = wrc_xml.value('i[2]', 'VARCHAR(44)'), v3 = wrc_xml.value('i[3]', 'VARCHAR(44)'), v4 = wrc_xml.value('i[4]', 'VARCHAR(44)'), v5 = wrc_xml.value('i[5]', 'VARCHAR(44)')
+					FROM (
+						SELECT	*, wrc_xml = CONVERT(XML, '<i>' + REPLACE(REPLACE(REPLACE(REPLACE(x.wrc, ' ', ''), ':', '</i><i>'), '(', '</i><i>'), ')', '<i></i>') + '</i>')
+						FROM (SELECT xx.wrc) x
+					) y
+				) z
+			) t
+
+			--Final step
+			SELECT @xdl = 
+			(
+				SELECT 
+				(
+					SELECT	XmlRef '*'
+					FROM	#Session seos
+					FOR XML PATH(N''), TYPE
+				) 'process-list',
+				(
+					SELECT	type, wrc, dbid, file_id, page_id, slot_page, object_id, hobt_id, index_id, hash_key, mode,
+					(
+						SELECT	id, mode
+						FROM	#Locks oe
+						WHERE	oe.id = c.id
+						FOR XML RAW('waiter'), TYPE
+					) AS 'waiter-list',
+					(
+						SELECT	id, mode
+						FROM	#Locks oe
+						WHERE	oe.id <> c.id
+						FOR XML RAW('owner'), TYPE
+					) AS 'owner-list'
+					FROM	#Locks c
+					WHERE	c.status = 'Suspended'
+					FOR XML RAW('lock'), TYPE
+				) 'resource-list',
+				(
+					SELECT	type, wrc, dbid, file_id, page_id, slot_page, object_id, hobt_id, index_id, hash_key, mode,
+					(
+						SELECT	id, mode, requestType='wait'
+						FROM	#Locks oe
+						WHERE	oe.id = c.id 
+						FOR XML RAW('waiter'), TYPE
+					) AS 'waiter-list',
+					(
+						SELECT	id, mode
+						FROM	#Locks oe
+						WHERE	oe.id <> c.id
+						FOR XML RAW('owner'), TYPE
+					) AS 'owner-list'
+					FROM	#Locks c
+					WHERE	c.wrc IS NOT NULL --Is Waiting?
+					AND		NOT
+					EXISTS(SELECT * FROM #Locks l WHERE l.status = 'Suspended')	
+					FOR XML RAW('lock'), TYPE
+				) 'resource-list'
+				FOR XML PATH(''), ROOT('deadlock')
+			)
+		END
 	END
 END
 IF @xdl.exist('deadlock-list') = 1 
@@ -719,7 +846,8 @@ BEGIN
 DROP TABLE #resc
 END
 
-SELECT QUOTENAME(ROW_NUMBER() OVER(ORDER BY resc.Nod)) + ' ' + resc.Nod.value('local-name(.)', 'SYSNAME') +  ISNULL(' ' + QUOTENAME('objectname=' + obct.objectname +ISNULL(', indexname=' + QUOTENAME(resc.Nod.value('(@indexname)[1]', 'SYSNAME')) ,''), ')'), '') resc,
+
+SELECT QUOTENAME(ROW_NUMBER() OVER(ORDER BY resc.Nod)) + ' ' + resc.Nod.value('local-name(.)', 'SYSNAME') +  ISNULL(' ' + QUOTENAME('objectname=' + obct.objectname +ISNULL(', indexname=' + QUOTENAME(resc.Nod.value('(@indexname)[1]', 'SYSNAME')) ,''), ')') , '') + ISNULL(' ' + QUOTENAME(ISNULL(resc.Nod.value('(@wrc)[1]', 'VARCHAR(444)'), '') + ISNULL(' ,dbid=' + resc.Nod.value('(@dbid)[1]', 'VARCHAR(12)'), '') + ISNULL(' ,file_id=' + resc.Nod.value('(@file_id)[1]', 'VARCHAR(12)') , '') + ISNULL(' ,page_id=' + resc.Nod.value('(@page_id)[1]', 'VARCHAR(12)') , '') + ISNULL(' ,slot_page=' + resc.Nod.value('(@slot_page)[1]', 'VARCHAR(12)') , '') + ISNULL(' ,hobt_id=' + resc.Nod.value('(@hobt_id)[1]', 'VARCHAR(12)') , '') + ISNULL(' ,index_id=' + resc.Nod.value('(@index_id)[1]', 'VARCHAR(12)') , '')), '') resc,
 obct.objectname,
 eon.Nod.value('(@id)[1]', 'sysname') id_own, ISNULL(eon.Nod.value('(@mode)[1]', 'sysname') + ' own', 'own') lock_own,
 wai.Nod.value('(@id)[1]', 'sysname') id_wai, ISNULL(wai.Nod.value('(@mode)[1]', 'sysname') + ' wait', 'wait') + ISNULL(' ' + NULLIF(QUOTENAME(wai.Nod.value('(@requestType)[1]', 'sysname'), ')'), '(wait)'), '') lock_wai
@@ -742,4 +870,4 @@ SELECT resc.resc, cox.idc, resc.lock_wai [value] FROM #resc resc JOIN (SELECT id
 ) cox
 PIVOT( MAX([value]) FOR idc IN (' + @Cols + ') ) pvot 
 ' + CASE WHEN @Action = 2 THEN '' ELSE '--' END + ' LEFT JOIN ##abcde cc ON pvot.resc = cc.resc'
-EXEC sp_executesql @SqlStatement
+EXEC sp_executesql @SqlStatement 
