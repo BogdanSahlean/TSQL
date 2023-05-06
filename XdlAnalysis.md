@@ -1,4 +1,13 @@
-
+USE Test3
+SET QUOTED_IDENTIFIER ON 
+SET ANSI_NULLS ON  
+GO
+CREATE OR ALTER PROCEDURE [dbo].[XdlAnalysis]
+@SrceDesc VARCHAR(MAX) = NULL, 
+@SrceDB TINYINT = NULL, --0 Db From Deadlock Graph, 1 Current Database
+@ListAllDeads TINYINT = 0, -- 0/1
+@Action TINYINT = NULL --0 Null, 1 Extract Execution Plans, 1 Analyze Locks
+AS
 DECLARE @SrceXml XML
 DECLARE @SqlStatement NVARCHAR(MAX)
 IF (@SrceDesc IS NULL AND @SrceDB IS NULL) AND @ListAllDeads = 0
