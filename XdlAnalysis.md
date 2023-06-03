@@ -28,7 +28,7 @@ Sample output:
 
 ![image](https://user-images.githubusercontent.com/62909052/148302678-547296a5-0818-478e-967a-45cbb1ae94ea.png)
                                          
-There are 3 categories of info which are returned by this stored procedure:      
+There are 3 categories of info which are returned by this stored procedure:       
 - [x] Category 1: Properties of every session
 - [x] Category 2: Queries executed by every session and                                                                                                                                                                                                                                                                                                
 - [x] Category 3: Locks    
