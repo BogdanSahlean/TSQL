@@ -18,7 +18,7 @@ Call:
  
 `EXECUTE XdlAnalysis 33				--Analysis of ID 33, simplified analysis`
 
-`EXECUTE XdlAnalysis 33, @Action=0/*NULL*/	--Analysis of ID 33, simplified analysis`                                                                                                                                                          
+`EXECUTE XdlAnalysis 33, @Action=0/*NULL*/	--Analysis of ID 33, simplified analysis`                                                                                                                                                           
 
 `--or` 
 
@@ -42,7 +42,7 @@ Show only the full list with deadlocks
   
 Call:    
              
-`EXECUTE XdlAnalysis @ListAllDeads = 1`                
+`EXECUTE XdlAnalysis @ListAllDeads = 1`                 
          
 Extended analysis of single deadlock graph event                      
         
