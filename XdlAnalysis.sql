@@ -19,7 +19,7 @@ BEGIN
 			StartTime		datetime,
 			path			nvarchar(500),
 			deadlock_graph		xml,        
-			id			int	identity(1,30)  
+			id			int	identity(1,30)    
 		)
 	END
 
