@@ -22,7 +22,7 @@ Call:
 
 `--or` 
 
-`EXECUTE XdlAnalysis '<deadlock victim="process2706ded9c28">...'`   
+`EXECUTE XdlAnalysis '<deadlock victim="process2706ded9c28">...'`    
 	 
 Sample output: 
 
