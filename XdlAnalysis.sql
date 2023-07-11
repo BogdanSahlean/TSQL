@@ -18,7 +18,7 @@ BEGIN
 		ServerName		SYSNAME NULL,
 		StartTime		DATETIME NULL,
 		SourceType		SYSNAME NOT  NULL,
-		TraceQueueTable	NVARCHAR(500) NULL,
+		TraceQueueTable	NVARCHAR(500) NULL, 
 		[FileName]		NVARCHAR(500) NULL,		
 		XeAdress		VARBINARY(64) NULL,
 		FileOffset		INT NULL,
