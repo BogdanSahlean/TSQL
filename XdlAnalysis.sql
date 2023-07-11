@@ -2,14 +2,38 @@ USE Test3
 SET QUOTED_IDENTIFIER ON 
 SET ANSI_NULLS ON  
 GO
-CREATE OR ALTER PROCEDURE [dbo].[XdlAnalysis]
-@SrceDesc VARCHAR(MAX) = NULL, 
-@SrceDB TINYINT = NULL, --0 Db From Deadlock Graph, 1 Current Database
-@ListAllDeads TINYINT = 0, -- 0/1
-@Action TINYINT = NULL --0 Null, 1 Extract Execution Plans, 1 Analyze Locks
+SET QUOTED_IDENTIFIER ON
+SET ANSI_NULLS ON   
+GO
+CREATE OR ALTER PROCEDURE [dbo].[XdlAnalysis] 
+@SrceDesc		VARCHAR(MAX) = NULL,
+@SrceDB			TINYINT = NULL, --0 Db From Deadlock Graph, 1 Current Database
+@ListAllDeads	TINYINT = 0,	--0/1
+@Action			TINYINT = NULL	--0 Null, 1 Extract Execution Plans, 1 Analyze Locks
 AS
-DECLARE @SrceXml XML
-DECLARE @SqlStatement NVARCHAR(MAX)
+IF OBJECT_ID('tempdb..##deadlock_graph') IS NULL
+BEGIN
+	CREATE TABLE ##deadlock_graph (
+		EventSequence	INT NULL,
+		ServerName		SYSNAME NULL,
+		StartTime		DATETIME NULL,
+		SourceType		SYSNAME NOT  NULL,
+		TraceQueueTable	NVARCHAR(500) NULL,
+		[FileName]		NVARCHAR(500) NULL,		
+		XeAdress		VARBINARY(64) NULL,
+		FileOffset		INT NULL,
+		[Events]		SYSNAME NULL,
+		[Service]		SYSNAME NULL,	
+		ActivationProcedure NVARCHAR(500) NULL,
+		CurrentDB		SYSNAME NULL,
+		DeadlockGraph	XML NULL,
+		ID				INT IDENTITY(1,1)  NOT  NULL,
+		Type			VARCHAR(44) NOT NULL
+	)
+END
+
+DECLARE @SrceXml		XML
+DECLARE @SqlStatement	NVARCHAR(MAX)
 IF (@SrceDesc IS NULL AND @SrceDB IS NULL) AND @ListAllDeads = 0
 BEGIN
 	IF OBJECT_ID('tempdb..#trace_file') IS NULL  
@@ -18,8 +42,9 @@ BEGIN
 			trace_id		int,
 			StartTime		datetime,
 			path			nvarchar(500),
-			deadlock_graph		xml,        
-			id			int	identity(1,30)    
+			deadlock_graph	xml,
+			id				int	identity(1,30),
+			type			varchar(44)
 		)
 	END
 
@@ -30,8 +55,8 @@ BEGIN
 	WHERE	EXISTS (
 		SELECT	*   
 		FROM	sys.fn_trace_geteventinfo(tcc.id) t   
-		JOIN	sys.trace_events e ON t.eventid = e.trace_event_id                    
-		WHERE	e.name = 'Deadlock graph'           
+		JOIN	sys.trace_events e ON t.eventid = e.trace_event_id                                                                                                                          
+		WHERE	e.name IN ('Deadlock graph', 'Blocked process report') --137 Blocked process report, 148 Deadlock graph
 	) 
 	AND		tcc.path IS NOT NULL
 
@@ -43,11 +68,16 @@ BEGIN
 	
 		IF @@FETCH_STATUS = 0
 		BEGIN
-			INSERT	#trace_file(trace_id, StartTime, path, deadlock_graph)
-			SELECT	@trace_id, f.StartTime, @path, CAST(f.TextData AS XML).query('deadlock-list/deadlock') TextData
-			FROM	fn_trace_gettable(@path, NULL) f
+			INSERT	#trace_file(trace_id, StartTime, path, deadlock_graph, type)
+			SELECT	@trace_id, f.StartTime, @path, 
+					CASE 
+						WHEN e.name = 'Deadlock graph' THEN CAST(f.TextData AS XML).query('deadlock-list/deadlock') 
+						WHEN e.name = 'Blocked process report' THEN CAST(f.TextData AS XML).query('blocked-process-report')
+						ELSE 1/0
+					END TextData, e.name
+			FROM	sys.fn_trace_gettable(@path, NULL) f
 			JOIN	sys.trace_events e ON f.EventClass = e.trace_event_id
-			WHERE	e.name = 'Deadlock graph' 
+			WHERE	e.name IN ('Deadlock graph', 'Blocked process report') --137 Blocked process report, 148 Deadlock graph
 			AND	
 			(
 				NOT EXISTS 
@@ -77,7 +107,8 @@ BEGIN
 			trace_table		nvarchar(500),
 			StartTime		datetime,
 			deadlock_graph	xml,
-			id				int	identity(2,30)
+			id				int	identity(2,30),
+			type			varchar(44)
 		)
 	END
 
@@ -88,15 +119,14 @@ BEGIN
 	WHERE	EXISTS
 	(
 		SELECT	* 
-		FROM	sys.columns col2 
+		FROM	sys.columns col2
 		WHERE	col2.object_id = t.object_id 
 		AND		col2.name IN (''RowNumber'', ''TextData'', ''StartTime'')
 		HAVING	COUNT(*) = 3
 	)'
 	FROM	sys.databases db
 	WHERE db.name = DB_NAME() 
-	AND db.state_desc = 'ONLINE' AND db.user_access_desc = 'MULTI_USER' AND (SELECT COUNT(*) FROM sys.databases d) > 10
-	OR (SELECT COUNT(*) FROM sys.databases d) <= 10
+	AND db.state_desc = 'ONLINE' AND db.user_access_desc = 'MULTI_USER' --TODO: Rewrite using a cursor
 	ORDER BY db.name
 	SELECT @SqlStatementDb= STUFF(@SqlStatementDb, 1, 6, '')
 
@@ -117,10 +147,17 @@ BEGIN
 		IF @@FETCH_STATUS = 0
 		BEGIN
 			SELECT @SqlStatement = '
-			INSERT	#trace_table (RowNumber, trace_table, StartTime, deadlock_graph)	
-			SELECT	qprofiler.RowNumber, ''' + @Objct + ''', qprofiler.StartTime, CONVERT(XML, qprofiler.TextData).query(''deadlock-list/deadlock'') DeadlockGraph
+			INSERT	#trace_table (RowNumber, trace_table, StartTime, deadlock_graph, type)	
+			SELECT	qprofiler.RowNumber, ''' + @Objct + ''', qprofiler.StartTime, 
+					CASE 
+						WHEN e.name = ''Deadlock graph'' THEN CONVERT(XML, qprofiler.TextData).query(''deadlock-list/deadlock'')
+						WHEN e.name = ''Blocked process report'' THEN CONVERT(XML, qprofiler.TextData).query(''blocked-process-report'') 
+						ELSE 1/0
+					END DeadlockGraph,				
+				etns.name
 			FROM	' + @Objct + ' qprofiler
-			WHERE	qprofiler.EventClass = (SELECT etns.trace_event_id FROM sys.trace_events etns WHERE etns.name = ''Deadlock graph'')
+			JOIN	sys.trace_events etns ON qprofiler.EventClass = etns.trace_event_id
+			WHERE	etns.name IN (''Deadlock graph'', ''Blocked process report'')
 			AND		
 			(
 				NOT 
@@ -142,18 +179,18 @@ BEGIN
 		BREAK
 	END
 
-	DECLARE @xe_address VARBINARY(64), @xe_name SYSNAME, @target_name SYSNAME, @target_data XML
+	DECLARE @xe_address VARBINARY(64), @xe_name SYSNAME, @target_name SYSNAME, @target_data XML, @type XML
 	DECLARE CrsXe CURSOR LOCAL STATIC FORWARD_ONLY READ_ONLY FOR
-	SELECT	xe.address xe_address, xe.name xe_name, xet.target_name, xet.target_data
+	SELECT	xe.address xe_address, xe.name xe_name, xet.target_name, xet.target_data, xeevt.event_name type
 	FROM	sys.dm_xe_session_events xeevt
 	JOIN	sys.dm_xe_sessions xe ON xe.address = xeevt.event_session_address
 	JOIN	sys.dm_xe_session_targets xet ON xet.event_session_address = xeevt.event_session_address
-	WHERE	xeevt.event_name = 'xml_deadlock_report'
+	WHERE	xeevt.event_name IN ('xml_deadlock_report', 'blocked_process_report')
 	OPEN CrsXe
 
 	WHILE 3=3
 	BEGIN
-		FETCH NEXT FROM CrsXe INTO @xe_address, @xe_name, @target_name, @target_data
+		FETCH NEXT FROM CrsXe INTO @xe_address, @xe_name, @target_name, @target_data, @type
 	
 		IF @@FETCH_STATUS = 0
 		BEGIN
@@ -169,21 +206,27 @@ BEGIN
 						file_offset		bigint,
 						[timestamp]		datetime,
 						deadlock_graph	xml,
-						id				int	identity(3,30)
+						id				int	identity(3,30),
+						type			varchar(44)
 					)
 				END
 
 				DECLARE @FileName NVARCHAR(500) = @target_data.value('(EventFileTarget/File/@name)[1]', 'NVARCHAR(500)')
-				INSERT	#xe_event_file(xe_address, xe_name, target_name, [file_name], file_offset, [timestamp], deadlock_graph)
+				INSERT	#xe_event_file(xe_address, xe_name, target_name, [file_name], file_offset, [timestamp], deadlock_graph, type)
 				SELECT	*
 				FROM (
 					SELECT	@xe_address xe_address, @xe_name xe_name, @target_name target_name,
 							xef.file_name, 
 							xef.file_offset,
 							CONVERT(XML, xef.event_data).value('(event/@timestamp)[1]', 'VARCHAR(60)') [timestamp],
-							CONVERT(XML, xef.event_data).query('event/data/value/deadlock') deadlock_graph
-					FROM	sys.fn_xe_file_target_read_file(@FileName, null, null, null) xef
-					WHERE	xef.object_name = 'xml_deadlock_report'
+							CASE 
+								WHEN xef.object_name = 'xml_deadlock_report' 
+								THEN CONVERT(XML, xef.event_data).query('event/data/value/deadlock')
+								ELSE CONVERT(XML, xef.event_data).query('event/data/value/blocked-process-report')
+							END deadlock_graph,
+							xef.object_name type
+					FROM	sys.fn_xe_file_target_read_file(@FileName, null, null,  null) xef
+					WHERE	xef.object_name IN ('xml_deadlock_report', 'blocked_process_report')
 				) s 
 				WHERE NOT 
 				EXISTS (
@@ -205,16 +248,21 @@ BEGIN
 						target_name		varchar(230),
 						[timestamp]		datetime,
 						deadlock_graph	xml,
-						id				int	identity(4,30)
+						id				int	identity(4,30),
+						type			varchar(44)
 					)
 				END
 
-				INSERT	#xe_event_buffer (xe_address, xe_name, target_name, [timestamp], deadlock_graph)
+				INSERT	#xe_event_buffer (xe_address, xe_name, target_name, [timestamp], deadlock_graph, type)
 				SELECT	s.*
 				FROM (
-					SELECT	@xe_address xe_address, @xe_name xe_name, @target_name target_name, eve.Node.value('(@timestamp)[1]', 'DATETIME') [timestamp], lock.Node.query('.') deadlock_graph
-					FROM	@target_data.nodes('RingBufferTarget/event[@name eq "xml_deadlock_report"]') eve(Node)
-					CROSS APPLY eve.Node.nodes('data[@name eq "xml_report"]/value/deadlock') lock(Node)
+					SELECT	@xe_address xe_address, @xe_name xe_name, @target_name target_name, eve.XmlNode.value('(@timestamp)[1]', 'DATETIME') [timestamp], dpdd.XmlNode.query('.')  deadlock_graph, event_name type
+					FROM	@target_data.nodes('RingBufferTarget/event[@name = ("xml_deadlock_report", "blocked_process_report")]') eve(XmlNode)
+					OUTER APPLY eve.XmlNode.nodes('data[@name eq "xml_report"]/value/deadlock') dpdd(XmlNode)					 -- Deadlock events
+					OUTER APPLY eve.XmlNode.nodes('data[@name eq "blocked_process"]/value/blocked_process_report') dpbp(XmlNode) -- Blocked_process_report 
+					OUTER APPLY (
+						SELECT eve.XmlNode.value('(@name)[1]', 'VARCHAR(44)') event_name
+					) evename
 				) s
 				WHERE NOT 
 				EXISTS (
@@ -243,11 +291,13 @@ BEGIN
 			ServerName			SYSNAME,
 			StartTime			DATETIME,
 			EventNotification	SYSNAME,
-			[Service]			NVARCHAR(500),
-			[Queue]				SYSNAME,
+			Service				NVARCHAR(500),
+			Queue				SYSNAME,
 			ActivationProcedure	NVARCHAR(750),
+			CurrentDB			SYSNAME,
 			deadlock_graph		XML,
-			id					int	identity(5,60)
+			id					int	identity(5,30),
+			type				varchar(44)
 		)
 	END
 
@@ -255,74 +305,77 @@ BEGIN
 	DECLARE	@Service NVARCHAR(500)
 	DECLARE	@Queue SYSNAME
 	DECLARE @ActivationProcedure NVARCHAR(750)
+	DECLARE @CurrentDB SYSNAME
+	DECLARE @CrsEvService CURSOR
 
-	DECLARE CrsEv CURSOR LOCAL STATIC FORWARD_ONLY READ_ONLY FOR
-	SELECT	noti.name EventNotification, serc.name [Service], serq.name [Queue], serq.activation_procedure [ActivationProcedure]
+	SELECT @SqlStatement = ''
+	SELECT	@SqlStatement = @SqlStatement +
+	'UNION ALL     
+	SELECT	noti.name EventNotification, serc.name [Service], serq.name [Queue], serq.activation_procedure [ActivationProcedure], ''' + QUOTENAME(db.name) + ''' CurrentDB
 	FROM	sys.server_events sents
 	JOIN	sys.server_event_notifications noti ON sents.object_id = noti.object_id
-	JOIN	sys.services serc ON noti.service_name = serc.name
-	JOIN	sys.service_queue_usages serqug ON serc.service_id = serqug.service_id
-	JOIN	sys.service_queues serq ON serq.object_id = serqug.service_queue_id
-	WHERE	sents.type = 1148 --'DEADLOCK_GRAPH'
+	JOIN	' + QUOTENAME(db.name) + '.sys.services serc ON noti.service_name = serc.name
+	JOIN	' + QUOTENAME(db.name) + '.sys.service_queue_usages serqug ON serc.service_id = serqug.service_id
+	JOIN	' + QUOTENAME(db.name) + '.sys.service_queues serq ON serq.object_id = serqug.service_queue_id
+	WHERE	sents.type IN (1148/*DEADLOCK_GRAPH*/, 1137 /*BLOCKED_PROCESS_REPORT*/) '
+	FROM	sys.databases db
+	WHERE	db.state_desc = 'ONLINE' AND db.user_access_desc = 'MULTI_USER'
+	AND		EXISTS (
+		SELECT	* 
+		FROM	fn_my_permissions(db.name, 'DATABASE') pems
+		WHERE	pems.permission_name = 'SELECT'
+	)
+	SELECT @SqlStatement = STUFF(@SqlStatement, 1, 13, '')
+	SELECT @SqlStatement = 'SET @CrsEv = CURSOR LOCAL STATIC FORWARD_ONLY READ_ONLY FOR' 
+	+ CHAR(13) + CHAR(10) + @SqlStatement
+	+ CHAR(13) + CHAR(10) + 'OPEN @CrsEv'
 
-	OPEN CrsEv
-
+	EXEC sp_executesql @SqlStatement, N'@CrsEv CURSOR OUT', @CrsEvService OUT 
+	FETCH NEXT FROM @CrsEvService INTO @EventNotification, @Service, @Queue, @ActivationProcedure, @CurrentDB 
+	
 	WHILE 3=3
 	BEGIN
-		FETCH NEXT FROM CrsEv INTO @EventNotification, @Service, @Queue, @ActivationProcedure 
+		FETCH NEXT FROM @CrsEvService INTO @EventNotification, @Service, @Queue, @ActivationProcedure, @CurrentDB 
 	
 		IF @@FETCH_STATUS = 0
 		BEGIN
 		
 			SELECT @SqlStatement = N'
-			INSERT	 #events_not (EventSequence, ServerName, StartTime, EventNotification, [Service], [Queue], ActivationProcedure, deadlock_graph)
+			INSERT	 #events_not (EventSequence, ServerName, StartTime, EventNotification, [Service], [Queue], ActivationProcedure, CurrentDB, deadlock_graph, type)
 			SELECT	*
 			FROM (
 				SELECT	xm.XmlMessage.value(''(EVENT_INSTANCE/EventSequence)[1]'', ''INT'') EventSequence,
 						xm.XmlMessage.value(''(EVENT_INSTANCE/ServerName)[1]'', ''SYSNAME'') ServerName,
 						xm.XmlMessage.value(''(EVENT_INSTANCE/StartTime)[1]'', ''DATETIME'') StartTime,
-						@EventNotification [EventNotification],
-						@Service [Service],
-						@Queue [Queue],
-						@ActivationProcedure [ActivationProcedure],
-						xm.XmlMessage.query(''EVENT_INSTANCE/TextData/deadlock-list/deadlock'') deadlock_graph
-				FROM	' + @Queue + ' ddq
-				CROSS APPLY (SELECT CAST(ddq.message_body AS XML)) xm(XmlMessage)
-				WHERE	xm.XmlMessage.exist(''EVENT_INSTANCE/EventType[text()[1] eq "DEADLOCK_GRAPH"]'') = 1
+						@EventNotification EventNotification,
+						@Service Service,
+						@Queue Queue,
+						@ActivationProcedure ActivationProcedure,
+						@CurrentDB CurrentDB, 
+						CASE 
+							WHEN ev.type = ''DEADLOCK_GRAPH'' THEN xm.XmlMessage.query(''EVENT_INSTANCE/TextData/deadlock-list/deadlock'') 
+							WHEN ev.type = ''BLOCKED_PROCESS_REPORT'' THEN xm.XmlMessage.query(''EVENT_INSTANCE/TextData/deadlock-list/deadlock'') 
+							ELSE CAST(1/0 AS VARCHAR(44))
+						END	deadlock_graph,
+						ev.type
+				FROM	' + @CurrentDB + '..' + @Queue + ' dq --Quoted DB
+				OUTER APPLY (SELECT CAST(dq.message_body AS XML)) xm(XmlMessage)
+				OUTER APPLY (SELECT xm.XmlMessage.value(''(EVENT_INSTANCE/EventType/text())[1]'', ''VARCHAR(44)'') ) ev(type)
+				WHERE ev.type IN (''DEADLOCK_GRAPH'', ''BLOCKED_PROCESS_REPORT'') 
 			) s
 			WHERE NOT 
 			EXISTS(SELECT * FROM #events_not ents WHERE ents.[Queue] = @Queue AND ents.EventSequence >= s.EventSequence)
 			OR NOT 
 			EXISTS(SELECT * FROM #events_not ents WHERE ents.[Queue] = @Queue)'
-			PRINT @SqlStatement
-			EXEC sp_executesql @SqlStatement, N'@EventNotification SYSNAME, @Service NVARCHAR(500), @Queue SYSNAME, @ActivationProcedure NVARCHAR(750)', @EventNotification, @Service, @Queue, @ActivationProcedure
+			
+			EXEC sp_executesql @SqlStatement, N'@EventNotification SYSNAME, @Service NVARCHAR(500), @Queue SYSNAME, @ActivationProcedure NVARCHAR(750), @CurrentDB SYSNAME', @EventNotification, @Service, @Queue, @ActivationProcedure, @CurrentDB
 		END
 		ELSE
 		BREAK
 	END
 
-	CLOSE CrsEv
-	DEALLOCATE CrsEv
-
-	IF OBJECT_ID('tempdb..##deadlock_graph') IS NULL
-	BEGIN
-		CREATE TABLE ##deadlock_graph (
-			EventSequence	INT NULL,
-			ServerName		SYSNAME NULL,
-			StartTime		DATETIME NULL,
-			SourceType		SYSNAME NOT  NULL,
-			TraceQueueTable	NVARCHAR(500) NULL,
-			[FileName]		NVARCHAR(500) NULL,		
-			XeAdress		VARBINARY(64) NULL,
-			FileOffset		INT NULL,
-			[Events]		SYSNAME NULL,
-			[Service]		SYSNAME NULL,	
-			ActivationProcedure NVARCHAR(500) NULL,
-			DeadlockGraph	XML NULL,
-			ID				INT NOT
-							NULL
-		)
-	END
+	CLOSE @CrsEvService
+	DEALLOCATE @CrsEvService
 
 	/*
 	TRUNCATE TABLE ##deadlock_graph
@@ -330,33 +383,28 @@ BEGIN
 	SELECT * FROM #xe_event_buffer
 	SELECT * FROM #trace_file
 	SELECT * FROM #trace_table 
-	SELECT * FROM #events_not 
+	SELECT * FROM #events_not
 	*/
 
-	INSERT	##deadlock_graph (EventSequence, ServerName, StartTime, SourceType, TraceQueueTable, [FileName], XeAdress, FileOffset, [Events], [Service], ActivationProcedure, DeadlockGraph, ID)
-	SELECT	NULL, CAST(SERVERPROPERTY('ServerName') AS SYSNAME), xe.timestamp, xe.target_name, xe.xe_name, xe.file_name, xe.xe_address, xe.file_offset, NULL, NULL,  NULL, xe.deadlock_graph, id
+	INSERT	##deadlock_graph (EventSequence, ServerName, StartTime, SourceType, TraceQueueTable, [FileName], XeAdress, FileOffset, [Events], [Service], ActivationProcedure, DeadlockGraph, Type)
+	SELECT	NULL, CAST(SERVERPROPERTY('ServerName') AS SYSNAME), xe.timestamp, xe.target_name, xe.xe_name, xe.file_name, xe.xe_address, xe.file_offset, NULL, NULL,  NULL, xe.deadlock_graph,type
 	FROM	#xe_event_file xe
-	WHERE	NOT EXISTS(SELECT * FROM ##deadlock_graph ddq WHERE xe.id = ddq.ID)
 	
-	INSERT	##deadlock_graph (EventSequence, ServerName, StartTime, SourceType, TraceQueueTable, [FileName], XeAdress, FileOffset, [Events], [Service], ActivationProcedure, DeadlockGraph, ID)
-	SELECT	NULL, CAST(SERVERPROPERTY('ServerName') AS SYSNAME), xe.timestamp, xe.target_name, xe.xe_name, NULL, xe.xe_address, NULL, NULL, NULL,NULL, xe.deadlock_graph, id
+	INSERT	##deadlock_graph (EventSequence, ServerName, StartTime, SourceType, TraceQueueTable, [FileName], XeAdress, FileOffset, [Events], [Service], ActivationProcedure, DeadlockGraph, type)
+	SELECT	NULL, CAST(SERVERPROPERTY('ServerName') AS SYSNAME), xe.timestamp, xe.target_name, xe.xe_name, NULL, xe.xe_address, NULL, NULL, NULL,NULL, xe.deadlock_graph, type
 	FROM	#xe_event_buffer xe
-	WHERE	NOT EXISTS(SELECT * FROM ##deadlock_graph ddq WHERE xe.id = ddq.ID)
 	
-	INSERT	##deadlock_graph (EventSequence, ServerName, StartTime, SourceType, TraceQueueTable, [FileName], XeAdress, FileOffset, [Events], [Service], ActivationProcedure, DeadlockGraph, ID)
-	SELECT	NULL, CAST(SERVERPROPERTY('ServerName') AS SYSNAME), xe.StartTime, 'trace_file', 'trace_id='+LTRIM(xe.trace_id), xe.[path], NULL, NULL, NULL, NULL,NULL, xe.deadlock_graph, id
+	INSERT	##deadlock_graph (EventSequence, ServerName, StartTime, SourceType, TraceQueueTable, [FileName], XeAdress, FileOffset, [Events], [Service], ActivationProcedure, DeadlockGraph, type)
+	SELECT	NULL, CAST(SERVERPROPERTY('ServerName') AS SYSNAME), xe.StartTime, 'trace_file', 'trace_id='+LTRIM(xe.trace_id), xe.[path], NULL, NULL, NULL, NULL,NULL, xe.deadlock_graph, type
 	FROM	#trace_file xe
-	WHERE	NOT EXISTS(SELECT * FROM ##deadlock_graph ddq WHERE xe.id = ddq.ID)
 	
-	INSERT	##deadlock_graph (EventSequence, ServerName, StartTime, SourceType, TraceQueueTable, [FileName], XeAdress, FileOffset, [Events], [Service], ActivationProcedure, DeadlockGraph, ID)
-	SELECT	NULL, CAST(SERVERPROPERTY('ServerName') AS SYSNAME), xe.StartTime, 'trace_table', xe.trace_table, NULL, NULL, NULL, NULL, NULL,NULL, xe.deadlock_graph, id
+	INSERT	##deadlock_graph (EventSequence, ServerName, StartTime, SourceType, TraceQueueTable, [FileName], XeAdress, FileOffset, [Events], [Service], ActivationProcedure, DeadlockGraph, type)
+	SELECT	NULL, CAST(SERVERPROPERTY('ServerName') AS SYSNAME), xe.StartTime, 'trace_table', xe.trace_table, NULL, NULL, NULL, NULL, NULL,NULL, xe.deadlock_graph, type
 	FROM	#trace_table xe
-	WHERE	NOT EXISTS(SELECT * FROM ##deadlock_graph ddq WHERE xe.id = ddq.ID)
 
-	INSERT	##deadlock_graph (EventSequence, ServerName, StartTime, SourceType, TraceQueueTable, [FileName], XeAdress, FileOffset, [Events], [Service], ActivationProcedure, DeadlockGraph, ID)
-	SELECT	xe.EventSequence, xe.ServerName, xe.StartTime, 'EventNoti', xe.[Queue], NULL, NULL, NULL, xe.EventNotification, xe.Service, xe.ActivationProcedure, xe.deadlock_graph, id
+	INSERT	##deadlock_graph (EventSequence, ServerName, StartTime, SourceType, TraceQueueTable, [FileName], XeAdress, FileOffset, [Events], [Service], ActivationProcedure, CurrentDB, DeadlockGraph, type)
+	SELECT	xe.EventSequence, xe.ServerName, xe.StartTime, 'EventNoti', xe.[Queue], NULL, NULL, NULL, xe.EventNotification, xe.Service, xe.ActivationProcedure, CurrentDB, xe.deadlock_graph, type
 	FROM	#events_not xe
-	WHERE	NOT EXISTS(SELECT * FROM ##deadlock_graph ddq WHERE xe.id = ddq.ID)
 END
 
 IF (@SrceDesc IS NULL AND @SrceDB IS NULL) OR @ListAllDeads = 1
@@ -379,10 +427,93 @@ BEGIN
 		FROM	##deadlock_graph ddq
 		WHERE	ddq.ID = @SrceID
 	END
+	ELSE IF @SrceDesc LIKE '[A-Z]:\%.xel'
+	BEGIN
+		DECLARE @SelectedXeFile NVARCHAR(500) = @SrceDesc
+		
+		SELECT	xef.file_name, 
+				xef.file_offset,
+				TRY_CAST(xef.event_data AS XML) event_xml,
+				xef.object_name
+		INTO	#xe_event_file_single_text
+		FROM	sys.fn_xe_file_target_read_file(@SelectedXeFile, null, null,  null) xef
+		WHERE	xef.object_name IN ('xml_deadlock_report', 'blocked_process_report')
+
+		INSERT	##deadlock_graph (EventSequence, ServerName, StartTime, SourceType, TraceQueueTable, [FileName], XeAdress, FileOffset, [Events], [Service], ActivationProcedure, DeadlockGraph, Type)
+		SELECT	NULL, NULL, [timestamp], 'XE separate file', NULL, [file_name], NULL, file_offset, NULL, NULL,  NULL, deadlock_graph, type
+		FROM (
+			SELECT	xef.file_name, 
+					xef.file_offset,
+					event_xml.value('(event/@timestamp)[1]', 'VARCHAR(44)') [timestamp],
+					CASE 
+						WHEN xef.object_name = 'xml_deadlock_report' 
+						THEN event_xml.query('event/data/value/deadlock')
+						ELSE event_xml.query('event/data/value/blocked-process-report')
+					END deadlock_graph,
+					xef.object_name type
+			FROM	#xe_event_file_single_text xef
+		) s 
+		WHERE NOT 
+		EXISTS (
+			SELECT * FROM ##deadlock_graph ddgp
+			WHERE ddgp.FileName = s.file_name
+		) OR 
+		EXISTS (
+			SELECT * FROM ##deadlock_graph ddgp
+			WHERE ddgp.FileName = s.file_name AND ddgp.FileOffset <= s.file_offset
+		)	
+		
+		SELECT	*
+		FROM	#xe_event_file_single_text
+		ORDER BY file_offset DESC 
+	END
+	ELSE IF @SrceDesc LIKE '[A-Z]:\%.trc' 
+	BEGIN
+		DECLARE @SelectedTrcFile NVARCHAR(500) = @SrceDesc
+		
+		SELECT	@SelectedTrcFile [path], 
+				TRY_CAST(f.TextData AS XML) TextDataXml, 
+				f.StartTime, 
+				e.name,
+				f.ServerName
+		INTO	#trace_file_read_single
+		FROM	sys.fn_trace_gettable(@SelectedTrcFile, NULL) f
+		JOIN	sys.trace_events e ON f.EventClass = e.trace_event_id
+		WHERE	e.name IN ('Deadlock graph', 'Blocked process report') --137 Blocked process report, 148 Deadlock graph
+
+		INSERT	##deadlock_graph (EventSequence, ServerName, StartTime, SourceType, TraceQueueTable, [FileName], XeAdress, FileOffset, [Events], [Service], ActivationProcedure, DeadlockGraph, Type)
+		SELECT	NULL, f.ServerName, f.StartTime, 'TRC separate file', NULL, [path], NULL, NULL, NULL, NULL,  NULL, 
+				deadlock_graph, 
+				f.name
+		FROM (
+			SELECT	f.ServerName, f.StartTime, 
+					[path], 
+					CASE 
+						WHEN f.name = 'Deadlock graph' THEN TextDataXml.query('deadlock-list/deadlock') 
+						WHEN f.name = 'Blocked process report' THEN TextDataXml.query('blocked-process-report')
+					END deadlock_graph, 
+					f.name
+			FROM	#trace_file_read_single f
+			WHERE	EXISTS(
+				SELECT * FROM ##deadlock_graph ddgph
+				WHERE ddgph.[FileName] = @path AND ddgph.StartTime >= f.StartTime
+			) OR NOT 
+			EXISTS 
+			(
+				SELECT * FROM ##deadlock_graph ddgph
+				WHERE ddgph.[FileName] = @path 
+			)
+		) f
+
+		SELECT * FROM #trace_file_read_single d
+		ORDER BY d.ServerName, d.StartTime DESC
+	END
 	ELSE
 	BEGIN
 		SELECT @xdl = CAST(@SrceDesc AS XML)
+	END
 
+	BEGIN
 		-- If BPRP Then XML -> XDL
 		IF @xdl.value('local-name(*[1])', 'SYSNAME') = 'blocked-process-report'
 		BEGIN
@@ -508,6 +639,7 @@ BEGIN
 				) 'resource-list'
 				FOR XML PATH(''), ROOT('deadlock')
 			)
+			--End of If BPRP Then XML -> XDL
 		END
 	END
 END
@@ -559,23 +691,69 @@ FOR XML PATH(N''), TYPE
 SELECT @SqlStatement = N'
 SELECT *
 FROM (
-SELECT (LTRIM(spid) + ''.'' + LTRIM(ISNULL(ecid,0)) + ''.'' + LTRIM(id)) id,  [name], [value]
-FROM #cox cox
-UNION
-SELECT s.idc, ''deadlockvictim'' [name], ''1'' [value]
-FROM (
-	SELECT vict.Nod.value(''(@victim)[1]'', ''sysname'')
-	FROM @xdl.nodes(''deadlock'') vict(Nod)
-	UNION
-	SELECT vict.Nod.value(''(@id)[1]'', ''sysname'')
-	FROM @xdl.nodes(''deadlock/victim-list/victimProcess'') vict(Nod)
-) vict(id)
-JOIN (
-SELECT id, idc
-FROM #cox
-GROUP BY id, idc
-) s(id, idc) ON vict.id = s.id
-) cox
+	SELECT id,  [name] session_attribute, descr, [value]
+	FROM (
+		SELECT (LTRIM(spid) + ''.'' + LTRIM(ISNULL(ecid,0)) + ''.'' + LTRIM(id)) id,  [name], [value]
+		FROM #cox cox
+		UNION
+		SELECT s.idc, ''deadlockvictim'' [name], ''1'' [value]
+		FROM (
+			SELECT vict.Nod.value(''(@victim)[1]'', ''sysname'')
+			FROM @xdl.nodes(''deadlock'') vict(Nod)
+			UNION
+			SELECT vict.Nod.value(''(@id)[1]'', ''sysname'')
+			FROM @xdl.nodes(''deadlock/victim-list/victimProcess'') vict(Nod)
+		) vict(id)
+		JOIN (
+			SELECT id, idc
+			FROM #cox
+			GROUP BY id, idc
+		) s(id, idc) ON vict.id = s.id
+	) cox
+	LEFT JOIN (VALUES
+		(''logused'', ''Log space used by the task.''),
+		(''owner id '', ''The ID of the transaction that has control of the request.''),
+		(''status'', '' State of the task. It is one of the following values:
+		pending. Waiting for a worker thread.
+		runnable. Ready to run but waiting for a quantum.
+		running. Currently running on the scheduler.
+		suspended. Execution is suspended.
+		done. Task has completed.
+		spinloop. Waiting for a spinlock to become free.''),
+		(''waitresource '', ''The resource needed by the task.''),
+		(''waittime'', ''Time in milliseconds waiting for the resource.''),
+		(''schedulerid'', ''Scheduler associated with this task. See sys.dm_os_schedulers (Transact-SQL).''),
+		(''hostname'', ''The name of the workstation.''),
+		(''isolationlevel'', ''The current transaction isolation level.''),
+		(''Xactid'', ''The ID of the transaction that has control of the request.''),
+		(''currentdb'', ''The ID of the database.''),
+		(''lastbatchstarted'', ''The last time a client process started batch execution.''),
+		(''lastbatchcompleted'', ''The last time a client process completed batch execution.''),
+		(''associatedObjectId'', ''Represents the HoBT (heap or b-tree) ID.''),
+		(''clientapp'', ''The client application that created the process''),
+		(''currentdb_actual'', ''DB_NAME(BD_ID())''),
+		(''currentdbname'', ''DB_NAME(currentdb)''),
+		(''deadlockvictim'', ''Is deadlock victim for Deadlock Graph events''),
+		(''ecid'', ''This is the execution context when the process is executed in parallel. If not executed in parallel this value will be 0.''),
+		(''hostpid'', ''The process ID of the client application''),
+		(''id'', ''The process id of the specific process''),
+		(''kpid'', ''The Windows thread ID''),
+		(''lastattention'', ''The timestamp of the processing of the last attention event such as a timeout or a cancellation on the thread involved in the deadlock.''),
+		(''lockMode'', ''The type of lock the process wants to take''),
+		(''lockTimeout'', ''The maximum time a process can wait for a lock to be released''),
+		(''loginname'', ''Name of the logged in user''),
+		(''priority'', ''The same as the deadlock task priority''),
+		(''sbid'', ''The batch ID''),
+		(''spid'', ''The SQL Process ID''),
+		(''trancount'', ''The number of transactions involved in the deadlock''),
+		(''transactionname'', ''The name of the transaction or the transaction type: I.e. user_transaction''),
+		(''XDES'', ''Transaction description structures''),	
+		(''lasttranstarted'', ''The date time the last transaction started''),
+		(''clientoption1'', ''These are SET options such as QUOTED_IDENTIFIER or ANSI_NULLS''),
+		(''clientoption2'', ''More settings''),
+		(''ownerId'', ''This displays the transaction id of the transaction which owns the process. This value corresponds to the request_owner_id field in the sys.dm_tran_locks DMV.'')
+	) dsc(session_atrib, descr) ON dsc.session_atrib = [name]
+) src
 PIVOT( MAX([value]) FOR id IN (' + @Cols + ') ) pvot'
 EXEC sp_executesql @SqlStatement, N'@xdl XML', @xdl
 
@@ -846,7 +1024,6 @@ BEGIN
 DROP TABLE #resc
 END
 
-
 SELECT QUOTENAME(ROW_NUMBER() OVER(ORDER BY resc.Nod)) + ' ' + resc.Nod.value('local-name(.)', 'SYSNAME') +  ISNULL(' ' + QUOTENAME('objectname=' + obct.objectname +ISNULL(', indexname=' + QUOTENAME(resc.Nod.value('(@indexname)[1]', 'SYSNAME')) ,''), ')') , '') + ISNULL(' ' + QUOTENAME(ISNULL(resc.Nod.value('(@wrc)[1]', 'VARCHAR(444)'), '') + ISNULL(' ,dbid=' + resc.Nod.value('(@dbid)[1]', 'VARCHAR(12)'), '') + ISNULL(' ,file_id=' + resc.Nod.value('(@file_id)[1]', 'VARCHAR(12)') , '') + ISNULL(' ,page_id=' + resc.Nod.value('(@page_id)[1]', 'VARCHAR(12)') , '') + ISNULL(' ,slot_page=' + resc.Nod.value('(@slot_page)[1]', 'VARCHAR(12)') , '') + ISNULL(' ,hobt_id=' + resc.Nod.value('(@hobt_id)[1]', 'VARCHAR(12)') , '') + ISNULL(' ,index_id=' + resc.Nod.value('(@index_id)[1]', 'VARCHAR(12)') , '')), '') resc,
 obct.objectname,
 eon.Nod.value('(@id)[1]', 'sysname') id_own, ISNULL(eon.Nod.value('(@mode)[1]', 'sysname') + ' own', 'own') lock_own,
@@ -870,4 +1047,4 @@ SELECT resc.resc, cox.idc, resc.lock_wai [value] FROM #resc resc JOIN (SELECT id
 ) cox
 PIVOT( MAX([value]) FOR idc IN (' + @Cols + ') ) pvot 
 ' + CASE WHEN @Action = 2 THEN '' ELSE '--' END + ' LEFT JOIN ##abcde cc ON pvot.resc = cc.resc'
-EXEC sp_executesql @SqlStatement 
+EXEC sp_executesql @SqlStatement
