@@ -18,7 +18,7 @@ BEGIN
 		ServerName		SYSNAME NULL,
 		StartTime		DATETIME NULL,
 		SourceType		SYSNAME NOT  NULL,
-		TraceQueueTable	NVARCHAR(500) NULL, 
+		TraceQueueTable	NVARCHAR(500) NULL,  
 		[FileName]		NVARCHAR(500) NULL,		
 		XeAdress		VARBINARY(64) NULL,
 		FileOffset		INT NULL,
@@ -27,10 +27,10 @@ BEGIN
 		ActivationProcedure NVARCHAR(500) NULL,
 		CurrentDB		SYSNAME NULL,
 		DeadlockGraph	XML NULL,
-		ID				INT IDENTITY(1,1)  NOT  NULL,
+		ID				INT IDENTITY(1,1)  NOT  NULL, 
 		Type			VARCHAR(44) NOT NULL
 	)
-END 
+END  
 
 DECLARE @SrceXml		XML
 DECLARE @SqlStatement	NVARCHAR(MAX)
@@ -43,7 +43,7 @@ BEGIN
 			StartTime		datetime,
 			path			nvarchar(500),
 			deadlock_graph	xml,
-			id				int	identity(1,30),
+			id				int	identity(1,30), 
 			type			varchar(44)
 		)
 	END
