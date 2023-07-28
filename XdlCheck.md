@@ -1,9 +1,12 @@
-Reading all deadlocks graph events from following sources:        
-- [x] Extended events files (including system health)  
+It read such deadlocks graph and blocked process report events 
+from following available surces:        
+- [x] Extended events files (including system health session)  
 - [x] Extended events ring buffer      
-- [x] Trace file
-- [x] Trace table
+- [x] Trace file (server side trace)
+- [x] Trace table (generated from SQLProfiler)
 - [x] Event Notifications
+- [x] Trace file *.trc  (using @SrceDesc)
+- [x] Extended events files having *.xel (using @SrceDesc) 
 	
 Call:  
 
