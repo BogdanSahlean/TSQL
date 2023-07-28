@@ -1,4 +1,4 @@
-It read such deadlocks graph and blocked process report events 
+It read such deadlocks graph XDL and blocked process report BPRP events 
 
 from following available surces:        
 - [x] Extended events files (including system health session)  
@@ -6,10 +6,11 @@ from following available surces:
 - [x] Trace file (server side trace)
 - [x] Trace table (generated from SQLProfiler)
 - [x] Event Notifications
-- [x] Trace file *.trc  (using @SrceDesc)
-- [x] Extended events files having *.xel (using @SrceDesc) 
+- [x] Trace file with an *.trc ext  (using @SrceDesc)
+- [x] Extended events files having *.xel ext (using @SrceDesc) 
 
-Initial, XdlCheck was implemented just for analysis of Deadlock Graph events. Right now, XdlCheck 
+Initial, XdlCheck was implemented just for analysis of Deadlock Graph events. Alter latest changes XdlCheck is able to check also Blocked Process Reports.
+In such cases XdlCheck internaly will change the XML structure of Blocked Process Reports into XDL structure of Deadlock Graph.  
  
 Call:  
 
