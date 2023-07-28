@@ -1,4 +1,5 @@
 It read such deadlocks graph and blocked process report events 
+
 from following available surces:        
 - [x] Extended events files (including system health session)  
 - [x] Extended events ring buffer      
