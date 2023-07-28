@@ -7,7 +7,9 @@ from following available surces:
 - [x] Event Notifications
 - [x] Trace file *.trc  (using @SrceDesc)
 - [x] Extended events files having *.xel (using @SrceDesc) 
-	
+
+Initial, XdlCheck was implemented just for analysis of Deadlock Graph events. Right now, XdlCheck 
+ 
 Call:  
 
 `EXECUTE XdlAnalysis --col ID contains the unique indentifier of every deadlock)`
