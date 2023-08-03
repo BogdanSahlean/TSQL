@@ -1,7 +1,7 @@
 It read such deadlocks graph XDL and blocked process report BPRP events 
 
 from following available surces:        
-- [x] Extended events files (including system health session)  
+- [x] Extended events (inc system health session)  
 - [x] Extended events ring buffer      
 - [x] Trace file (server side trace)
 - [x] Trace table (generated from SQLProfiler)
