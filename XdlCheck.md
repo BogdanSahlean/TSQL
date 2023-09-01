@@ -9,12 +9,12 @@ from following available surces:
 - [x] Trace file with an *.trc ext  (using @SrceDesc)
 - [x] Extended events files having *.xel ext (using @SrceDesc) 
 
-Initial, XdlCheck was implemented just for analysis of Deadlock Graph events. Alter latest changes XdlCheck is able to check also Blocked Process Reports.
+Initial, XdlCheck was implemented just for analysis of Deadlock Graph events. After latest changes XdlCheck is able to check also Blocked Process Reports.
 In such cases XdlCheck internaly will change the XML structure of Blocked Process Reports into XDL structure of Deadlock Graph.  
  
 Call:  
 
-`EXECUTE XdlAnalysis --col ID contains the unique indentifier of every deadlock)`
+`EXECUTE XdlCheck --col ID contains the unique indentifier of every deadlock)`
 		
 Sample output:         
 ![image](https://user-images.githubusercontent.com/62909052/147558845-92173972-e5be-47d4-8a78-b09a3348eb05.png)	 	 
@@ -23,13 +23,13 @@ Analysis of a single deadlock graph event
 
 Call:
  
-`EXECUTE XdlAnalysis 33				--Analysis of ID 33, simplified analysis`
+`EXECUTE XdlCheck 33				--Analysis of ID 33, simplified analysis`
 
-`EXECUTE XdlAnalysis 33, @Action=0/*NULL*/	--Analysis of ID 33, simplified analysis`                                                                                                                                                                                                                 
+`EXECUTE XdlCheck 33, @Action=0/*NULL*/	--Analysis of ID 33, simplified analysis`                                                                                                                                                                                                                 
 
 `--or` 
 
-`EXECUTE XdlAnalysis '<deadlock victim="process2706ded9c28">...'`    
+`EXECUTE XdlCheck '<deadlock victim="process2706ded9c28">...'`    
 	  
 Sample output: 
 
@@ -49,20 +49,20 @@ Show only the full list with deadlocks
   
 Call:    
              
-`EXECUTE XdlAnalysis @ListAllDeads = 1`                  
+`EXECUTE XdlCheck @ListAllDeads = 1`                  
          
 Extended analysis of single deadlock graph event                      
         
 Call     
       
-`EXECUTE XdlAnalysis 33, @Action=1`
+`EXECUTE XdlCheck 33, @Action=1`
 
 Extended analysis: extract execution plans from sqlhandle and/or name of stored procedure (format DB.Schema.Procedure)
 In case of using the name of stored procedure to extract de execution plan, following options could be used: @SrceDB NULL/0 Db From Deadlock Graph, 1 Current Database   
        
 Call
 
-`EXECUTE XdlAnalysis 33, @Action=2` 
+`EXECUTE XdlCheck 33, @Action=2` 
 
 Extended analysis: extract query execution plans       
 		
