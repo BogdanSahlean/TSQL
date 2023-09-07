@@ -30,7 +30,7 @@ BEGIN
 		ID			INT IDENTITY(1,1)  NOT  NULL,  
 		Type			VARCHAR(44) NOT NULL
 	)
-END      
+END       
 
 DECLARE @SrceXml		XML
 DECLARE @SqlStatement	NVARCHAR(MAX)
